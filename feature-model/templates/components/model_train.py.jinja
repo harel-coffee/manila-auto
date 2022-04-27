@@ -1,0 +1,12 @@
+X = data.drop(label_name, axis=1).values
+y = data[label_name].values
+{# cross validation case #}
+{% if cross_validation %}
+{% include 'components/cross_validation.py.jinja' %}
+{# no cross validation #}
+{% else %}
+{% include 'components/train_test_split.py.jinja' %}
+
+{% include 'components/select_model.py.jinja'%}
+print("Model score: %.4f" % model.score(X_test, y_test))
+{% endif %}

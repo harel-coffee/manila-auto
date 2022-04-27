@@ -1,0 +1,19 @@
+
+pred = dataset_test.copy()
+pred.labels = model.predict(dataset_test.features)
+metrics = OrderedDict()
+classified_metric_pred = ClassificationMetric(dataset_test, pred, unprivileged_groups=unprivileged_group,privileged_groups=privileged_group)
+metrics['Model score'] = 0.5 * (classified_metric_pred.true_positive_rate() +
+                                        classified_metric_pred.true_negative_rate())
+{% if statistical_parity %}
+metrics['Statistical parity'] = classified_metric_pred.statistical_parity_difference()
+{% endif %}
+{% if disparate_impact %}
+metrics['Disparate impact'] = classified_metric_pred.disparate_impact()
+{% endif %}
+{% if equal_opportunity %}
+metrics['Equal opportunity'] = classified_metric_pred.equal_opportunity_difference()
+{% endif %}   
+{% if equal_accuracy %}
+metrics['Equal accuracy'] = classified_metric_pred.average_odds_difference()
+{%endif%}

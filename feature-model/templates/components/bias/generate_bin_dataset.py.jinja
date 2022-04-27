@@ -1,0 +1,25 @@
+{% if variable_name %}
+data = BinaryLabelDataset(df=data, protected_attribute_names='{{variable_name}}', label_names=[label_name])
+{% elif variables_names %}
+data = BinaryLabelDataset(df=data, protected_attribute_names=[{{ variables_names.split(',')|map("tojson")|join(", ") }}], label_names=[label_name])
+{% endif %}
+{% if single_sensitive_variable%}
+privileged_group = [{ '{{variable_name}}': {{privileged_value}} }]
+unprivileged_group = [{ '{{variable_name}}': {{unprivileged_value}} }]
+{% elif multiple_sensitive_variables %}
+{% set variables = variables_names.split(',') %}
+{% set privileged_values = privileged_value.split(',') %}
+{% set unprivileged_values = unprivileged_value.split(',') %}
+privileged_group = [{
+  {% for i in range(0, variables|count)%}
+  '{{variables[i]}}': {{privileged_values[i]}},
+  {% endfor %}
+}]
+
+unprivileged_group = [{
+  {% for i in range(0, variables|count)%}
+  '{{variables[i]}}': {{unprivileged_values[i]}},
+  {% endfor %}
+}]
+
+{% endif %}

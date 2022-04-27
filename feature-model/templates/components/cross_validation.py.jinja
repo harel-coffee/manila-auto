@@ -1,0 +1,12 @@
+from sklearn.model_selection import KFold
+
+kf = KFold(n_splits={{n_splits | default(5,true)}}, shuffle=True)
+quality_metrics = []
+for train, test in kf.split(data.values):
+  X_train, X_test = X[train], X[test]
+  y_train, y_test = y[train], y[test]
+  {% macro model_training() %}{% include 'components/select_model.py.jinja'%}{% endmacro %}
+  {{ model_training() | indent(2) }}
+  quality_metrics.append(model.score(X_test, y_test))
+
+print("Model score: %.4f" % np.mean(quality_metrics))

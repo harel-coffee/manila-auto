@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated qml -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="it.disim.univaq.qml.presentation.QmlModelWizardID"
+            name="%_UI_QmlModelWizard_label"
+            class="it.disim.univaq.qml.presentation.QmlModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/QmlModelFile.gif">
+         <description>%_UI_QmlModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated qml -->
+      <editor
+            id="it.disim.univaq.qml.presentation.QmlEditorID"
+            name="%_UI_QmlEditor_label"
+            icon="icons/full/obj16/QmlModelFile.gif"
+            extensions="qml"
+            class="it.disim.univaq.qml.presentation.QmlEditor"
+            contributorClass="it.disim.univaq.qml.presentation.QmlActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

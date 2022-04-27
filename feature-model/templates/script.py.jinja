@@ -1,0 +1,14 @@
+import pandas as pd
+import numpy as np
+{% include "components/ml_libraries.py.jinja"%}
+
+{% include "components/bias/bias_libraries.py.jinja"%}
+
+data = pd.read_csv('{{name}}')
+label_name = '{{label_name}}'
+{% if check_model_fairness %}
+{% include "components/bias/generate_bin_dataset.py.jinja"%}
+{% include "components/bias/fair_model_train.py.jinja"%}
+{% else %}
+{% include "components/model_train.py.jinja" %}
+{% endif %}

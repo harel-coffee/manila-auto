@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extendedFeatureModel>
+	<properties>
+		<graphics key="legendposition" value="-72,356"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="vertical"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="runcalculationsautomatically" value="true"/>
+		<graphics key="layoutalgorithm" value="4"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="MLPipeline">
+			<graphics key="collapsed" value="false"/>
+			<attribute name="BooleanAttribute0" type="boolean" unit=""/>
+			<and mandatory="true" name="Dataset">
+				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="name" type="string" unit=""/>
+				<attribute configurable="true" name="label_name" type="string" unit=""/>
+				<attribute configurable="true" name="favorable_label" type="long" unit=""/>
+				<attribute configurable="true" name="unfavorable_label" type="long" unit=""/>
+				<alt abstract="true" mandatory="true" name="TypeOfData">
+					<feature abstract="true" name="CategoricalData"/>
+					<feature abstract="true" name="NumericalData"/>
+				</alt>
+				<alt abstract="true" name="NumberOfSensitiveVariables">
+					<feature abstract="true" name="SingleSensitiveVariable">
+						<attribute configurable="true" name="variable_name" type="string" unit=""/>
+						<attribute configurable="true" name="privileged_value" type="string" unit=""/>
+						<attribute configurable="true" name="unprivileged_value" type="string" unit=""/>
+					</feature>
+					<feature abstract="true" name="MultipleSensitiveVariables">
+						<attribute configurable="true" name="variables_names" type="string" unit=""/>
+						<attribute configurable="true" name="privileged_value" type="string" unit=""/>
+						<attribute configurable="true" name="unprivileged_value" type="string" unit=""/>
+					</feature>
+				</alt>
+				<alt abstract="true" mandatory="true" name="TypeOfLabel">
+					<feature abstract="true" name="Binary"/>
+					<feature abstract="true" name="Multiclass"/>
+				</alt>
+			</and>
+			<feature mandatory="true" name="LogisticRegression">
+				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="train_size" type="double" unit="" value="0.8"/>
+			</feature>
+			<or abstract="true" name="Fairness">
+				<graphics key="collapsed" value="false"/>
+				<or abstract="true" name="WAE_metrics">
+					<feature name="StatisticalParity"/>
+					<feature name="DisparateImpact"/>
+				</or>
+				<or abstract="true" name="WYSIWYG_metrics">
+					<feature name="EqualOpportunity"/>
+					<feature name="EqualAccuracy"/>
+				</or>
+				<alt abstract="true" name="BiasMitigationMethod">
+					<feature name="DIR"/>
+					<feature name="Reweighing"/>
+					<feature name="Sampling">
+						<attribute configurable="true" name="round_level" type="long" unit="" value="1"/>
+					</feature>
+					<feature name="DEMV">
+						<attribute configurable="true" name="round_level" type="long" unit="" value="1"/>
+					</feature>
+				</alt>
+			</or>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>DEMV</var>
+				<var>MultipleSensitiveVariables</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Fairness</var>
+				<var>NumberOfSensitiveVariables</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Sampling</var>
+				<var>SingleSensitiveVariable</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>DIR</var>
+				<var>NumericalData</var>
+			</imp>
+		</rule>
+	</constraints>
+</extendedFeatureModel>
