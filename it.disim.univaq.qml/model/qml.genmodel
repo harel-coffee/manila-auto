@@ -38,7 +38,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/root"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/groups"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/constraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/qualityrequirement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/qualityProperties"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//Feature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Feature/name"/>
@@ -70,14 +70,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//OpenValueAttribute/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//OpenValueAttribute/type"/>
     </genClasses>
-    <genClasses ecoreClass="qml.ecore#//QualityRequirement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//QualityRequirement/qualityproperty"/>
-    </genClasses>
     <genClasses ecoreClass="qml.ecore#//QualityProperty">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//QualityProperty/measure"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//QualityProperty/nature"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//QualityProperty/implentedBy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//QualityProperty/implementedBy"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//QualityProperty/involvedFeature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//QualityProperty/influencedBy"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//Fairness">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Fairness/type"/>
@@ -100,6 +98,10 @@
     <genClasses ecoreClass="qml.ecore#//Attribute"/>
     <genClasses ecoreClass="qml.ecore#//AttributeValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//AttributeValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="qml.ecore#//PredictionQuality"/>
+    <genClasses ecoreClass="qml.ecore#//Privacy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Privacy/privacyLevel"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -17,8 +17,9 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.disim.univaq.qml.QualityProperty#getMeasure <em>Measure</em>}</li>
  *   <li>{@link it.disim.univaq.qml.QualityProperty#getNature <em>Nature</em>}</li>
- *   <li>{@link it.disim.univaq.qml.QualityProperty#getImplentedBy <em>Implented By</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.QualityProperty#getImplementedBy <em>Implemented By</em>}</li>
  *   <li>{@link it.disim.univaq.qml.QualityProperty#getInvolvedFeature <em>Involved Feature</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.QualityProperty#getInfluencedBy <em>Influenced By</em>}</li>
  * </ul>
  *
  * @see it.disim.univaq.qml.QmlPackage#getQualityProperty()
@@ -64,16 +65,16 @@ public interface QualityProperty extends EObject {
 	void setNature(QualityNature value);
 
 	/**
-	 * Returns the value of the '<em><b>Implented By</b></em>' reference list.
+	 * Returns the value of the '<em><b>Implemented By</b></em>' reference list.
 	 * The list contents are of type {@link it.disim.univaq.qml.Feature}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Implented By</em>' reference list.
-	 * @see it.disim.univaq.qml.QmlPackage#getQualityProperty_ImplentedBy()
+	 * @return the value of the '<em>Implemented By</em>' reference list.
+	 * @see it.disim.univaq.qml.QmlPackage#getQualityProperty_ImplementedBy()
 	 * @model
 	 * @generated
 	 */
-	EList<Feature> getImplentedBy();
+	EList<Feature> getImplementedBy();
 
 	/**
 	 * Returns the value of the '<em><b>Involved Feature</b></em>' reference list.
@@ -86,5 +87,17 @@ public interface QualityProperty extends EObject {
 	 * @generated
 	 */
 	EList<Feature> getInvolvedFeature();
+
+	/**
+	 * Returns the value of the '<em><b>Influenced By</b></em>' reference list.
+	 * The list contents are of type {@link it.disim.univaq.qml.QualityProperty}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Influenced By</em>' reference list.
+	 * @see it.disim.univaq.qml.QmlPackage#getQualityProperty_InfluencedBy()
+	 * @model
+	 * @generated
+	 */
+	EList<QualityProperty> getInfluencedBy();
 
 } // QualityProperty

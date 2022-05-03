@@ -73,7 +73,7 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__ROOT);
 			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__GROUPS);
 			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__CONSTRAINT);
-			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__QUALITYREQUIREMENT);
+			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -138,7 +138,7 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 		case QmlPackage.FEATURE_MODEL__ROOT:
 		case QmlPackage.FEATURE_MODEL__GROUPS:
 		case QmlPackage.FEATURE_MODEL__CONSTRAINT:
-		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
+		case QmlPackage.FEATURE_MODEL__QUALITY_PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -168,8 +168,17 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__CONSTRAINT,
 				QmlFactory.eINSTANCE.createExcludeConstraint()));
 
-		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITYREQUIREMENT,
-				QmlFactory.eINSTANCE.createQualityRequirement()));
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
+				QmlFactory.eINSTANCE.createFairness()));
+
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
+				QmlFactory.eINSTANCE.createExplainability()));
+
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
+				QmlFactory.eINSTANCE.createPredictionQuality()));
+
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
+				QmlFactory.eINSTANCE.createPrivacy()));
 	}
 
 	/**

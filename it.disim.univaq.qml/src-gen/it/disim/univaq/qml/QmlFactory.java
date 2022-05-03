@@ -76,15 +76,6 @@ public interface QmlFactory extends EFactory {
 	OpenValueAttribute createOpenValueAttribute();
 
 	/**
-	 * Returns a new object of class '<em>Quality Requirement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Quality Requirement</em>'.
-	 * @generated
-	 */
-	QualityRequirement createQualityRequirement();
-
-	/**
 	 * Returns a new object of class '<em>Fairness</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -137,6 +128,24 @@ public interface QmlFactory extends EFactory {
 	 * @generated
 	 */
 	AttributeValue createAttributeValue();
+
+	/**
+	 * Returns a new object of class '<em>Prediction Quality</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Prediction Quality</em>'.
+	 * @generated
+	 */
+	PredictionQuality createPredictionQuality();
+
+	/**
+	 * Returns a new object of class '<em>Privacy</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Privacy</em>'.
+	 * @generated
+	 */
+	Privacy createPrivacy();
 
 	/**
 	 * Returns the package supported by this factory.

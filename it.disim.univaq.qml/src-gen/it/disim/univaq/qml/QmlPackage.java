@@ -95,13 +95,13 @@ public interface QmlPackage extends EPackage {
 	int FEATURE_MODEL__CONSTRAINT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Qualityrequirement</b></em>' containment reference.
+	 * The feature id for the '<em><b>Quality Properties</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_MODEL__QUALITYREQUIREMENT = 3;
+	int FEATURE_MODEL__QUALITY_PROPERTIES = 3;
 
 	/**
 	 * The number of structural features of the '<em>Feature Model</em>' class.
@@ -422,7 +422,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getAttribute()
 	 * @generated
 	 */
-	int ATTRIBUTE = 14;
+	int ATTRIBUTE = 13;
 
 	/**
 	 * The number of structural features of the '<em>Attribute</em>' class.
@@ -489,43 +489,6 @@ public interface QmlPackage extends EPackage {
 	int OPEN_VALUE_ATTRIBUTE_OPERATION_COUNT = ATTRIBUTE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.disim.univaq.qml.impl.QualityRequirementImpl <em>Quality Requirement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.disim.univaq.qml.impl.QualityRequirementImpl
-	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityRequirement()
-	 * @generated
-	 */
-	int QUALITY_REQUIREMENT = 7;
-
-	/**
-	 * The feature id for the '<em><b>Qualityproperty</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUALITY_REQUIREMENT__QUALITYPROPERTY = 0;
-
-	/**
-	 * The number of structural features of the '<em>Quality Requirement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUALITY_REQUIREMENT_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Quality Requirement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUALITY_REQUIREMENT_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.impl.QualityPropertyImpl <em>Quality Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -533,7 +496,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityProperty()
 	 * @generated
 	 */
-	int QUALITY_PROPERTY = 8;
+	int QUALITY_PROPERTY = 7;
 
 	/**
 	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
@@ -554,13 +517,13 @@ public interface QmlPackage extends EPackage {
 	int QUALITY_PROPERTY__NATURE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Implented By</b></em>' reference list.
+	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUALITY_PROPERTY__IMPLENTED_BY = 2;
+	int QUALITY_PROPERTY__IMPLEMENTED_BY = 2;
 
 	/**
 	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
@@ -572,13 +535,22 @@ public interface QmlPackage extends EPackage {
 	int QUALITY_PROPERTY__INVOLVED_FEATURE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_PROPERTY__INFLUENCED_BY = 4;
+
+	/**
 	 * The number of structural features of the '<em>Quality Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUALITY_PROPERTY_FEATURE_COUNT = 4;
+	int QUALITY_PROPERTY_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Quality Property</em>' class.
@@ -597,7 +569,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getFairness()
 	 * @generated
 	 */
-	int FAIRNESS = 9;
+	int FAIRNESS = 8;
 
 	/**
 	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
@@ -618,13 +590,13 @@ public interface QmlPackage extends EPackage {
 	int FAIRNESS__NATURE = QUALITY_PROPERTY__NATURE;
 
 	/**
-	 * The feature id for the '<em><b>Implented By</b></em>' reference list.
+	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAIRNESS__IMPLENTED_BY = QUALITY_PROPERTY__IMPLENTED_BY;
+	int FAIRNESS__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
 
 	/**
 	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
@@ -634,6 +606,15 @@ public interface QmlPackage extends EPackage {
 	 * @ordered
 	 */
 	int FAIRNESS__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FAIRNESS__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -670,7 +651,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getExplainability()
 	 * @generated
 	 */
-	int EXPLAINABILITY = 10;
+	int EXPLAINABILITY = 9;
 
 	/**
 	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
@@ -691,13 +672,13 @@ public interface QmlPackage extends EPackage {
 	int EXPLAINABILITY__NATURE = QUALITY_PROPERTY__NATURE;
 
 	/**
-	 * The feature id for the '<em><b>Implented By</b></em>' reference list.
+	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPLAINABILITY__IMPLENTED_BY = QUALITY_PROPERTY__IMPLENTED_BY;
+	int EXPLAINABILITY__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
 
 	/**
 	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
@@ -707,6 +688,15 @@ public interface QmlPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPLAINABILITY__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPLAINABILITY__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
 
 	/**
 	 * The feature id for the '<em><b>Explainability Level</b></em>' attribute.
@@ -743,7 +733,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getMeasure()
 	 * @generated
 	 */
-	int MEASURE = 11;
+	int MEASURE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Threshold</b></em>' containment reference.
@@ -798,7 +788,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getThreshold()
 	 * @generated
 	 */
-	int THRESHOLD = 12;
+	int THRESHOLD = 11;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -835,7 +825,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getSelectionValueAttribute()
 	 * @generated
 	 */
-	int SELECTION_VALUE_ATTRIBUTE = 13;
+	int SELECTION_VALUE_ATTRIBUTE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -881,7 +871,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getAttributeValue()
 	 * @generated
 	 */
-	int ATTRIBUTE_VALUE = 15;
+	int ATTRIBUTE_VALUE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -911,6 +901,161 @@ public interface QmlPackage extends EPackage {
 	int ATTRIBUTE_VALUE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.PredictionQualityImpl <em>Prediction Quality</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.impl.PredictionQualityImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPredictionQuality()
+	 * @generated
+	 */
+	int PREDICTION_QUALITY = 15;
+
+	/**
+	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY__MEASURE = QUALITY_PROPERTY__MEASURE;
+
+	/**
+	 * The feature id for the '<em><b>Nature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY__NATURE = QUALITY_PROPERTY__NATURE;
+
+	/**
+	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
+
+	/**
+	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
+
+	/**
+	 * The number of structural features of the '<em>Prediction Quality</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY_FEATURE_COUNT = QUALITY_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Prediction Quality</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICTION_QUALITY_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.PrivacyImpl <em>Privacy</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.impl.PrivacyImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPrivacy()
+	 * @generated
+	 */
+	int PRIVACY = 16;
+
+	/**
+	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY__MEASURE = QUALITY_PROPERTY__MEASURE;
+
+	/**
+	 * The feature id for the '<em><b>Nature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY__NATURE = QUALITY_PROPERTY__NATURE;
+
+	/**
+	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
+
+	/**
+	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
+
+	/**
+	 * The feature id for the '<em><b>Privacy Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY__PRIVACY_LEVEL = QUALITY_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Privacy</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY_FEATURE_COUNT = QUALITY_PROPERTY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Privacy</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIVACY_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.GroupType <em>Group Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -918,7 +1063,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getGroupType()
 	 * @generated
 	 */
-	int GROUP_TYPE = 16;
+	int GROUP_TYPE = 17;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.Level <em>Level</em>}' enum.
@@ -928,7 +1073,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getLevel()
 	 * @generated
 	 */
-	int LEVEL = 17;
+	int LEVEL = 18;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.QualityNature <em>Quality Nature</em>}' enum.
@@ -938,7 +1083,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityNature()
 	 * @generated
 	 */
-	int QUALITY_NATURE = 18;
+	int QUALITY_NATURE = 19;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.FairnessType <em>Fairness Type</em>}' enum.
@@ -948,7 +1093,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getFairnessType()
 	 * @generated
 	 */
-	int FAIRNESS_TYPE = 19;
+	int FAIRNESS_TYPE = 20;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.BaseType <em>Base Type</em>}' enum.
@@ -958,7 +1103,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getBaseType()
 	 * @generated
 	 */
-	int BASE_TYPE = 20;
+	int BASE_TYPE = 21;
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.FeatureModel <em>Feature Model</em>}'.
@@ -1004,15 +1149,15 @@ public interface QmlPackage extends EPackage {
 	EReference getFeatureModel_Constraint();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.disim.univaq.qml.FeatureModel#getQualityrequirement <em>Qualityrequirement</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.disim.univaq.qml.FeatureModel#getQualityProperties <em>Quality Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Qualityrequirement</em>'.
-	 * @see it.disim.univaq.qml.FeatureModel#getQualityrequirement()
+	 * @return the meta object for the containment reference list '<em>Quality Properties</em>'.
+	 * @see it.disim.univaq.qml.FeatureModel#getQualityProperties()
 	 * @see #getFeatureModel()
 	 * @generated
 	 */
-	EReference getFeatureModel_Qualityrequirement();
+	EReference getFeatureModel_QualityProperties();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.Feature <em>Feature</em>}'.
@@ -1315,25 +1460,35 @@ public interface QmlPackage extends EPackage {
 	EAttribute getAttributeValue_Value();
 
 	/**
-	 * Returns the meta object for class '{@link it.disim.univaq.qml.QualityRequirement <em>Quality Requirement</em>}'.
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.PredictionQuality <em>Prediction Quality</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Quality Requirement</em>'.
-	 * @see it.disim.univaq.qml.QualityRequirement
+	 * @return the meta object for class '<em>Prediction Quality</em>'.
+	 * @see it.disim.univaq.qml.PredictionQuality
 	 * @generated
 	 */
-	EClass getQualityRequirement();
+	EClass getPredictionQuality();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.disim.univaq.qml.QualityRequirement#getQualityproperty <em>Qualityproperty</em>}'.
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.Privacy <em>Privacy</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Qualityproperty</em>'.
-	 * @see it.disim.univaq.qml.QualityRequirement#getQualityproperty()
-	 * @see #getQualityRequirement()
+	 * @return the meta object for class '<em>Privacy</em>'.
+	 * @see it.disim.univaq.qml.Privacy
 	 * @generated
 	 */
-	EReference getQualityRequirement_Qualityproperty();
+	EClass getPrivacy();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.Privacy#getPrivacyLevel <em>Privacy Level</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Privacy Level</em>'.
+	 * @see it.disim.univaq.qml.Privacy#getPrivacyLevel()
+	 * @see #getPrivacy()
+	 * @generated
+	 */
+	EAttribute getPrivacy_PrivacyLevel();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.QualityProperty <em>Quality Property</em>}'.
@@ -1368,15 +1523,15 @@ public interface QmlPackage extends EPackage {
 	EAttribute getQualityProperty_Nature();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.disim.univaq.qml.QualityProperty#getImplentedBy <em>Implented By</em>}'.
+	 * Returns the meta object for the reference list '{@link it.disim.univaq.qml.QualityProperty#getImplementedBy <em>Implemented By</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Implented By</em>'.
-	 * @see it.disim.univaq.qml.QualityProperty#getImplentedBy()
+	 * @return the meta object for the reference list '<em>Implemented By</em>'.
+	 * @see it.disim.univaq.qml.QualityProperty#getImplementedBy()
 	 * @see #getQualityProperty()
 	 * @generated
 	 */
-	EReference getQualityProperty_ImplentedBy();
+	EReference getQualityProperty_ImplementedBy();
 
 	/**
 	 * Returns the meta object for the reference list '{@link it.disim.univaq.qml.QualityProperty#getInvolvedFeature <em>Involved Feature</em>}'.
@@ -1388,6 +1543,17 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getQualityProperty_InvolvedFeature();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.disim.univaq.qml.QualityProperty#getInfluencedBy <em>Influenced By</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Influenced By</em>'.
+	 * @see it.disim.univaq.qml.QualityProperty#getInfluencedBy()
+	 * @see #getQualityProperty()
+	 * @generated
+	 */
+	EReference getQualityProperty_InfluencedBy();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.Fairness <em>Fairness</em>}'.
@@ -1635,12 +1801,12 @@ public interface QmlPackage extends EPackage {
 		EReference FEATURE_MODEL__CONSTRAINT = eINSTANCE.getFeatureModel_Constraint();
 
 		/**
-		 * The meta object literal for the '<em><b>Qualityrequirement</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Quality Properties</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FEATURE_MODEL__QUALITYREQUIREMENT = eINSTANCE.getFeatureModel_Qualityrequirement();
+		EReference FEATURE_MODEL__QUALITY_PROPERTIES = eINSTANCE.getFeatureModel_QualityProperties();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.FeatureImpl <em>Feature</em>}' class.
@@ -1885,22 +2051,32 @@ public interface QmlPackage extends EPackage {
 		EAttribute ATTRIBUTE_VALUE__VALUE = eINSTANCE.getAttributeValue_Value();
 
 		/**
-		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.QualityRequirementImpl <em>Quality Requirement</em>}' class.
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.PredictionQualityImpl <em>Prediction Quality</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.disim.univaq.qml.impl.QualityRequirementImpl
-		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityRequirement()
+		 * @see it.disim.univaq.qml.impl.PredictionQualityImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPredictionQuality()
 		 * @generated
 		 */
-		EClass QUALITY_REQUIREMENT = eINSTANCE.getQualityRequirement();
+		EClass PREDICTION_QUALITY = eINSTANCE.getPredictionQuality();
 
 		/**
-		 * The meta object literal for the '<em><b>Qualityproperty</b></em>' containment reference list feature.
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.PrivacyImpl <em>Privacy</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.impl.PrivacyImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPrivacy()
+		 * @generated
+		 */
+		EClass PRIVACY = eINSTANCE.getPrivacy();
+
+		/**
+		 * The meta object literal for the '<em><b>Privacy Level</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference QUALITY_REQUIREMENT__QUALITYPROPERTY = eINSTANCE.getQualityRequirement_Qualityproperty();
+		EAttribute PRIVACY__PRIVACY_LEVEL = eINSTANCE.getPrivacy_PrivacyLevel();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.QualityPropertyImpl <em>Quality Property</em>}' class.
@@ -1929,12 +2105,12 @@ public interface QmlPackage extends EPackage {
 		EAttribute QUALITY_PROPERTY__NATURE = eINSTANCE.getQualityProperty_Nature();
 
 		/**
-		 * The meta object literal for the '<em><b>Implented By</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Implemented By</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference QUALITY_PROPERTY__IMPLENTED_BY = eINSTANCE.getQualityProperty_ImplentedBy();
+		EReference QUALITY_PROPERTY__IMPLEMENTED_BY = eINSTANCE.getQualityProperty_ImplementedBy();
 
 		/**
 		 * The meta object literal for the '<em><b>Involved Feature</b></em>' reference list feature.
@@ -1943,6 +2119,14 @@ public interface QmlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference QUALITY_PROPERTY__INVOLVED_FEATURE = eINSTANCE.getQualityProperty_InvolvedFeature();
+
+		/**
+		 * The meta object literal for the '<em><b>Influenced By</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUALITY_PROPERTY__INFLUENCED_BY = eINSTANCE.getQualityProperty_InfluencedBy();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.FairnessImpl <em>Fairness</em>}' class.

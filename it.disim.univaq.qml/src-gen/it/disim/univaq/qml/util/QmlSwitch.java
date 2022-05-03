@@ -121,13 +121,6 @@ public class QmlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case QmlPackage.QUALITY_REQUIREMENT: {
-			QualityRequirement qualityRequirement = (QualityRequirement) theEObject;
-			T result = caseQualityRequirement(qualityRequirement);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case QmlPackage.QUALITY_PROPERTY: {
 			QualityProperty qualityProperty = (QualityProperty) theEObject;
 			T result = caseQualityProperty(qualityProperty);
@@ -186,6 +179,24 @@ public class QmlSwitch<T> extends Switch<T> {
 		case QmlPackage.ATTRIBUTE_VALUE: {
 			AttributeValue attributeValue = (AttributeValue) theEObject;
 			T result = caseAttributeValue(attributeValue);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.PREDICTION_QUALITY: {
+			PredictionQuality predictionQuality = (PredictionQuality) theEObject;
+			T result = casePredictionQuality(predictionQuality);
+			if (result == null)
+				result = caseQualityProperty(predictionQuality);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.PRIVACY: {
+			Privacy privacy = (Privacy) theEObject;
+			T result = casePrivacy(privacy);
+			if (result == null)
+				result = caseQualityProperty(privacy);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -331,17 +342,32 @@ public class QmlSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Quality Requirement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Prediction Quality</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Quality Requirement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Prediction Quality</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseQualityRequirement(QualityRequirement object) {
+	public T casePredictionQuality(PredictionQuality object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Privacy</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Privacy</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePrivacy(Privacy object) {
 		return null;
 	}
 

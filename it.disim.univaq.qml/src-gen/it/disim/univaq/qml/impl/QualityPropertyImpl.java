@@ -35,8 +35,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.disim.univaq.qml.impl.QualityPropertyImpl#getMeasure <em>Measure</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.QualityPropertyImpl#getNature <em>Nature</em>}</li>
- *   <li>{@link it.disim.univaq.qml.impl.QualityPropertyImpl#getImplentedBy <em>Implented By</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.QualityPropertyImpl#getImplementedBy <em>Implemented By</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.QualityPropertyImpl#getInvolvedFeature <em>Involved Feature</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.QualityPropertyImpl#getInfluencedBy <em>Influenced By</em>}</li>
  * </ul>
  *
  * @generated
@@ -73,14 +74,14 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 	protected QualityNature nature = NATURE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getImplentedBy() <em>Implented By</em>}' reference list.
+	 * The cached value of the '{@link #getImplementedBy() <em>Implemented By</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImplentedBy()
+	 * @see #getImplementedBy()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Feature> implentedBy;
+	protected EList<Feature> implementedBy;
 
 	/**
 	 * The cached value of the '{@link #getInvolvedFeature() <em>Involved Feature</em>}' reference list.
@@ -91,6 +92,16 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 	 * @ordered
 	 */
 	protected EList<Feature> involvedFeature;
+
+	/**
+	 * The cached value of the '{@link #getInfluencedBy() <em>Influenced By</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInfluencedBy()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<QualityProperty> influencedBy;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -154,12 +165,12 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	@Override
-	public EList<Feature> getImplentedBy() {
-		if (implentedBy == null) {
-			implentedBy = new EObjectResolvingEList<Feature>(Feature.class, this,
-					QmlPackage.QUALITY_PROPERTY__IMPLENTED_BY);
+	public EList<Feature> getImplementedBy() {
+		if (implementedBy == null) {
+			implementedBy = new EObjectResolvingEList<Feature>(Feature.class, this,
+					QmlPackage.QUALITY_PROPERTY__IMPLEMENTED_BY);
 		}
-		return implentedBy;
+		return implementedBy;
 	}
 
 	/**
@@ -174,6 +185,20 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 					QmlPackage.QUALITY_PROPERTY__INVOLVED_FEATURE);
 		}
 		return involvedFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<QualityProperty> getInfluencedBy() {
+		if (influencedBy == null) {
+			influencedBy = new EObjectResolvingEList<QualityProperty>(QualityProperty.class, this,
+					QmlPackage.QUALITY_PROPERTY__INFLUENCED_BY);
+		}
+		return influencedBy;
 	}
 
 	/**
@@ -202,10 +227,12 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 			return getMeasure();
 		case QmlPackage.QUALITY_PROPERTY__NATURE:
 			return getNature();
-		case QmlPackage.QUALITY_PROPERTY__IMPLENTED_BY:
-			return getImplentedBy();
+		case QmlPackage.QUALITY_PROPERTY__IMPLEMENTED_BY:
+			return getImplementedBy();
 		case QmlPackage.QUALITY_PROPERTY__INVOLVED_FEATURE:
 			return getInvolvedFeature();
+		case QmlPackage.QUALITY_PROPERTY__INFLUENCED_BY:
+			return getInfluencedBy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -226,13 +253,17 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 		case QmlPackage.QUALITY_PROPERTY__NATURE:
 			setNature((QualityNature) newValue);
 			return;
-		case QmlPackage.QUALITY_PROPERTY__IMPLENTED_BY:
-			getImplentedBy().clear();
-			getImplentedBy().addAll((Collection<? extends Feature>) newValue);
+		case QmlPackage.QUALITY_PROPERTY__IMPLEMENTED_BY:
+			getImplementedBy().clear();
+			getImplementedBy().addAll((Collection<? extends Feature>) newValue);
 			return;
 		case QmlPackage.QUALITY_PROPERTY__INVOLVED_FEATURE:
 			getInvolvedFeature().clear();
 			getInvolvedFeature().addAll((Collection<? extends Feature>) newValue);
+			return;
+		case QmlPackage.QUALITY_PROPERTY__INFLUENCED_BY:
+			getInfluencedBy().clear();
+			getInfluencedBy().addAll((Collection<? extends QualityProperty>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -252,11 +283,14 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 		case QmlPackage.QUALITY_PROPERTY__NATURE:
 			setNature(NATURE_EDEFAULT);
 			return;
-		case QmlPackage.QUALITY_PROPERTY__IMPLENTED_BY:
-			getImplentedBy().clear();
+		case QmlPackage.QUALITY_PROPERTY__IMPLEMENTED_BY:
+			getImplementedBy().clear();
 			return;
 		case QmlPackage.QUALITY_PROPERTY__INVOLVED_FEATURE:
 			getInvolvedFeature().clear();
+			return;
+		case QmlPackage.QUALITY_PROPERTY__INFLUENCED_BY:
+			getInfluencedBy().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -274,10 +308,12 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 			return measure != null && !measure.isEmpty();
 		case QmlPackage.QUALITY_PROPERTY__NATURE:
 			return nature != NATURE_EDEFAULT;
-		case QmlPackage.QUALITY_PROPERTY__IMPLENTED_BY:
-			return implentedBy != null && !implentedBy.isEmpty();
+		case QmlPackage.QUALITY_PROPERTY__IMPLEMENTED_BY:
+			return implementedBy != null && !implementedBy.isEmpty();
 		case QmlPackage.QUALITY_PROPERTY__INVOLVED_FEATURE:
 			return involvedFeature != null && !involvedFeature.isEmpty();
+		case QmlPackage.QUALITY_PROPERTY__INFLUENCED_BY:
+			return influencedBy != null && !influencedBy.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="qml" version="12.0.0.2017041100">
+  <ownedViewpoints name="FeatureModels" modelFileExtension="qml">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="FeatureModels diagram" initialisation="true" showOnStartup="true" domainClass="qml::FeatureModel" enablePopupBars="true">
+      <metamodel href="http://www.example.org/qml#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="FeatureNode" domainClass="qml::Feature">
+          <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="10" height="3">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="OpenValueAttributeNode" domainClass="qml::OpenValueAttribute">
+          <style xsi:type="style:LozengeNodeDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="childrenEdge" sourceMapping="//@ownedViewpoints[name='FeatureModels']/@ownedRepresentations[name='FeatureModels%20diagram']/@defaultLayer/@nodeMappings[name='FeatureNode']" targetMapping="//@ownedViewpoints[name='FeatureModels']/@ownedRepresentations[name='FeatureModels%20diagram']/@defaultLayer/@nodeMappings[name='FeatureNode']" targetFinderExpression="feature:children">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createRootFeature" precondition="aql:not qml::Feature" nodeMappings="//@ownedViewpoints[name='FeatureModels']/@ownedRepresentations[name='FeatureModels%20diagram']/@defaultLayer/@nodeMappings[name='FeatureNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="qml::Feature" referenceName="root"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Create feature" nodeMappings="//@ownedViewpoints[name='FeatureModels']/@ownedRepresentations[name='FeatureModels%20diagram']/@defaultLayer/@nodeMappings[name='FeatureNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:qml::Feature">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="qml::Feature" referenceName="children"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="it.disim.univaq.qml.design.Services"/>
+  </ownedViewpoints>
+</description:Group>

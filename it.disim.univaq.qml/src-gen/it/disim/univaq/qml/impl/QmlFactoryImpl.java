@@ -68,8 +68,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createExcludeConstraint();
 		case QmlPackage.OPEN_VALUE_ATTRIBUTE:
 			return createOpenValueAttribute();
-		case QmlPackage.QUALITY_REQUIREMENT:
-			return createQualityRequirement();
 		case QmlPackage.FAIRNESS:
 			return createFairness();
 		case QmlPackage.EXPLAINABILITY:
@@ -82,6 +80,10 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createSelectionValueAttribute();
 		case QmlPackage.ATTRIBUTE_VALUE:
 			return createAttributeValue();
+		case QmlPackage.PREDICTION_QUALITY:
+			return createPredictionQuality();
+		case QmlPackage.PRIVACY:
+			return createPrivacy();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -205,17 +207,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	@Override
-	public QualityRequirement createQualityRequirement() {
-		QualityRequirementImpl qualityRequirement = new QualityRequirementImpl();
-		return qualityRequirement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Fairness createFairness() {
 		FairnessImpl fairness = new FairnessImpl();
 		return fairness;
@@ -274,6 +265,28 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	public AttributeValue createAttributeValue() {
 		AttributeValueImpl attributeValue = new AttributeValueImpl();
 		return attributeValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PredictionQuality createPredictionQuality() {
+		PredictionQualityImpl predictionQuality = new PredictionQualityImpl();
+		return predictionQuality;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Privacy createPrivacy() {
+		PrivacyImpl privacy = new PrivacyImpl();
+		return privacy;
 	}
 
 	/**

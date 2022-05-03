@@ -102,11 +102,6 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseQualityRequirement(QualityRequirement object) {
-			return createQualityRequirementAdapter();
-		}
-
-		@Override
 		public Adapter caseQualityProperty(QualityProperty object) {
 			return createQualityPropertyAdapter();
 		}
@@ -144,6 +139,16 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseAttributeValue(AttributeValue object) {
 			return createAttributeValueAdapter();
+		}
+
+		@Override
+		public Adapter casePredictionQuality(PredictionQuality object) {
+			return createPredictionQualityAdapter();
+		}
+
+		@Override
+		public Adapter casePrivacy(Privacy object) {
+			return createPrivacyAdapter();
 		}
 
 		@Override
@@ -292,16 +297,30 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.QualityRequirement <em>Quality Requirement</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.PredictionQuality <em>Prediction Quality</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.disim.univaq.qml.QualityRequirement
+	 * @see it.disim.univaq.qml.PredictionQuality
 	 * @generated
 	 */
-	public Adapter createQualityRequirementAdapter() {
+	public Adapter createPredictionQualityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.Privacy <em>Privacy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.Privacy
+	 * @generated
+	 */
+	public Adapter createPrivacyAdapter() {
 		return null;
 	}
 

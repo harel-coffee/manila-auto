@@ -211,29 +211,6 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.QualityRequirement} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected QualityRequirementItemProvider qualityRequirementItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.QualityRequirement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createQualityRequirementAdapter() {
-		if (qualityRequirementItemProvider == null) {
-			qualityRequirementItemProvider = new QualityRequirementItemProvider(this);
-		}
-
-		return qualityRequirementItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Fairness} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -372,6 +349,52 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.PredictionQuality} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PredictionQualityItemProvider predictionQualityItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.PredictionQuality}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPredictionQualityAdapter() {
+		if (predictionQualityItemProvider == null) {
+			predictionQualityItemProvider = new PredictionQualityItemProvider(this);
+		}
+
+		return predictionQualityItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Privacy} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PrivacyItemProvider privacyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.Privacy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPrivacyAdapter() {
+		if (privacyItemProvider == null) {
+			privacyItemProvider = new PrivacyItemProvider(this);
+		}
+
+		return privacyItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -488,8 +511,6 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			excludeConstraintItemProvider.dispose();
 		if (openValueAttributeItemProvider != null)
 			openValueAttributeItemProvider.dispose();
-		if (qualityRequirementItemProvider != null)
-			qualityRequirementItemProvider.dispose();
 		if (fairnessItemProvider != null)
 			fairnessItemProvider.dispose();
 		if (explainabilityItemProvider != null)
@@ -502,6 +523,10 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			selectionValueAttributeItemProvider.dispose();
 		if (attributeValueItemProvider != null)
 			attributeValueItemProvider.dispose();
+		if (predictionQualityItemProvider != null)
+			predictionQualityItemProvider.dispose();
+		if (privacyItemProvider != null)
+			privacyItemProvider.dispose();
 	}
 
 }

@@ -58,8 +58,9 @@ public class QualityPropertyItemProvider extends ItemProviderAdapter implements 
 			super.getPropertyDescriptors(object);
 
 			addNaturePropertyDescriptor(object);
-			addImplentedByPropertyDescriptor(object);
+			addImplementedByPropertyDescriptor(object);
 			addInvolvedFeaturePropertyDescriptor(object);
+			addInfluencedByPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -81,18 +82,18 @@ public class QualityPropertyItemProvider extends ItemProviderAdapter implements 
 	}
 
 	/**
-	 * This adds a property descriptor for the Implented By feature.
+	 * This adds a property descriptor for the Implemented By feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addImplentedByPropertyDescriptor(Object object) {
+	protected void addImplementedByPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_QualityProperty_implentedBy_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_QualityProperty_implentedBy_feature",
+						getResourceLocator(), getString("_UI_QualityProperty_implementedBy_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_QualityProperty_implementedBy_feature",
 								"_UI_QualityProperty_type"),
-						QmlPackage.Literals.QUALITY_PROPERTY__IMPLENTED_BY, true, false, true, null, null, null));
+						QmlPackage.Literals.QUALITY_PROPERTY__IMPLEMENTED_BY, true, false, true, null, null, null));
 	}
 
 	/**
@@ -108,6 +109,21 @@ public class QualityPropertyItemProvider extends ItemProviderAdapter implements 
 						getString("_UI_PropertyDescriptor_description", "_UI_QualityProperty_involvedFeature_feature",
 								"_UI_QualityProperty_type"),
 						QmlPackage.Literals.QUALITY_PROPERTY__INVOLVED_FEATURE, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Influenced By feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInfluencedByPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_QualityProperty_influencedBy_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_QualityProperty_influencedBy_feature",
+								"_UI_QualityProperty_type"),
+						QmlPackage.Literals.QUALITY_PROPERTY__INFLUENCED_BY, true, false, true, null, null, null));
 	}
 
 	/**
