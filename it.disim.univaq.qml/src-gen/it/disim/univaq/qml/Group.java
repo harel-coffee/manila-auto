@@ -16,11 +16,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link it.disim.univaq.qml.Group#getFeature <em>Feature</em>}</li>
- *   <li>{@link it.disim.univaq.qml.Group#getGroupType <em>Group Type</em>}</li>
  * </ul>
  *
  * @see it.disim.univaq.qml.QmlPackage#getGroup()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface Group extends EObject {
@@ -37,30 +36,5 @@ public interface Group extends EObject {
 	 * @generated
 	 */
 	EList<Feature> getFeature();
-
-	/**
-	 * Returns the value of the '<em><b>Group Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link it.disim.univaq.qml.GroupType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Group Type</em>' attribute.
-	 * @see it.disim.univaq.qml.GroupType
-	 * @see #setGroupType(GroupType)
-	 * @see it.disim.univaq.qml.QmlPackage#getGroup_GroupType()
-	 * @model
-	 * @generated
-	 */
-	GroupType getGroupType();
-
-	/**
-	 * Sets the value of the '{@link it.disim.univaq.qml.Group#getGroupType <em>Group Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Group Type</em>' attribute.
-	 * @see it.disim.univaq.qml.GroupType
-	 * @see #getGroupType()
-	 * @generated
-	 */
-	void setGroupType(GroupType value);
 
 } // Group

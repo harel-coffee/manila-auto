@@ -117,8 +117,8 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseMeasure(Measure object) {
-			return createMeasureAdapter();
+		public Adapter caseMetric(Metric object) {
+			return createMetricAdapter();
 		}
 
 		@Override
@@ -142,13 +142,38 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter casePredictionQuality(PredictionQuality object) {
-			return createPredictionQualityAdapter();
+		public Adapter casePredictionCorrectness(PredictionCorrectness object) {
+			return createPredictionCorrectnessAdapter();
 		}
 
 		@Override
 		public Adapter casePrivacy(Privacy object) {
 			return createPrivacyAdapter();
+		}
+
+		@Override
+		public Adapter caseQualityRequirements(QualityRequirements object) {
+			return createQualityRequirementsAdapter();
+		}
+
+		@Override
+		public Adapter caseComputationalComplexity(ComputationalComplexity object) {
+			return createComputationalComplexityAdapter();
+		}
+
+		@Override
+		public Adapter caseOrGroup(OrGroup object) {
+			return createOrGroupAdapter();
+		}
+
+		@Override
+		public Adapter caseAltGroup(AltGroup object) {
+			return createAltGroupAdapter();
+		}
+
+		@Override
+		public Adapter caseQualityRequirement(QualityRequirement object) {
+			return createQualityRequirementAdapter();
 		}
 
 		@Override
@@ -297,16 +322,16 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.PredictionQuality <em>Prediction Quality</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.PredictionCorrectness <em>Prediction Correctness</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.disim.univaq.qml.PredictionQuality
+	 * @see it.disim.univaq.qml.PredictionCorrectness
 	 * @generated
 	 */
-	public Adapter createPredictionQualityAdapter() {
+	public Adapter createPredictionCorrectnessAdapter() {
 		return null;
 	}
 
@@ -321,6 +346,76 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPrivacyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.QualityRequirements <em>Quality Requirements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.QualityRequirements
+	 * @generated
+	 */
+	public Adapter createQualityRequirementsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.QualityRequirement <em>Quality Requirement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.QualityRequirement
+	 * @generated
+	 */
+	public Adapter createQualityRequirementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.ComputationalComplexity <em>Computational Complexity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.ComputationalComplexity
+	 * @generated
+	 */
+	public Adapter createComputationalComplexityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.OrGroup <em>Or Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.OrGroup
+	 * @generated
+	 */
+	public Adapter createOrGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.AltGroup <em>Alt Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.AltGroup
+	 * @generated
+	 */
+	public Adapter createAltGroupAdapter() {
 		return null;
 	}
 
@@ -367,16 +462,16 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.Measure <em>Measure</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.Metric <em>Metric</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.disim.univaq.qml.Measure
+	 * @see it.disim.univaq.qml.Metric
 	 * @generated
 	 */
-	public Adapter createMeasureAdapter() {
+	public Adapter createMetricAdapter() {
 		return null;
 	}
 

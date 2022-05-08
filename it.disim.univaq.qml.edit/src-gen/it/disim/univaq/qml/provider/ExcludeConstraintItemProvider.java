@@ -41,7 +41,7 @@ public class ExcludeConstraintItemProvider extends ConstraintItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFeaturePropertyDescriptor(object);
+			addExcludingFeaturePropertyDescriptor(object);
 			addExcludedFeaturePropertyDescriptor(object);
 			addExcludedAttributePropertyDescriptor(object);
 			addExcludedAttributeValuePropertyDescriptor(object);
@@ -50,18 +50,18 @@ public class ExcludeConstraintItemProvider extends ConstraintItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Feature feature.
+	 * This adds a property descriptor for the Excluding Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ExcludeConstraint_feature_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ExcludeConstraint_feature_feature",
-								"_UI_ExcludeConstraint_type"),
-						QmlPackage.Literals.EXCLUDE_CONSTRAINT__FEATURE, true, false, true, null, null, null));
+	protected void addExcludingFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ExcludeConstraint_excludingFeature_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ExcludeConstraint_excludingFeature_feature",
+						"_UI_ExcludeConstraint_type"),
+				QmlPackage.Literals.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE, true, false, true, null, null, null));
 	}
 
 	/**

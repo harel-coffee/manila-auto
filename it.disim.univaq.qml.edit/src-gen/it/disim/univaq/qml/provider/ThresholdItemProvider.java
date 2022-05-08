@@ -54,6 +54,8 @@ public class ThresholdItemProvider extends ItemProviderAdapter implements IEditi
 			super.getPropertyDescriptors(object);
 
 			addValuePropertyDescriptor(object);
+			addRelatedToPropertyDescriptor(object);
+			addEqualityOperatorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -72,6 +74,37 @@ public class ThresholdItemProvider extends ItemProviderAdapter implements IEditi
 								"_UI_Threshold_type"),
 						QmlPackage.Literals.THRESHOLD__VALUE, true, false, false,
 						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Related To feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRelatedToPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Threshold_relatedTo_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Threshold_relatedTo_feature",
+								"_UI_Threshold_type"),
+						QmlPackage.Literals.THRESHOLD__RELATED_TO, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Equality Operator feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEqualityOperatorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Threshold_equalityOperator_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Threshold_equalityOperator_feature",
+								"_UI_Threshold_type"),
+						QmlPackage.Literals.THRESHOLD__EQUALITY_OPERATOR, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -120,6 +153,7 @@ public class ThresholdItemProvider extends ItemProviderAdapter implements IEditi
 
 		switch (notification.getFeatureID(Threshold.class)) {
 		case QmlPackage.THRESHOLD__VALUE:
+		case QmlPackage.THRESHOLD__EQUALITY_OPERATOR:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

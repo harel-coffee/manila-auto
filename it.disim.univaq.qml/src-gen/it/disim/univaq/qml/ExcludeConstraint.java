@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link it.disim.univaq.qml.ExcludeConstraint#getFeature <em>Feature</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.ExcludeConstraint#getExcludingFeature <em>Excluding Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.ExcludeConstraint#getExcludedFeature <em>Excluded Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.ExcludeConstraint#getExcludedAttribute <em>Excluded Attribute</em>}</li>
  *   <li>{@link it.disim.univaq.qml.ExcludeConstraint#getExcludedAttributeValue <em>Excluded Attribute Value</em>}</li>
@@ -25,26 +25,26 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ExcludeConstraint extends Constraint {
 	/**
-	 * Returns the value of the '<em><b>Feature</b></em>' reference.
+	 * Returns the value of the '<em><b>Excluding Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature</em>' reference.
-	 * @see #setFeature(Feature)
-	 * @see it.disim.univaq.qml.QmlPackage#getExcludeConstraint_Feature()
+	 * @return the value of the '<em>Excluding Feature</em>' reference.
+	 * @see #setExcludingFeature(Feature)
+	 * @see it.disim.univaq.qml.QmlPackage#getExcludeConstraint_ExcludingFeature()
 	 * @model required="true"
 	 * @generated
 	 */
-	Feature getFeature();
+	Feature getExcludingFeature();
 
 	/**
-	 * Sets the value of the '{@link it.disim.univaq.qml.ExcludeConstraint#getFeature <em>Feature</em>}' reference.
+	 * Sets the value of the '{@link it.disim.univaq.qml.ExcludeConstraint#getExcludingFeature <em>Excluding Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature</em>' reference.
-	 * @see #getFeature()
+	 * @param value the new value of the '<em>Excluding Feature</em>' reference.
+	 * @see #getExcludingFeature()
 	 * @generated
 	 */
-	void setFeature(Feature value);
+	void setExcludingFeature(Feature value);
 
 	/**
 	 * Returns the value of the '<em><b>Excluded Feature</b></em>' reference list.

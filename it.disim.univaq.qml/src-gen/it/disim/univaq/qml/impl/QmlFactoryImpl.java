@@ -60,8 +60,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createFeatureModel();
 		case QmlPackage.FEATURE:
 			return createFeature();
-		case QmlPackage.GROUP:
-			return createGroup();
 		case QmlPackage.REQUIRE_CONSTRAINT:
 			return createRequireConstraint();
 		case QmlPackage.EXCLUDE_CONSTRAINT:
@@ -72,18 +70,28 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createFairness();
 		case QmlPackage.EXPLAINABILITY:
 			return createExplainability();
-		case QmlPackage.MEASURE:
-			return createMeasure();
+		case QmlPackage.METRIC:
+			return createMetric();
 		case QmlPackage.THRESHOLD:
 			return createThreshold();
 		case QmlPackage.SELECTION_VALUE_ATTRIBUTE:
 			return createSelectionValueAttribute();
 		case QmlPackage.ATTRIBUTE_VALUE:
 			return createAttributeValue();
-		case QmlPackage.PREDICTION_QUALITY:
-			return createPredictionQuality();
+		case QmlPackage.PREDICTION_CORRECTNESS:
+			return createPredictionCorrectness();
 		case QmlPackage.PRIVACY:
 			return createPrivacy();
+		case QmlPackage.QUALITY_REQUIREMENTS:
+			return createQualityRequirements();
+		case QmlPackage.COMPUTATIONAL_COMPLEXITY:
+			return createComputationalComplexity();
+		case QmlPackage.OR_GROUP:
+			return createOrGroup();
+		case QmlPackage.ALT_GROUP:
+			return createAltGroup();
+		case QmlPackage.QUALITY_REQUIREMENT:
+			return createQualityRequirement();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -97,8 +105,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case QmlPackage.GROUP_TYPE:
-			return createGroupTypeFromString(eDataType, initialValue);
 		case QmlPackage.LEVEL:
 			return createLevelFromString(eDataType, initialValue);
 		case QmlPackage.QUALITY_NATURE:
@@ -107,6 +113,10 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createFairnessTypeFromString(eDataType, initialValue);
 		case QmlPackage.BASE_TYPE:
 			return createBaseTypeFromString(eDataType, initialValue);
+		case QmlPackage.TASK_TYPE:
+			return createTaskTypeFromString(eDataType, initialValue);
+		case QmlPackage.OPERATOR:
+			return createOperatorFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -120,8 +130,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case QmlPackage.GROUP_TYPE:
-			return convertGroupTypeToString(eDataType, instanceValue);
 		case QmlPackage.LEVEL:
 			return convertLevelToString(eDataType, instanceValue);
 		case QmlPackage.QUALITY_NATURE:
@@ -130,6 +138,10 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return convertFairnessTypeToString(eDataType, instanceValue);
 		case QmlPackage.BASE_TYPE:
 			return convertBaseTypeToString(eDataType, instanceValue);
+		case QmlPackage.TASK_TYPE:
+			return convertTaskTypeToString(eDataType, instanceValue);
+		case QmlPackage.OPERATOR:
+			return convertOperatorToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -155,17 +167,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	public Feature createFeature() {
 		FeatureImpl feature = new FeatureImpl();
 		return feature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Group createGroup() {
-		GroupImpl group = new GroupImpl();
-		return group;
 	}
 
 	/**
@@ -229,9 +230,9 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	@Override
-	public Measure createMeasure() {
-		MeasureImpl measure = new MeasureImpl();
-		return measure;
+	public Metric createMetric() {
+		MetricImpl metric = new MetricImpl();
+		return metric;
 	}
 
 	/**
@@ -273,9 +274,9 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	@Override
-	public PredictionQuality createPredictionQuality() {
-		PredictionQualityImpl predictionQuality = new PredictionQualityImpl();
-		return predictionQuality;
+	public PredictionCorrectness createPredictionCorrectness() {
+		PredictionCorrectnessImpl predictionCorrectness = new PredictionCorrectnessImpl();
+		return predictionCorrectness;
 	}
 
 	/**
@@ -294,12 +295,10 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GroupType createGroupTypeFromString(EDataType eDataType, String initialValue) {
-		GroupType result = GroupType.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
+	@Override
+	public QualityRequirements createQualityRequirements() {
+		QualityRequirementsImpl qualityRequirements = new QualityRequirementsImpl();
+		return qualityRequirements;
 	}
 
 	/**
@@ -307,8 +306,43 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertGroupTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	@Override
+	public QualityRequirement createQualityRequirement() {
+		QualityRequirementImpl qualityRequirement = new QualityRequirementImpl();
+		return qualityRequirement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ComputationalComplexity createComputationalComplexity() {
+		ComputationalComplexityImpl computationalComplexity = new ComputationalComplexityImpl();
+		return computationalComplexity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public OrGroup createOrGroup() {
+		OrGroupImpl orGroup = new OrGroupImpl();
+		return orGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AltGroup createAltGroup() {
+		AltGroupImpl altGroup = new AltGroupImpl();
+		return altGroup;
 	}
 
 	/**
@@ -396,6 +430,50 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	public String convertBaseTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TaskType createTaskTypeFromString(EDataType eDataType, String initialValue) {
+		TaskType result = TaskType.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTaskTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Operator createOperatorFromString(EDataType eDataType, String initialValue) {
+		Operator result = Operator.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertOperatorToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

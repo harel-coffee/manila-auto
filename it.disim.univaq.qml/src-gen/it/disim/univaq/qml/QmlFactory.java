@@ -40,15 +40,6 @@ public interface QmlFactory extends EFactory {
 	Feature createFeature();
 
 	/**
-	 * Returns a new object of class '<em>Group</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Group</em>'.
-	 * @generated
-	 */
-	Group createGroup();
-
-	/**
 	 * Returns a new object of class '<em>Require Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,13 +85,13 @@ public interface QmlFactory extends EFactory {
 	Explainability createExplainability();
 
 	/**
-	 * Returns a new object of class '<em>Measure</em>'.
+	 * Returns a new object of class '<em>Metric</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Measure</em>'.
+	 * @return a new object of class '<em>Metric</em>'.
 	 * @generated
 	 */
-	Measure createMeasure();
+	Metric createMetric();
 
 	/**
 	 * Returns a new object of class '<em>Threshold</em>'.
@@ -130,13 +121,13 @@ public interface QmlFactory extends EFactory {
 	AttributeValue createAttributeValue();
 
 	/**
-	 * Returns a new object of class '<em>Prediction Quality</em>'.
+	 * Returns a new object of class '<em>Prediction Correctness</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Prediction Quality</em>'.
+	 * @return a new object of class '<em>Prediction Correctness</em>'.
 	 * @generated
 	 */
-	PredictionQuality createPredictionQuality();
+	PredictionCorrectness createPredictionCorrectness();
 
 	/**
 	 * Returns a new object of class '<em>Privacy</em>'.
@@ -146,6 +137,51 @@ public interface QmlFactory extends EFactory {
 	 * @generated
 	 */
 	Privacy createPrivacy();
+
+	/**
+	 * Returns a new object of class '<em>Quality Requirements</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Quality Requirements</em>'.
+	 * @generated
+	 */
+	QualityRequirements createQualityRequirements();
+
+	/**
+	 * Returns a new object of class '<em>Quality Requirement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Quality Requirement</em>'.
+	 * @generated
+	 */
+	QualityRequirement createQualityRequirement();
+
+	/**
+	 * Returns a new object of class '<em>Computational Complexity</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Computational Complexity</em>'.
+	 * @generated
+	 */
+	ComputationalComplexity createComputationalComplexity();
+
+	/**
+	 * Returns a new object of class '<em>Or Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Or Group</em>'.
+	 * @generated
+	 */
+	OrGroup createOrGroup();
+
+	/**
+	 * Returns a new object of class '<em>Alt Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alt Group</em>'.
+	 * @generated
+	 */
+	AltGroup createAltGroup();
 
 	/**
 	 * Returns the package supported by this factory.

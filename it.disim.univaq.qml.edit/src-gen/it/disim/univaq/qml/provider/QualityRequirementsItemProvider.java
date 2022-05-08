@@ -2,10 +2,11 @@
  */
 package it.disim.univaq.qml.provider;
 
-import it.disim.univaq.qml.Measure;
 import it.disim.univaq.qml.QmlFactory;
 import it.disim.univaq.qml.QmlPackage;
+import it.disim.univaq.qml.QualityRequirements;
 
+import it.disim.univaq.qml.TaskType;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,12 +29,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.disim.univaq.qml.Measure} object.
+ * This is the item provider adapter for a {@link it.disim.univaq.qml.QualityRequirements} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MeasureItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class QualityRequirementsItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -41,7 +42,7 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MeasureItemProvider(AdapterFactory adapterFactory) {
+	public QualityRequirementsItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -56,39 +57,24 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addImplementedByPropertyDescriptor(object);
-			addNamePropertyDescriptor(object);
+			addTaskPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Implemented By feature.
+	 * This adds a property descriptor for the Task feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addImplementedByPropertyDescriptor(Object object) {
+	protected void addTaskPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Measure_implementedBy_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Measure_implementedBy_feature",
-								"_UI_Measure_type"),
-						QmlPackage.Literals.MEASURE__IMPLEMENTED_BY, true, false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Measure_name_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Measure_name_feature", "_UI_Measure_type"),
-						QmlPackage.Literals.MEASURE__NAME, true, false, false,
+						getResourceLocator(), getString("_UI_QualityRequirements_task_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_QualityRequirements_task_feature",
+								"_UI_QualityRequirements_type"),
+						QmlPackage.Literals.QUALITY_REQUIREMENTS__TASK, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -104,7 +90,7 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(QmlPackage.Literals.MEASURE__THRESHOLD);
+			childrenFeatures.add(QmlPackage.Literals.QUALITY_REQUIREMENTS__MADE_OF);
 		}
 		return childrenFeatures;
 	}
@@ -123,14 +109,14 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 	}
 
 	/**
-	 * This returns Measure.gif.
+	 * This returns QualityRequirements.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Measure"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/QualityRequirements"));
 	}
 
 	/**
@@ -151,9 +137,10 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Measure) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Measure_type")
-				: getString("_UI_Measure_type") + " " + label;
+		TaskType labelValue = ((QualityRequirements) object).getTask();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ? getString("_UI_QualityRequirements_type")
+				: getString("_UI_QualityRequirements_type") + " " + label;
 	}
 
 	/**
@@ -167,11 +154,11 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Measure.class)) {
-		case QmlPackage.MEASURE__NAME:
+		switch (notification.getFeatureID(QualityRequirements.class)) {
+		case QmlPackage.QUALITY_REQUIREMENTS__TASK:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case QmlPackage.MEASURE__THRESHOLD:
+		case QmlPackage.QUALITY_REQUIREMENTS__MADE_OF:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -189,8 +176,8 @@ public class MeasureItemProvider extends ItemProviderAdapter implements IEditing
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(
-				createChildParameter(QmlPackage.Literals.MEASURE__THRESHOLD, QmlFactory.eINSTANCE.createThreshold()));
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.QUALITY_REQUIREMENTS__MADE_OF,
+				QmlFactory.eINSTANCE.createQualityRequirement()));
 	}
 
 	/**

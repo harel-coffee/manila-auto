@@ -225,7 +225,7 @@ public class QualityPropertyItemProvider extends ItemProviderAdapter implements 
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.QUALITY_PROPERTY__MEASURE,
-				QmlFactory.eINSTANCE.createMeasure()));
+				QmlFactory.eINSTANCE.createMetric()));
 	}
 
 	/**

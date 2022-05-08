@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.disim.univaq.qml.impl.ExcludeConstraintImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.ExcludeConstraintImpl#getExcludingFeature <em>Excluding Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.ExcludeConstraintImpl#getExcludedFeature <em>Excluded Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.ExcludeConstraintImpl#getExcludedAttribute <em>Excluded Attribute</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.ExcludeConstraintImpl#getExcludedAttributeValue <em>Excluded Attribute Value</em>}</li>
@@ -39,14 +39,14 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeConstraint {
 	/**
-	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
+	 * The cached value of the '{@link #getExcludingFeature() <em>Excluding Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFeature()
+	 * @see #getExcludingFeature()
 	 * @generated
 	 * @ordered
 	 */
-	protected Feature feature;
+	protected Feature excludingFeature;
 
 	/**
 	 * The cached value of the '{@link #getExcludedFeature() <em>Excluded Feature</em>}' reference list.
@@ -103,17 +103,17 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	 * @generated
 	 */
 	@Override
-	public Feature getFeature() {
-		if (feature != null && feature.eIsProxy()) {
-			InternalEObject oldFeature = (InternalEObject) feature;
-			feature = (Feature) eResolveProxy(oldFeature);
-			if (feature != oldFeature) {
+	public Feature getExcludingFeature() {
+		if (excludingFeature != null && excludingFeature.eIsProxy()) {
+			InternalEObject oldExcludingFeature = (InternalEObject) excludingFeature;
+			excludingFeature = (Feature) eResolveProxy(oldExcludingFeature);
+			if (excludingFeature != oldExcludingFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, QmlPackage.EXCLUDE_CONSTRAINT__FEATURE,
-							oldFeature, feature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE, oldExcludingFeature, excludingFeature));
 			}
 		}
-		return feature;
+		return excludingFeature;
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Feature basicGetFeature() {
-		return feature;
+	public Feature basicGetExcludingFeature() {
+		return excludingFeature;
 	}
 
 	/**
@@ -131,12 +131,12 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	 * @generated
 	 */
 	@Override
-	public void setFeature(Feature newFeature) {
-		Feature oldFeature = feature;
-		feature = newFeature;
+	public void setExcludingFeature(Feature newExcludingFeature) {
+		Feature oldExcludingFeature = excludingFeature;
+		excludingFeature = newExcludingFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.EXCLUDE_CONSTRAINT__FEATURE, oldFeature,
-					feature));
+			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE,
+					oldExcludingFeature, excludingFeature));
 	}
 
 	/**
@@ -189,10 +189,10 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case QmlPackage.EXCLUDE_CONSTRAINT__FEATURE:
+		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE:
 			if (resolve)
-				return getFeature();
-			return basicGetFeature();
+				return getExcludingFeature();
+			return basicGetExcludingFeature();
 		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDED_FEATURE:
 			return getExcludedFeature();
 		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDED_ATTRIBUTE:
@@ -212,8 +212,8 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case QmlPackage.EXCLUDE_CONSTRAINT__FEATURE:
-			setFeature((Feature) newValue);
+		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE:
+			setExcludingFeature((Feature) newValue);
 			return;
 		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDED_FEATURE:
 			getExcludedFeature().clear();
@@ -239,8 +239,8 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case QmlPackage.EXCLUDE_CONSTRAINT__FEATURE:
-			setFeature((Feature) null);
+		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE:
+			setExcludingFeature((Feature) null);
 			return;
 		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDED_FEATURE:
 			getExcludedFeature().clear();
@@ -263,8 +263,8 @@ public class ExcludeConstraintImpl extends ConstraintImpl implements ExcludeCons
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case QmlPackage.EXCLUDE_CONSTRAINT__FEATURE:
-			return feature != null;
+		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE:
+			return excludingFeature != null;
 		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDED_FEATURE:
 			return excludedFeature != null && !excludedFeature.isEmpty();
 		case QmlPackage.EXCLUDE_CONSTRAINT__EXCLUDED_ATTRIBUTE:

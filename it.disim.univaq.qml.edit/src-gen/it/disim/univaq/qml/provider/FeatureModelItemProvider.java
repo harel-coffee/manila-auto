@@ -74,6 +74,7 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__GROUPS);
 			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__CONSTRAINT);
 			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES);
+			childrenFeatures.add(QmlPackage.Literals.FEATURE_MODEL__QUALITYREQUIREMENT);
 		}
 		return childrenFeatures;
 	}
@@ -139,6 +140,7 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 		case QmlPackage.FEATURE_MODEL__GROUPS:
 		case QmlPackage.FEATURE_MODEL__CONSTRAINT:
 		case QmlPackage.FEATURE_MODEL__QUALITY_PROPERTIES:
+		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -160,7 +162,10 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 				createChildParameter(QmlPackage.Literals.FEATURE_MODEL__ROOT, QmlFactory.eINSTANCE.createFeature()));
 
 		newChildDescriptors.add(
-				createChildParameter(QmlPackage.Literals.FEATURE_MODEL__GROUPS, QmlFactory.eINSTANCE.createGroup()));
+				createChildParameter(QmlPackage.Literals.FEATURE_MODEL__GROUPS, QmlFactory.eINSTANCE.createOrGroup()));
+
+		newChildDescriptors.add(
+				createChildParameter(QmlPackage.Literals.FEATURE_MODEL__GROUPS, QmlFactory.eINSTANCE.createAltGroup()));
 
 		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__CONSTRAINT,
 				QmlFactory.eINSTANCE.createRequireConstraint()));
@@ -175,10 +180,16 @@ public class FeatureModelItemProvider extends ItemProviderAdapter implements IEd
 				QmlFactory.eINSTANCE.createExplainability()));
 
 		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
-				QmlFactory.eINSTANCE.createPredictionQuality()));
+				QmlFactory.eINSTANCE.createPredictionCorrectness()));
 
 		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
 				QmlFactory.eINSTANCE.createPrivacy()));
+
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITY_PROPERTIES,
+				QmlFactory.eINSTANCE.createComputationalComplexity()));
+
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE_MODEL__QUALITYREQUIREMENT,
+				QmlFactory.eINSTANCE.createQualityRequirements()));
 	}
 
 	/**

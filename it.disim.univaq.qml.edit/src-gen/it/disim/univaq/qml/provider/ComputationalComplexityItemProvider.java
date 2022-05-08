@@ -2,7 +2,7 @@
  */
 package it.disim.univaq.qml.provider;
 
-import it.disim.univaq.qml.PredictionQuality;
+import it.disim.univaq.qml.ComputationalComplexity;
 import it.disim.univaq.qml.QualityNature;
 
 import java.util.Collection;
@@ -14,19 +14,19 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 
 /**
- * This is the item provider adapter for a {@link it.disim.univaq.qml.PredictionQuality} object.
+ * This is the item provider adapter for a {@link it.disim.univaq.qml.ComputationalComplexity} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PredictionQualityItemProvider extends QualityPropertyItemProvider {
+public class ComputationalComplexityItemProvider extends QualityPropertyItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PredictionQualityItemProvider(AdapterFactory adapterFactory) {
+	public ComputationalComplexityItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -46,14 +46,14 @@ public class PredictionQualityItemProvider extends QualityPropertyItemProvider {
 	}
 
 	/**
-	 * This returns PredictionQuality.gif.
+	 * This returns ComputationalComplexity.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PredictionQuality"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComputationalComplexity"));
 	}
 
 	/**
@@ -74,10 +74,10 @@ public class PredictionQualityItemProvider extends QualityPropertyItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		QualityNature labelValue = ((PredictionQuality) object).getNature();
+		QualityNature labelValue = ((ComputationalComplexity) object).getNature();
 		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ? getString("_UI_PredictionQuality_type")
-				: getString("_UI_PredictionQuality_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_ComputationalComplexity_type")
+				: getString("_UI_ComputationalComplexity_type") + " " + label;
 	}
 
 	/**

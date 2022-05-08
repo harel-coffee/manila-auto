@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface QualityProperty extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Measure</b></em>' containment reference list.
-	 * The list contents are of type {@link it.disim.univaq.qml.Measure}.
+	 * The list contents are of type {@link it.disim.univaq.qml.Metric}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Measure</em>' containment reference list.
@@ -37,7 +37,7 @@ public interface QualityProperty extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Measure> getMeasure();
+	EList<Metric> getMeasure();
 
 	/**
 	 * Returns the value of the '<em><b>Nature</b></em>' attribute.

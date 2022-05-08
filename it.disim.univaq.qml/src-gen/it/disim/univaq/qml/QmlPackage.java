@@ -104,13 +104,22 @@ public interface QmlPackage extends EPackage {
 	int FEATURE_MODEL__QUALITY_PROPERTIES = 3;
 
 	/**
+	 * The feature id for the '<em><b>Qualityrequirement</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_MODEL__QUALITYREQUIREMENT = 4;
+
+	/**
 	 * The number of structural features of the '<em>Feature Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_MODEL_FEATURE_COUNT = 4;
+	int FEATURE_MODEL_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Feature Model</em>' class.
@@ -232,22 +241,13 @@ public interface QmlPackage extends EPackage {
 	int GROUP__FEATURE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Group Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP__GROUP_TYPE = 1;
-
-	/**
 	 * The number of structural features of the '<em>Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GROUP_FEATURE_COUNT = 2;
+	int GROUP_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Group</em>' class.
@@ -297,13 +297,13 @@ public interface QmlPackage extends EPackage {
 	int REQUIRE_CONSTRAINT = 4;
 
 	/**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * The feature id for the '<em><b>Requiring Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REQUIRE_CONSTRAINT__FEATURE = CONSTRAINT_FEATURE_COUNT + 0;
+	int REQUIRE_CONSTRAINT__REQUIRING_FEATURE = CONSTRAINT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Required Feature</b></em>' reference list.
@@ -361,13 +361,13 @@ public interface QmlPackage extends EPackage {
 	int EXCLUDE_CONSTRAINT = 5;
 
 	/**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * The feature id for the '<em><b>Excluding Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDE_CONSTRAINT__FEATURE = CONSTRAINT_FEATURE_COUNT + 0;
+	int EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE = CONSTRAINT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Excluded Feature</b></em>' reference list.
@@ -425,13 +425,22 @@ public interface QmlPackage extends EPackage {
 	int ATTRIBUTE = 13;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE__NAME = 0;
+
+	/**
 	 * The number of structural features of the '<em>Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FEATURE_COUNT = 0;
+	int ATTRIBUTE_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Attribute</em>' class.
@@ -459,7 +468,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPEN_VALUE_ATTRIBUTE__NAME = ATTRIBUTE_FEATURE_COUNT + 0;
+	int OPEN_VALUE_ATTRIBUTE__NAME = ATTRIBUTE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -468,7 +477,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPEN_VALUE_ATTRIBUTE__TYPE = ATTRIBUTE_FEATURE_COUNT + 1;
+	int OPEN_VALUE_ATTRIBUTE__TYPE = ATTRIBUTE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Open Value Attribute</em>' class.
@@ -477,7 +486,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPEN_VALUE_ATTRIBUTE_FEATURE_COUNT = ATTRIBUTE_FEATURE_COUNT + 2;
+	int OPEN_VALUE_ATTRIBUTE_FEATURE_COUNT = ATTRIBUTE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Open Value Attribute</em>' class.
@@ -726,23 +735,14 @@ public interface QmlPackage extends EPackage {
 	int EXPLAINABILITY_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.disim.univaq.qml.impl.MeasureImpl <em>Measure</em>}' class.
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.MetricImpl <em>Metric</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.disim.univaq.qml.impl.MeasureImpl
-	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getMeasure()
+	 * @see it.disim.univaq.qml.impl.MetricImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getMetric()
 	 * @generated
 	 */
-	int MEASURE = 10;
-
-	/**
-	 * The feature id for the '<em><b>Threshold</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEASURE__THRESHOLD = 0;
+	int METRIC = 10;
 
 	/**
 	 * The feature id for the '<em><b>Implemented By</b></em>' reference.
@@ -751,7 +751,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MEASURE__IMPLEMENTED_BY = 1;
+	int METRIC__IMPLEMENTED_BY = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -760,25 +760,25 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MEASURE__NAME = 2;
+	int METRIC__NAME = 1;
 
 	/**
-	 * The number of structural features of the '<em>Measure</em>' class.
+	 * The number of structural features of the '<em>Metric</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEASURE_FEATURE_COUNT = 3;
+	int METRIC_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>Measure</em>' class.
+	 * The number of operations of the '<em>Metric</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEASURE_OPERATION_COUNT = 0;
+	int METRIC_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.impl.ThresholdImpl <em>Threshold</em>}' class.
@@ -800,13 +800,31 @@ public interface QmlPackage extends EPackage {
 	int THRESHOLD__VALUE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Related To</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THRESHOLD__RELATED_TO = 1;
+
+	/**
+	 * The feature id for the '<em><b>Equality Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THRESHOLD__EQUALITY_OPERATOR = 2;
+
+	/**
 	 * The number of structural features of the '<em>Threshold</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THRESHOLD_FEATURE_COUNT = 1;
+	int THRESHOLD_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Threshold</em>' class.
@@ -834,7 +852,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_VALUE_ATTRIBUTE__NAME = ATTRIBUTE_FEATURE_COUNT + 0;
+	int SELECTION_VALUE_ATTRIBUTE__NAME = ATTRIBUTE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Attributevalue</b></em>' containment reference list.
@@ -843,7 +861,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE = ATTRIBUTE_FEATURE_COUNT + 1;
+	int SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE = ATTRIBUTE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Selection Value Attribute</em>' class.
@@ -852,7 +870,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_VALUE_ATTRIBUTE_FEATURE_COUNT = ATTRIBUTE_FEATURE_COUNT + 2;
+	int SELECTION_VALUE_ATTRIBUTE_FEATURE_COUNT = ATTRIBUTE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Selection Value Attribute</em>' class.
@@ -901,14 +919,14 @@ public interface QmlPackage extends EPackage {
 	int ATTRIBUTE_VALUE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.disim.univaq.qml.impl.PredictionQualityImpl <em>Prediction Quality</em>}' class.
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.PredictionCorrectnessImpl <em>Prediction Correctness</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.disim.univaq.qml.impl.PredictionQualityImpl
-	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPredictionQuality()
+	 * @see it.disim.univaq.qml.impl.PredictionCorrectnessImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPredictionCorrectness()
 	 * @generated
 	 */
-	int PREDICTION_QUALITY = 15;
+	int PREDICTION_CORRECTNESS = 15;
 
 	/**
 	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
@@ -917,7 +935,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY__MEASURE = QUALITY_PROPERTY__MEASURE;
+	int PREDICTION_CORRECTNESS__MEASURE = QUALITY_PROPERTY__MEASURE;
 
 	/**
 	 * The feature id for the '<em><b>Nature</b></em>' attribute.
@@ -926,7 +944,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY__NATURE = QUALITY_PROPERTY__NATURE;
+	int PREDICTION_CORRECTNESS__NATURE = QUALITY_PROPERTY__NATURE;
 
 	/**
 	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
@@ -935,7 +953,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
+	int PREDICTION_CORRECTNESS__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
 
 	/**
 	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
@@ -944,7 +962,7 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
+	int PREDICTION_CORRECTNESS__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
 
 	/**
 	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
@@ -953,25 +971,25 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
+	int PREDICTION_CORRECTNESS__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
 
 	/**
-	 * The number of structural features of the '<em>Prediction Quality</em>' class.
+	 * The number of structural features of the '<em>Prediction Correctness</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY_FEATURE_COUNT = QUALITY_PROPERTY_FEATURE_COUNT + 0;
+	int PREDICTION_CORRECTNESS_FEATURE_COUNT = QUALITY_PROPERTY_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Prediction Quality</em>' class.
+	 * The number of operations of the '<em>Prediction Correctness</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICTION_QUALITY_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
+	int PREDICTION_CORRECTNESS_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.impl.PrivacyImpl <em>Privacy</em>}' class.
@@ -1056,14 +1074,243 @@ public interface QmlPackage extends EPackage {
 	int PRIVACY_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.disim.univaq.qml.GroupType <em>Group Type</em>}' enum.
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.QualityRequirementsImpl <em>Quality Requirements</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.disim.univaq.qml.GroupType
-	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getGroupType()
+	 * @see it.disim.univaq.qml.impl.QualityRequirementsImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityRequirements()
 	 * @generated
 	 */
-	int GROUP_TYPE = 17;
+	int QUALITY_REQUIREMENTS = 17;
+
+	/**
+	 * The feature id for the '<em><b>Made Of</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENTS__MADE_OF = 0;
+
+	/**
+	 * The feature id for the '<em><b>Task</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENTS__TASK = 1;
+
+	/**
+	 * The number of structural features of the '<em>Quality Requirements</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENTS_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Quality Requirements</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENTS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.QualityRequirementImpl <em>Quality Requirement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.impl.QualityRequirementImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityRequirement()
+	 * @generated
+	 */
+	int QUALITY_REQUIREMENT = 21;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.ComputationalComplexityImpl <em>Computational Complexity</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.impl.ComputationalComplexityImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getComputationalComplexity()
+	 * @generated
+	 */
+	int COMPUTATIONAL_COMPLEXITY = 18;
+
+	/**
+	 * The feature id for the '<em><b>Measure</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY__MEASURE = QUALITY_PROPERTY__MEASURE;
+
+	/**
+	 * The feature id for the '<em><b>Nature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY__NATURE = QUALITY_PROPERTY__NATURE;
+
+	/**
+	 * The feature id for the '<em><b>Implemented By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY__IMPLEMENTED_BY = QUALITY_PROPERTY__IMPLEMENTED_BY;
+
+	/**
+	 * The feature id for the '<em><b>Involved Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY__INVOLVED_FEATURE = QUALITY_PROPERTY__INVOLVED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Influenced By</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY__INFLUENCED_BY = QUALITY_PROPERTY__INFLUENCED_BY;
+
+	/**
+	 * The number of structural features of the '<em>Computational Complexity</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY_FEATURE_COUNT = QUALITY_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Computational Complexity</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATIONAL_COMPLEXITY_OPERATION_COUNT = QUALITY_PROPERTY_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.OrGroupImpl <em>Or Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.impl.OrGroupImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getOrGroup()
+	 * @generated
+	 */
+	int OR_GROUP = 19;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_GROUP__FEATURE = GROUP__FEATURE;
+
+	/**
+	 * The number of structural features of the '<em>Or Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_GROUP_FEATURE_COUNT = GROUP_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Or Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_GROUP_OPERATION_COUNT = GROUP_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.impl.AltGroupImpl <em>Alt Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.impl.AltGroupImpl
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getAltGroup()
+	 * @generated
+	 */
+	int ALT_GROUP = 20;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALT_GROUP__FEATURE = GROUP__FEATURE;
+
+	/**
+	 * The number of structural features of the '<em>Alt Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALT_GROUP_FEATURE_COUNT = GROUP_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Alt Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALT_GROUP_OPERATION_COUNT = GROUP_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Related To</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENT__RELATED_TO = 0;
+
+	/**
+	 * The feature id for the '<em><b>Threshold</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENT__THRESHOLD = 1;
+
+	/**
+	 * The number of structural features of the '<em>Quality Requirement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Quality Requirement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUALITY_REQUIREMENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.Level <em>Level</em>}' enum.
@@ -1073,7 +1320,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getLevel()
 	 * @generated
 	 */
-	int LEVEL = 18;
+	int LEVEL = 22;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.QualityNature <em>Quality Nature</em>}' enum.
@@ -1083,7 +1330,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityNature()
 	 * @generated
 	 */
-	int QUALITY_NATURE = 19;
+	int QUALITY_NATURE = 23;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.FairnessType <em>Fairness Type</em>}' enum.
@@ -1093,7 +1340,7 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getFairnessType()
 	 * @generated
 	 */
-	int FAIRNESS_TYPE = 20;
+	int FAIRNESS_TYPE = 24;
 
 	/**
 	 * The meta object id for the '{@link it.disim.univaq.qml.BaseType <em>Base Type</em>}' enum.
@@ -1103,7 +1350,27 @@ public interface QmlPackage extends EPackage {
 	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getBaseType()
 	 * @generated
 	 */
-	int BASE_TYPE = 21;
+	int BASE_TYPE = 25;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.TaskType <em>Task Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.TaskType
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getTaskType()
+	 * @generated
+	 */
+	int TASK_TYPE = 26;
+
+	/**
+	 * The meta object id for the '{@link it.disim.univaq.qml.Operator <em>Operator</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.disim.univaq.qml.Operator
+	 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getOperator()
+	 * @generated
+	 */
+	int OPERATOR = 27;
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.FeatureModel <em>Feature Model</em>}'.
@@ -1158,6 +1425,17 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeatureModel_QualityProperties();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.disim.univaq.qml.FeatureModel#getQualityrequirement <em>Qualityrequirement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Qualityrequirement</em>'.
+	 * @see it.disim.univaq.qml.FeatureModel#getQualityrequirement()
+	 * @see #getFeatureModel()
+	 * @generated
+	 */
+	EReference getFeatureModel_Qualityrequirement();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.Feature <em>Feature</em>}'.
@@ -1268,17 +1546,6 @@ public interface QmlPackage extends EPackage {
 	EReference getGroup_Feature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.Group#getGroupType <em>Group Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Group Type</em>'.
-	 * @see it.disim.univaq.qml.Group#getGroupType()
-	 * @see #getGroup()
-	 * @generated
-	 */
-	EAttribute getGroup_GroupType();
-
-	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.Constraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1299,15 +1566,15 @@ public interface QmlPackage extends EPackage {
 	EClass getRequireConstraint();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.RequireConstraint#getFeature <em>Feature</em>}'.
+	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.RequireConstraint#getRequiringFeature <em>Requiring Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Feature</em>'.
-	 * @see it.disim.univaq.qml.RequireConstraint#getFeature()
+	 * @return the meta object for the reference '<em>Requiring Feature</em>'.
+	 * @see it.disim.univaq.qml.RequireConstraint#getRequiringFeature()
 	 * @see #getRequireConstraint()
 	 * @generated
 	 */
-	EReference getRequireConstraint_Feature();
+	EReference getRequireConstraint_RequiringFeature();
 
 	/**
 	 * Returns the meta object for the reference list '{@link it.disim.univaq.qml.RequireConstraint#getRequiredFeature <em>Required Feature</em>}'.
@@ -1353,15 +1620,15 @@ public interface QmlPackage extends EPackage {
 	EClass getExcludeConstraint();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.ExcludeConstraint#getFeature <em>Feature</em>}'.
+	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.ExcludeConstraint#getExcludingFeature <em>Excluding Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Feature</em>'.
-	 * @see it.disim.univaq.qml.ExcludeConstraint#getFeature()
+	 * @return the meta object for the reference '<em>Excluding Feature</em>'.
+	 * @see it.disim.univaq.qml.ExcludeConstraint#getExcludingFeature()
 	 * @see #getExcludeConstraint()
 	 * @generated
 	 */
-	EReference getExcludeConstraint_Feature();
+	EReference getExcludeConstraint_ExcludingFeature();
 
 	/**
 	 * Returns the meta object for the reference list '{@link it.disim.univaq.qml.ExcludeConstraint#getExcludedFeature <em>Excluded Feature</em>}'.
@@ -1407,17 +1674,6 @@ public interface QmlPackage extends EPackage {
 	EClass getOpenValueAttribute();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.OpenValueAttribute#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.disim.univaq.qml.OpenValueAttribute#getName()
-	 * @see #getOpenValueAttribute()
-	 * @generated
-	 */
-	EAttribute getOpenValueAttribute_Name();
-
-	/**
 	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.OpenValueAttribute#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1437,6 +1693,17 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getAttribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.Attribute#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.disim.univaq.qml.Attribute#getName()
+	 * @see #getAttribute()
+	 * @generated
+	 */
+	EAttribute getAttribute_Name();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.AttributeValue <em>Attribute Value</em>}'.
@@ -1460,14 +1727,14 @@ public interface QmlPackage extends EPackage {
 	EAttribute getAttributeValue_Value();
 
 	/**
-	 * Returns the meta object for class '{@link it.disim.univaq.qml.PredictionQuality <em>Prediction Quality</em>}'.
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.PredictionCorrectness <em>Prediction Correctness</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Prediction Quality</em>'.
-	 * @see it.disim.univaq.qml.PredictionQuality
+	 * @return the meta object for class '<em>Prediction Correctness</em>'.
+	 * @see it.disim.univaq.qml.PredictionCorrectness
 	 * @generated
 	 */
-	EClass getPredictionQuality();
+	EClass getPredictionCorrectness();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.Privacy <em>Privacy</em>}'.
@@ -1489,6 +1756,100 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPrivacy_PrivacyLevel();
+
+	/**
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.QualityRequirements <em>Quality Requirements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Quality Requirements</em>'.
+	 * @see it.disim.univaq.qml.QualityRequirements
+	 * @generated
+	 */
+	EClass getQualityRequirements();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.QualityRequirements#getTask <em>Task</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Task</em>'.
+	 * @see it.disim.univaq.qml.QualityRequirements#getTask()
+	 * @see #getQualityRequirements()
+	 * @generated
+	 */
+	EAttribute getQualityRequirements_Task();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.disim.univaq.qml.QualityRequirements#getMadeOf <em>Made Of</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Made Of</em>'.
+	 * @see it.disim.univaq.qml.QualityRequirements#getMadeOf()
+	 * @see #getQualityRequirements()
+	 * @generated
+	 */
+	EReference getQualityRequirements_MadeOf();
+
+	/**
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.QualityRequirement <em>Quality Requirement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Quality Requirement</em>'.
+	 * @see it.disim.univaq.qml.QualityRequirement
+	 * @generated
+	 */
+	EClass getQualityRequirement();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.QualityRequirement#getRelatedTo <em>Related To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Related To</em>'.
+	 * @see it.disim.univaq.qml.QualityRequirement#getRelatedTo()
+	 * @see #getQualityRequirement()
+	 * @generated
+	 */
+	EReference getQualityRequirement_RelatedTo();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.disim.univaq.qml.QualityRequirement#getThreshold <em>Threshold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Threshold</em>'.
+	 * @see it.disim.univaq.qml.QualityRequirement#getThreshold()
+	 * @see #getQualityRequirement()
+	 * @generated
+	 */
+	EReference getQualityRequirement_Threshold();
+
+	/**
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.ComputationalComplexity <em>Computational Complexity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Computational Complexity</em>'.
+	 * @see it.disim.univaq.qml.ComputationalComplexity
+	 * @generated
+	 */
+	EClass getComputationalComplexity();
+
+	/**
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.OrGroup <em>Or Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Or Group</em>'.
+	 * @see it.disim.univaq.qml.OrGroup
+	 * @generated
+	 */
+	EClass getOrGroup();
+
+	/**
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.AltGroup <em>Alt Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alt Group</em>'.
+	 * @see it.disim.univaq.qml.AltGroup
+	 * @generated
+	 */
+	EClass getAltGroup();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.QualityProperty <em>Quality Property</em>}'.
@@ -1598,47 +1959,36 @@ public interface QmlPackage extends EPackage {
 	EAttribute getExplainability_ExplainabilityLevel();
 
 	/**
-	 * Returns the meta object for class '{@link it.disim.univaq.qml.Measure <em>Measure</em>}'.
+	 * Returns the meta object for class '{@link it.disim.univaq.qml.Metric <em>Metric</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Measure</em>'.
-	 * @see it.disim.univaq.qml.Measure
+	 * @return the meta object for class '<em>Metric</em>'.
+	 * @see it.disim.univaq.qml.Metric
 	 * @generated
 	 */
-	EClass getMeasure();
+	EClass getMetric();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.disim.univaq.qml.Measure#getThreshold <em>Threshold</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Threshold</em>'.
-	 * @see it.disim.univaq.qml.Measure#getThreshold()
-	 * @see #getMeasure()
-	 * @generated
-	 */
-	EReference getMeasure_Threshold();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.Measure#getImplementedBy <em>Implemented By</em>}'.
+	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.Metric#getImplementedBy <em>Implemented By</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Implemented By</em>'.
-	 * @see it.disim.univaq.qml.Measure#getImplementedBy()
-	 * @see #getMeasure()
+	 * @see it.disim.univaq.qml.Metric#getImplementedBy()
+	 * @see #getMetric()
 	 * @generated
 	 */
-	EReference getMeasure_ImplementedBy();
+	EReference getMetric_ImplementedBy();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.Measure#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.Metric#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.disim.univaq.qml.Measure#getName()
-	 * @see #getMeasure()
+	 * @see it.disim.univaq.qml.Metric#getName()
+	 * @see #getMetric()
 	 * @generated
 	 */
-	EAttribute getMeasure_Name();
+	EAttribute getMetric_Name();
 
 	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.Threshold <em>Threshold</em>}'.
@@ -1662,6 +2012,28 @@ public interface QmlPackage extends EPackage {
 	EAttribute getThreshold_Value();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.disim.univaq.qml.Threshold#getRelatedTo <em>Related To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Related To</em>'.
+	 * @see it.disim.univaq.qml.Threshold#getRelatedTo()
+	 * @see #getThreshold()
+	 * @generated
+	 */
+	EReference getThreshold_RelatedTo();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.Threshold#getEqualityOperator <em>Equality Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Equality Operator</em>'.
+	 * @see it.disim.univaq.qml.Threshold#getEqualityOperator()
+	 * @see #getThreshold()
+	 * @generated
+	 */
+	EAttribute getThreshold_EqualityOperator();
+
+	/**
 	 * Returns the meta object for class '{@link it.disim.univaq.qml.SelectionValueAttribute <em>Selection Value Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1670,17 +2042,6 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSelectionValueAttribute();
-
-	/**
-	 * Returns the meta object for the attribute '{@link it.disim.univaq.qml.SelectionValueAttribute#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.disim.univaq.qml.SelectionValueAttribute#getName()
-	 * @see #getSelectionValueAttribute()
-	 * @generated
-	 */
-	EAttribute getSelectionValueAttribute_Name();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link it.disim.univaq.qml.SelectionValueAttribute#getAttributevalue <em>Attributevalue</em>}'.
@@ -1692,16 +2053,6 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSelectionValueAttribute_Attributevalue();
-
-	/**
-	 * Returns the meta object for enum '{@link it.disim.univaq.qml.GroupType <em>Group Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Group Type</em>'.
-	 * @see it.disim.univaq.qml.GroupType
-	 * @generated
-	 */
-	EEnum getGroupType();
 
 	/**
 	 * Returns the meta object for enum '{@link it.disim.univaq.qml.Level <em>Level</em>}'.
@@ -1742,6 +2093,26 @@ public interface QmlPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getBaseType();
+
+	/**
+	 * Returns the meta object for enum '{@link it.disim.univaq.qml.TaskType <em>Task Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Task Type</em>'.
+	 * @see it.disim.univaq.qml.TaskType
+	 * @generated
+	 */
+	EEnum getTaskType();
+
+	/**
+	 * Returns the meta object for enum '{@link it.disim.univaq.qml.Operator <em>Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Operator</em>'.
+	 * @see it.disim.univaq.qml.Operator
+	 * @generated
+	 */
+	EEnum getOperator();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1807,6 +2178,14 @@ public interface QmlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FEATURE_MODEL__QUALITY_PROPERTIES = eINSTANCE.getFeatureModel_QualityProperties();
+
+		/**
+		 * The meta object literal for the '<em><b>Qualityrequirement</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE_MODEL__QUALITYREQUIREMENT = eINSTANCE.getFeatureModel_Qualityrequirement();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.FeatureImpl <em>Feature</em>}' class.
@@ -1893,14 +2272,6 @@ public interface QmlPackage extends EPackage {
 		EReference GROUP__FEATURE = eINSTANCE.getGroup_Feature();
 
 		/**
-		 * The meta object literal for the '<em><b>Group Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute GROUP__GROUP_TYPE = eINSTANCE.getGroup_GroupType();
-
-		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.ConstraintImpl <em>Constraint</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1921,12 +2292,12 @@ public interface QmlPackage extends EPackage {
 		EClass REQUIRE_CONSTRAINT = eINSTANCE.getRequireConstraint();
 
 		/**
-		 * The meta object literal for the '<em><b>Feature</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Requiring Feature</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference REQUIRE_CONSTRAINT__FEATURE = eINSTANCE.getRequireConstraint_Feature();
+		EReference REQUIRE_CONSTRAINT__REQUIRING_FEATURE = eINSTANCE.getRequireConstraint_RequiringFeature();
 
 		/**
 		 * The meta object literal for the '<em><b>Required Feature</b></em>' reference list feature.
@@ -1964,12 +2335,12 @@ public interface QmlPackage extends EPackage {
 		EClass EXCLUDE_CONSTRAINT = eINSTANCE.getExcludeConstraint();
 
 		/**
-		 * The meta object literal for the '<em><b>Feature</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Excluding Feature</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXCLUDE_CONSTRAINT__FEATURE = eINSTANCE.getExcludeConstraint_Feature();
+		EReference EXCLUDE_CONSTRAINT__EXCLUDING_FEATURE = eINSTANCE.getExcludeConstraint_ExcludingFeature();
 
 		/**
 		 * The meta object literal for the '<em><b>Excluded Feature</b></em>' reference list feature.
@@ -2007,14 +2378,6 @@ public interface QmlPackage extends EPackage {
 		EClass OPEN_VALUE_ATTRIBUTE = eINSTANCE.getOpenValueAttribute();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPEN_VALUE_ATTRIBUTE__NAME = eINSTANCE.getOpenValueAttribute_Name();
-
-		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2031,6 +2394,14 @@ public interface QmlPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ATTRIBUTE = eINSTANCE.getAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ATTRIBUTE__NAME = eINSTANCE.getAttribute_Name();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
@@ -2051,14 +2422,14 @@ public interface QmlPackage extends EPackage {
 		EAttribute ATTRIBUTE_VALUE__VALUE = eINSTANCE.getAttributeValue_Value();
 
 		/**
-		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.PredictionQualityImpl <em>Prediction Quality</em>}' class.
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.PredictionCorrectnessImpl <em>Prediction Correctness</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.disim.univaq.qml.impl.PredictionQualityImpl
-		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPredictionQuality()
+		 * @see it.disim.univaq.qml.impl.PredictionCorrectnessImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getPredictionCorrectness()
 		 * @generated
 		 */
-		EClass PREDICTION_QUALITY = eINSTANCE.getPredictionQuality();
+		EClass PREDICTION_CORRECTNESS = eINSTANCE.getPredictionCorrectness();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.PrivacyImpl <em>Privacy</em>}' class.
@@ -2077,6 +2448,88 @@ public interface QmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PRIVACY__PRIVACY_LEVEL = eINSTANCE.getPrivacy_PrivacyLevel();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.QualityRequirementsImpl <em>Quality Requirements</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.impl.QualityRequirementsImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityRequirements()
+		 * @generated
+		 */
+		EClass QUALITY_REQUIREMENTS = eINSTANCE.getQualityRequirements();
+
+		/**
+		 * The meta object literal for the '<em><b>Task</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUALITY_REQUIREMENTS__TASK = eINSTANCE.getQualityRequirements_Task();
+
+		/**
+		 * The meta object literal for the '<em><b>Made Of</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUALITY_REQUIREMENTS__MADE_OF = eINSTANCE.getQualityRequirements_MadeOf();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.QualityRequirementImpl <em>Quality Requirement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.impl.QualityRequirementImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getQualityRequirement()
+		 * @generated
+		 */
+		EClass QUALITY_REQUIREMENT = eINSTANCE.getQualityRequirement();
+
+		/**
+		 * The meta object literal for the '<em><b>Related To</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUALITY_REQUIREMENT__RELATED_TO = eINSTANCE.getQualityRequirement_RelatedTo();
+
+		/**
+		 * The meta object literal for the '<em><b>Threshold</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUALITY_REQUIREMENT__THRESHOLD = eINSTANCE.getQualityRequirement_Threshold();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.ComputationalComplexityImpl <em>Computational Complexity</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.impl.ComputationalComplexityImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getComputationalComplexity()
+		 * @generated
+		 */
+		EClass COMPUTATIONAL_COMPLEXITY = eINSTANCE.getComputationalComplexity();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.OrGroupImpl <em>Or Group</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.impl.OrGroupImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getOrGroup()
+		 * @generated
+		 */
+		EClass OR_GROUP = eINSTANCE.getOrGroup();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.AltGroupImpl <em>Alt Group</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.impl.AltGroupImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getAltGroup()
+		 * @generated
+		 */
+		EClass ALT_GROUP = eINSTANCE.getAltGroup();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.QualityPropertyImpl <em>Quality Property</em>}' class.
@@ -2165,22 +2618,14 @@ public interface QmlPackage extends EPackage {
 		EAttribute EXPLAINABILITY__EXPLAINABILITY_LEVEL = eINSTANCE.getExplainability_ExplainabilityLevel();
 
 		/**
-		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.MeasureImpl <em>Measure</em>}' class.
+		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.MetricImpl <em>Metric</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.disim.univaq.qml.impl.MeasureImpl
-		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getMeasure()
+		 * @see it.disim.univaq.qml.impl.MetricImpl
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getMetric()
 		 * @generated
 		 */
-		EClass MEASURE = eINSTANCE.getMeasure();
-
-		/**
-		 * The meta object literal for the '<em><b>Threshold</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MEASURE__THRESHOLD = eINSTANCE.getMeasure_Threshold();
+		EClass METRIC = eINSTANCE.getMetric();
 
 		/**
 		 * The meta object literal for the '<em><b>Implemented By</b></em>' reference feature.
@@ -2188,7 +2633,7 @@ public interface QmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MEASURE__IMPLEMENTED_BY = eINSTANCE.getMeasure_ImplementedBy();
+		EReference METRIC__IMPLEMENTED_BY = eINSTANCE.getMetric_ImplementedBy();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2196,7 +2641,7 @@ public interface QmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute MEASURE__NAME = eINSTANCE.getMeasure_Name();
+		EAttribute METRIC__NAME = eINSTANCE.getMetric_Name();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.ThresholdImpl <em>Threshold</em>}' class.
@@ -2217,6 +2662,22 @@ public interface QmlPackage extends EPackage {
 		EAttribute THRESHOLD__VALUE = eINSTANCE.getThreshold_Value();
 
 		/**
+		 * The meta object literal for the '<em><b>Related To</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference THRESHOLD__RELATED_TO = eINSTANCE.getThreshold_RelatedTo();
+
+		/**
+		 * The meta object literal for the '<em><b>Equality Operator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THRESHOLD__EQUALITY_OPERATOR = eINSTANCE.getThreshold_EqualityOperator();
+
+		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.impl.SelectionValueAttributeImpl <em>Selection Value Attribute</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2227,30 +2688,12 @@ public interface QmlPackage extends EPackage {
 		EClass SELECTION_VALUE_ATTRIBUTE = eINSTANCE.getSelectionValueAttribute();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SELECTION_VALUE_ATTRIBUTE__NAME = eINSTANCE.getSelectionValueAttribute_Name();
-
-		/**
 		 * The meta object literal for the '<em><b>Attributevalue</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE = eINSTANCE.getSelectionValueAttribute_Attributevalue();
-
-		/**
-		 * The meta object literal for the '{@link it.disim.univaq.qml.GroupType <em>Group Type</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.disim.univaq.qml.GroupType
-		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getGroupType()
-		 * @generated
-		 */
-		EEnum GROUP_TYPE = eINSTANCE.getGroupType();
 
 		/**
 		 * The meta object literal for the '{@link it.disim.univaq.qml.Level <em>Level</em>}' enum.
@@ -2291,6 +2734,26 @@ public interface QmlPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum BASE_TYPE = eINSTANCE.getBaseType();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.TaskType <em>Task Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.TaskType
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getTaskType()
+		 * @generated
+		 */
+		EEnum TASK_TYPE = eINSTANCE.getTaskType();
+
+		/**
+		 * The meta object literal for the '{@link it.disim.univaq.qml.Operator <em>Operator</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.disim.univaq.qml.Operator
+		 * @see it.disim.univaq.qml.impl.QmlPackageImpl#getOperator()
+		 * @generated
+		 */
+		EEnum OPERATOR = eINSTANCE.getOperator();
 
 	}
 

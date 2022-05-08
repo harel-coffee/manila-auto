@@ -13,9 +13,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -46,25 +44,8 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_SelectionValueAttribute_name_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SelectionValueAttribute_name_feature",
-						"_UI_SelectionValueAttribute_type"),
-				QmlPackage.Literals.SELECTION_VALUE_ATTRIBUTE__NAME, true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -143,9 +124,6 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SelectionValueAttribute.class)) {
-		case QmlPackage.SELECTION_VALUE_ATTRIBUTE__NAME:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
 		case QmlPackage.SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;

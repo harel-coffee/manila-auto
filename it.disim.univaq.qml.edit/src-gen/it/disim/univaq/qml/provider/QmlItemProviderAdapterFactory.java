@@ -119,29 +119,6 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Group} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GroupItemProvider groupItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.Group}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createGroupAdapter() {
-		if (groupItemProvider == null) {
-			groupItemProvider = new GroupItemProvider(this);
-		}
-
-		return groupItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.RequireConstraint} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -257,26 +234,26 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Measure} instances.
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Metric} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MeasureItemProvider measureItemProvider;
+	protected MetricItemProvider metricItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.Measure}.
+	 * This creates an adapter for a {@link it.disim.univaq.qml.Metric}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createMeasureAdapter() {
-		if (measureItemProvider == null) {
-			measureItemProvider = new MeasureItemProvider(this);
+	public Adapter createMetricAdapter() {
+		if (metricItemProvider == null) {
+			metricItemProvider = new MetricItemProvider(this);
 		}
 
-		return measureItemProvider;
+		return metricItemProvider;
 	}
 
 	/**
@@ -349,26 +326,26 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.PredictionQuality} instances.
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.PredictionCorrectness} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PredictionQualityItemProvider predictionQualityItemProvider;
+	protected PredictionCorrectnessItemProvider predictionCorrectnessItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.PredictionQuality}.
+	 * This creates an adapter for a {@link it.disim.univaq.qml.PredictionCorrectness}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createPredictionQualityAdapter() {
-		if (predictionQualityItemProvider == null) {
-			predictionQualityItemProvider = new PredictionQualityItemProvider(this);
+	public Adapter createPredictionCorrectnessAdapter() {
+		if (predictionCorrectnessItemProvider == null) {
+			predictionCorrectnessItemProvider = new PredictionCorrectnessItemProvider(this);
 		}
 
-		return predictionQualityItemProvider;
+		return predictionCorrectnessItemProvider;
 	}
 
 	/**
@@ -392,6 +369,121 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 		}
 
 		return privacyItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.QualityRequirements} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected QualityRequirementsItemProvider qualityRequirementsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.QualityRequirements}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createQualityRequirementsAdapter() {
+		if (qualityRequirementsItemProvider == null) {
+			qualityRequirementsItemProvider = new QualityRequirementsItemProvider(this);
+		}
+
+		return qualityRequirementsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.QualityRequirement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected QualityRequirementItemProvider qualityRequirementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.QualityRequirement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createQualityRequirementAdapter() {
+		if (qualityRequirementItemProvider == null) {
+			qualityRequirementItemProvider = new QualityRequirementItemProvider(this);
+		}
+
+		return qualityRequirementItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.ComputationalComplexity} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComputationalComplexityItemProvider computationalComplexityItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.ComputationalComplexity}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createComputationalComplexityAdapter() {
+		if (computationalComplexityItemProvider == null) {
+			computationalComplexityItemProvider = new ComputationalComplexityItemProvider(this);
+		}
+
+		return computationalComplexityItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.OrGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OrGroupItemProvider orGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.OrGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOrGroupAdapter() {
+		if (orGroupItemProvider == null) {
+			orGroupItemProvider = new OrGroupItemProvider(this);
+		}
+
+		return orGroupItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.AltGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AltGroupItemProvider altGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.AltGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAltGroupAdapter() {
+		if (altGroupItemProvider == null) {
+			altGroupItemProvider = new AltGroupItemProvider(this);
+		}
+
+		return altGroupItemProvider;
 	}
 
 	/**
@@ -503,8 +595,6 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			featureModelItemProvider.dispose();
 		if (featureItemProvider != null)
 			featureItemProvider.dispose();
-		if (groupItemProvider != null)
-			groupItemProvider.dispose();
 		if (requireConstraintItemProvider != null)
 			requireConstraintItemProvider.dispose();
 		if (excludeConstraintItemProvider != null)
@@ -515,18 +605,28 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			fairnessItemProvider.dispose();
 		if (explainabilityItemProvider != null)
 			explainabilityItemProvider.dispose();
-		if (measureItemProvider != null)
-			measureItemProvider.dispose();
+		if (metricItemProvider != null)
+			metricItemProvider.dispose();
 		if (thresholdItemProvider != null)
 			thresholdItemProvider.dispose();
 		if (selectionValueAttributeItemProvider != null)
 			selectionValueAttributeItemProvider.dispose();
 		if (attributeValueItemProvider != null)
 			attributeValueItemProvider.dispose();
-		if (predictionQualityItemProvider != null)
-			predictionQualityItemProvider.dispose();
+		if (predictionCorrectnessItemProvider != null)
+			predictionCorrectnessItemProvider.dispose();
 		if (privacyItemProvider != null)
 			privacyItemProvider.dispose();
+		if (qualityRequirementsItemProvider != null)
+			qualityRequirementsItemProvider.dispose();
+		if (computationalComplexityItemProvider != null)
+			computationalComplexityItemProvider.dispose();
+		if (orGroupItemProvider != null)
+			orGroupItemProvider.dispose();
+		if (altGroupItemProvider != null)
+			altGroupItemProvider.dispose();
+		if (qualityRequirementItemProvider != null)
+			qualityRequirementItemProvider.dispose();
 	}
 
 }

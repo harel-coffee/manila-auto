@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link it.disim.univaq.qml.RequireConstraint#getFeature <em>Feature</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.RequireConstraint#getRequiringFeature <em>Requiring Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.RequireConstraint#getRequiredFeature <em>Required Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.RequireConstraint#getRequiredAttribute <em>Required Attribute</em>}</li>
  *   <li>{@link it.disim.univaq.qml.RequireConstraint#getRequiredAttributeValue <em>Required Attribute Value</em>}</li>
@@ -25,26 +25,26 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface RequireConstraint extends Constraint {
 	/**
-	 * Returns the value of the '<em><b>Feature</b></em>' reference.
+	 * Returns the value of the '<em><b>Requiring Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature</em>' reference.
-	 * @see #setFeature(Feature)
-	 * @see it.disim.univaq.qml.QmlPackage#getRequireConstraint_Feature()
+	 * @return the value of the '<em>Requiring Feature</em>' reference.
+	 * @see #setRequiringFeature(Feature)
+	 * @see it.disim.univaq.qml.QmlPackage#getRequireConstraint_RequiringFeature()
 	 * @model required="true"
 	 * @generated
 	 */
-	Feature getFeature();
+	Feature getRequiringFeature();
 
 	/**
-	 * Sets the value of the '{@link it.disim.univaq.qml.RequireConstraint#getFeature <em>Feature</em>}' reference.
+	 * Sets the value of the '{@link it.disim.univaq.qml.RequireConstraint#getRequiringFeature <em>Requiring Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature</em>' reference.
-	 * @see #getFeature()
+	 * @param value the new value of the '<em>Requiring Feature</em>' reference.
+	 * @see #getRequiringFeature()
 	 * @generated
 	 */
-	void setFeature(Feature value);
+	void setRequiringFeature(Feature value);
 
 	/**
 	 * Returns the value of the '<em><b>Required Feature</b></em>' reference list.

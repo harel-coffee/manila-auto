@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link it.disim.univaq.qml.Measure#getThreshold <em>Threshold</em>}</li>
  *   <li>{@link it.disim.univaq.qml.Measure#getImplementedBy <em>Implemented By</em>}</li>
  *   <li>{@link it.disim.univaq.qml.Measure#getName <em>Name</em>}</li>
  * </ul>
@@ -23,28 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Measure extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Threshold</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Threshold</em>' containment reference.
-	 * @see #setThreshold(Threshold)
-	 * @see it.disim.univaq.qml.QmlPackage#getMeasure_Threshold()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Threshold getThreshold();
-
-	/**
-	 * Sets the value of the '{@link it.disim.univaq.qml.Measure#getThreshold <em>Threshold</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Threshold</em>' containment reference.
-	 * @see #getThreshold()
-	 * @generated
-	 */
-	void setThreshold(Threshold value);
-
 	/**
 	 * Returns the value of the '<em><b>Implemented By</b></em>' reference.
 	 * <!-- begin-user-doc -->

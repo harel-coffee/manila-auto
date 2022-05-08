@@ -41,7 +41,7 @@ public class RequireConstraintItemProvider extends ConstraintItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFeaturePropertyDescriptor(object);
+			addRequiringFeaturePropertyDescriptor(object);
 			addRequiredFeaturePropertyDescriptor(object);
 			addRequiredAttributePropertyDescriptor(object);
 			addRequiredAttributeValuePropertyDescriptor(object);
@@ -50,18 +50,18 @@ public class RequireConstraintItemProvider extends ConstraintItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Feature feature.
+	 * This adds a property descriptor for the Requiring Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_RequireConstraint_feature_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_RequireConstraint_feature_feature",
-								"_UI_RequireConstraint_type"),
-						QmlPackage.Literals.REQUIRE_CONSTRAINT__FEATURE, true, false, true, null, null, null));
+	protected void addRequiringFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_RequireConstraint_requiringFeature_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_RequireConstraint_requiringFeature_feature",
+						"_UI_RequireConstraint_type"),
+				QmlPackage.Literals.REQUIRE_CONSTRAINT__REQUIRING_FEATURE, true, false, true, null, null, null));
 	}
 
 	/**

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.disim.univaq.qml.FeatureModel#getGroups <em>Groups</em>}</li>
  *   <li>{@link it.disim.univaq.qml.FeatureModel#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link it.disim.univaq.qml.FeatureModel#getQualityProperties <em>Quality Properties</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.FeatureModel#getQualityrequirement <em>Qualityrequirement</em>}</li>
  * </ul>
  *
  * @see it.disim.univaq.qml.QmlPackage#getFeatureModel()
@@ -83,5 +84,27 @@ public interface FeatureModel extends EObject {
 	 * @generated
 	 */
 	EList<QualityProperty> getQualityProperties();
+
+	/**
+	 * Returns the value of the '<em><b>Qualityrequirement</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Qualityrequirement</em>' containment reference.
+	 * @see #setQualityrequirement(QualityRequirements)
+	 * @see it.disim.univaq.qml.QmlPackage#getFeatureModel_Qualityrequirement()
+	 * @model containment="true"
+	 * @generated
+	 */
+	QualityRequirements getQualityrequirement();
+
+	/**
+	 * Sets the value of the '{@link it.disim.univaq.qml.FeatureModel#getQualityrequirement <em>Qualityrequirement</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Qualityrequirement</em>' containment reference.
+	 * @see #getQualityrequirement()
+	 * @generated
+	 */
+	void setQualityrequirement(QualityRequirements value);
 
 } // FeatureModel

@@ -146,9 +146,9 @@ public class QmlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case QmlPackage.MEASURE: {
-			Measure measure = (Measure) theEObject;
-			T result = caseMeasure(measure);
+		case QmlPackage.METRIC: {
+			Metric metric = (Metric) theEObject;
+			T result = caseMetric(metric);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -183,11 +183,11 @@ public class QmlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case QmlPackage.PREDICTION_QUALITY: {
-			PredictionQuality predictionQuality = (PredictionQuality) theEObject;
-			T result = casePredictionQuality(predictionQuality);
+		case QmlPackage.PREDICTION_CORRECTNESS: {
+			PredictionCorrectness predictionCorrectness = (PredictionCorrectness) theEObject;
+			T result = casePredictionCorrectness(predictionCorrectness);
 			if (result == null)
-				result = caseQualityProperty(predictionQuality);
+				result = caseQualityProperty(predictionCorrectness);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -197,6 +197,47 @@ public class QmlSwitch<T> extends Switch<T> {
 			T result = casePrivacy(privacy);
 			if (result == null)
 				result = caseQualityProperty(privacy);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.QUALITY_REQUIREMENTS: {
+			QualityRequirements qualityRequirements = (QualityRequirements) theEObject;
+			T result = caseQualityRequirements(qualityRequirements);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.COMPUTATIONAL_COMPLEXITY: {
+			ComputationalComplexity computationalComplexity = (ComputationalComplexity) theEObject;
+			T result = caseComputationalComplexity(computationalComplexity);
+			if (result == null)
+				result = caseQualityProperty(computationalComplexity);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.OR_GROUP: {
+			OrGroup orGroup = (OrGroup) theEObject;
+			T result = caseOrGroup(orGroup);
+			if (result == null)
+				result = caseGroup(orGroup);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.ALT_GROUP: {
+			AltGroup altGroup = (AltGroup) theEObject;
+			T result = caseAltGroup(altGroup);
+			if (result == null)
+				result = caseGroup(altGroup);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.QUALITY_REQUIREMENT: {
+			QualityRequirement qualityRequirement = (QualityRequirement) theEObject;
+			T result = caseQualityRequirement(qualityRequirement);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -342,17 +383,17 @@ public class QmlSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Prediction Quality</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Prediction Correctness</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Prediction Quality</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Prediction Correctness</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePredictionQuality(PredictionQuality object) {
+	public T casePredictionCorrectness(PredictionCorrectness object) {
 		return null;
 	}
 
@@ -368,6 +409,81 @@ public class QmlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePrivacy(Privacy object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Quality Requirements</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Quality Requirements</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseQualityRequirements(QualityRequirements object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Quality Requirement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Quality Requirement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseQualityRequirement(QualityRequirement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Computational Complexity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Computational Complexity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComputationalComplexity(ComputationalComplexity object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Or Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Or Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOrGroup(OrGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alt Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alt Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAltGroup(AltGroup object) {
 		return null;
 	}
 
@@ -417,17 +533,17 @@ public class QmlSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Measure</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Metric</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Measure</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Metric</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseMeasure(Measure object) {
+	public T caseMetric(Metric object) {
 		return null;
 	}
 

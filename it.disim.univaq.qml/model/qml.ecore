@@ -10,6 +10,8 @@
         eType="#//Constraint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="qualityProperties" upperBound="-1"
         eType="#//QualityProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualityrequirement" eType="#//QualityRequirements"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -23,18 +25,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" upperBound="-1"
         eType="#//Attribute" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Group">
+  <eClassifiers xsi:type="ecore:EClass" name="Group" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="2"
         upperBound="-1" eType="#//Feature" eOpposite="#//Feature/group"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupType" eType="#//GroupType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="GroupType">
-    <eLiterals name="ALT"/>
-    <eLiterals name="OR" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="RequireConstraint" eSuperTypes="#//Constraint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiringFeature" lowerBound="1"
         eType="#//Feature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requiredFeature" upperBound="-1"
         eType="#//Feature"/>
@@ -44,7 +41,7 @@
         upperBound="-1" eType="#//AttributeValue"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExcludeConstraint" eSuperTypes="#//Constraint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="excludingFeature" lowerBound="1"
         eType="#//Feature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedFeature" upperBound="-1"
         eType="#//Feature"/>
@@ -54,12 +51,11 @@
         upperBound="-1" eType="#//AttributeValue"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OpenValueAttribute" eSuperTypes="#//Attribute">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//BaseType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QualityProperty" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="measure" upperBound="-1"
-        eType="#//Measure" containment="true"/>
+        eType="#//Metric" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nature" eType="#//QualityNature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="implementedBy" upperBound="-1"
         eType="#//Feature"/>
@@ -74,15 +70,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="Explainability" eSuperTypes="#//QualityProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="explainabilityLevel" eType="#//Level"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Measure">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="threshold" eType="#//Threshold"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Metric">
     <eStructuralFeatures xsi:type="ecore:EReference" name="implementedBy" lowerBound="1"
         eType="#//Feature"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Threshold">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Float"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedTo" lowerBound="1"
+        eType="#//Metric"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="equalityOperator" eType="#//Operator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Level">
     <eLiterals name="LOW"/>
@@ -105,16 +102,41 @@
     <eLiterals name="STRING" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SelectionValueAttribute" eSuperTypes="#//Attribute">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributevalue" lowerBound="1"
         upperBound="-1" eType="#//AttributeValue" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Attribute" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Attribute" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PredictionQuality" eSuperTypes="#//QualityProperty"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PredictionCorrectness" eSuperTypes="#//QualityProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="Privacy" eSuperTypes="#//QualityProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="privacyLevel" eType="#//Level"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualityRequirements">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="madeOf" lowerBound="1"
+        upperBound="-1" eType="#//QualityRequirement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="task" lowerBound="1" eType="#//TaskType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TaskType">
+    <eLiterals name="CLASSIFICATION"/>
+    <eLiterals name="REGRESSION" value="1"/>
+    <eLiterals name="NLP" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComputationalComplexity" eSuperTypes="#//QualityProperty"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrGroup" eSuperTypes="#//Group"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AltGroup" eSuperTypes="#//Group"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QualityRequirement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedTo" lowerBound="1"
+        eType="#//QualityProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threshold" upperBound="-1"
+        eType="#//Threshold" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Operator">
+    <eLiterals name="LOWER_OR_EQUAL"/>
+    <eLiterals name="EQUAL" value="1"/>
+    <eLiterals name="HIGHER_OR_EQUAL" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -2,8 +2,6 @@
  */
 package it.disim.univaq.qml.provider;
 
-import it.disim.univaq.qml.Group;
-import it.disim.univaq.qml.GroupType;
 import it.disim.univaq.qml.QmlPackage;
 
 import java.util.Collection;
@@ -21,9 +19,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.disim.univaq.qml.Group} object.
@@ -55,7 +51,6 @@ public class GroupItemProvider extends ItemProviderAdapter implements IEditingDo
 			super.getPropertyDescriptors(object);
 
 			addFeaturePropertyDescriptor(object);
-			addGroupTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -72,22 +67,6 @@ public class GroupItemProvider extends ItemProviderAdapter implements IEditingDo
 						getResourceLocator(), getString("_UI_Group_feature_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_Group_feature_feature", "_UI_Group_type"),
 						QmlPackage.Literals.GROUP__FEATURE, true, false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Group Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addGroupTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Group_groupType_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Group_groupType_feature",
-								"_UI_Group_type"),
-						QmlPackage.Literals.GROUP__GROUP_TYPE, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -119,10 +98,7 @@ public class GroupItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	@Override
 	public String getText(Object object) {
-		GroupType labelValue = ((Group) object).getGroupType();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ? getString("_UI_Group_type")
-				: getString("_UI_Group_type") + " " + label;
+		return getString("_UI_Group_type");
 	}
 
 	/**
@@ -135,12 +111,6 @@ public class GroupItemProvider extends ItemProviderAdapter implements IEditingDo
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(Group.class)) {
-		case QmlPackage.GROUP__GROUP_TYPE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 

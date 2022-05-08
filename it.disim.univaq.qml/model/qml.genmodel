@@ -10,10 +10,6 @@
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="Qml" basePackage="it.disim.univaq" disposableProviderFactory="true"
       ecorePackage="qml.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="qml.ecore#//GroupType">
-      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//GroupType/ALT"/>
-      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//GroupType/OR"/>
-    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="qml.ecore#//Level">
       <genEnumLiterals ecoreEnumLiteral="qml.ecore#//Level/LOW"/>
       <genEnumLiterals ecoreEnumLiteral="qml.ecore#//Level/MEDIUM"/>
@@ -34,11 +30,22 @@
       <genEnumLiterals ecoreEnumLiteral="qml.ecore#//BaseType/BOOLEAN"/>
       <genEnumLiterals ecoreEnumLiteral="qml.ecore#//BaseType/STRING"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="qml.ecore#//TaskType">
+      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//TaskType/CLASSIFICATION"/>
+      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//TaskType/REGRESSION"/>
+      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//TaskType/NLP"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="qml.ecore#//Operator">
+      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//Operator/LOWER_OR_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//Operator/EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="qml.ecore#//Operator/HIGHER_OR_EQUAL"/>
+    </genEnums>
     <genClasses ecoreClass="qml.ecore#//FeatureModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/root"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/groups"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/constraint"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/qualityProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//FeatureModel/qualityrequirement"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//Feature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Feature/name"/>
@@ -51,23 +58,21 @@
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//Group">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//Group/feature"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Group/groupType"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//Constraint"/>
     <genClasses ecoreClass="qml.ecore#//RequireConstraint">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//RequireConstraint/feature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//RequireConstraint/requiringFeature"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//RequireConstraint/requiredFeature"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//RequireConstraint/requiredAttribute"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//RequireConstraint/requiredAttributeValue"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//ExcludeConstraint">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//ExcludeConstraint/feature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//ExcludeConstraint/excludingFeature"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//ExcludeConstraint/excludedFeature"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//ExcludeConstraint/excludedAttribute"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//ExcludeConstraint/excludedAttributeValue"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//OpenValueAttribute">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//OpenValueAttribute/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//OpenValueAttribute/type"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//QualityProperty">
@@ -83,25 +88,38 @@
     <genClasses ecoreClass="qml.ecore#//Explainability">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Explainability/explainabilityLevel"/>
     </genClasses>
-    <genClasses ecoreClass="qml.ecore#//Measure">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//Measure/threshold"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//Measure/implementedBy"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Measure/name"/>
+    <genClasses ecoreClass="qml.ecore#//Metric">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//Metric/implementedBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Metric/name"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//Threshold">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Threshold/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//Threshold/relatedTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Threshold/equalityOperator"/>
     </genClasses>
     <genClasses ecoreClass="qml.ecore#//SelectionValueAttribute">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//SelectionValueAttribute/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//SelectionValueAttribute/attributevalue"/>
     </genClasses>
-    <genClasses ecoreClass="qml.ecore#//Attribute"/>
+    <genClasses ecoreClass="qml.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Attribute/name"/>
+    </genClasses>
     <genClasses ecoreClass="qml.ecore#//AttributeValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//AttributeValue/value"/>
     </genClasses>
-    <genClasses ecoreClass="qml.ecore#//PredictionQuality"/>
+    <genClasses ecoreClass="qml.ecore#//PredictionCorrectness"/>
     <genClasses ecoreClass="qml.ecore#//Privacy">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//Privacy/privacyLevel"/>
+    </genClasses>
+    <genClasses ecoreClass="qml.ecore#//QualityRequirements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//QualityRequirements/madeOf"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qml.ecore#//QualityRequirements/task"/>
+    </genClasses>
+    <genClasses ecoreClass="qml.ecore#//ComputationalComplexity"/>
+    <genClasses ecoreClass="qml.ecore#//OrGroup"/>
+    <genClasses ecoreClass="qml.ecore#//AltGroup"/>
+    <genClasses ecoreClass="qml.ecore#//QualityRequirement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference qml.ecore#//QualityRequirement/relatedTo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qml.ecore#//QualityRequirement/threshold"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

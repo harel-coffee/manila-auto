@@ -3,7 +3,7 @@
 package it.disim.univaq.qml.impl;
 
 import it.disim.univaq.qml.Feature;
-import it.disim.univaq.qml.Measure;
+import it.disim.univaq.qml.Metric;
 import it.disim.univaq.qml.QmlPackage;
 import it.disim.univaq.qml.QualityNature;
 import it.disim.univaq.qml.QualityProperty;
@@ -51,7 +51,7 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Measure> measure;
+	protected EList<Metric> measure;
 
 	/**
 	 * The default value of the '{@link #getNature() <em>Nature</em>}' attribute.
@@ -128,9 +128,9 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	@Override
-	public EList<Measure> getMeasure() {
+	public EList<Metric> getMeasure() {
 		if (measure == null) {
-			measure = new EObjectContainmentEList<Measure>(Measure.class, this, QmlPackage.QUALITY_PROPERTY__MEASURE);
+			measure = new EObjectContainmentEList<Metric>(Metric.class, this, QmlPackage.QUALITY_PROPERTY__MEASURE);
 		}
 		return measure;
 	}
@@ -248,7 +248,7 @@ public abstract class QualityPropertyImpl extends MinimalEObjectImpl.Container i
 		switch (featureID) {
 		case QmlPackage.QUALITY_PROPERTY__MEASURE:
 			getMeasure().clear();
-			getMeasure().addAll((Collection<? extends Measure>) newValue);
+			getMeasure().addAll((Collection<? extends Metric>) newValue);
 			return;
 		case QmlPackage.QUALITY_PROPERTY__NATURE:
 			setNature((QualityNature) newValue);

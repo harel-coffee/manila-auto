@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.disim.univaq.qml.impl.RequireConstraintImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.RequireConstraintImpl#getRequiringFeature <em>Requiring Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.RequireConstraintImpl#getRequiredFeature <em>Required Feature</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.RequireConstraintImpl#getRequiredAttribute <em>Required Attribute</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.RequireConstraintImpl#getRequiredAttributeValue <em>Required Attribute Value</em>}</li>
@@ -39,14 +39,14 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class RequireConstraintImpl extends ConstraintImpl implements RequireConstraint {
 	/**
-	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
+	 * The cached value of the '{@link #getRequiringFeature() <em>Requiring Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFeature()
+	 * @see #getRequiringFeature()
 	 * @generated
 	 * @ordered
 	 */
-	protected Feature feature;
+	protected Feature requiringFeature;
 
 	/**
 	 * The cached value of the '{@link #getRequiredFeature() <em>Required Feature</em>}' reference list.
@@ -103,17 +103,17 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	 * @generated
 	 */
 	@Override
-	public Feature getFeature() {
-		if (feature != null && feature.eIsProxy()) {
-			InternalEObject oldFeature = (InternalEObject) feature;
-			feature = (Feature) eResolveProxy(oldFeature);
-			if (feature != oldFeature) {
+	public Feature getRequiringFeature() {
+		if (requiringFeature != null && requiringFeature.eIsProxy()) {
+			InternalEObject oldRequiringFeature = (InternalEObject) requiringFeature;
+			requiringFeature = (Feature) eResolveProxy(oldRequiringFeature);
+			if (requiringFeature != oldRequiringFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, QmlPackage.REQUIRE_CONSTRAINT__FEATURE,
-							oldFeature, feature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							QmlPackage.REQUIRE_CONSTRAINT__REQUIRING_FEATURE, oldRequiringFeature, requiringFeature));
 			}
 		}
-		return feature;
+		return requiringFeature;
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Feature basicGetFeature() {
-		return feature;
+	public Feature basicGetRequiringFeature() {
+		return requiringFeature;
 	}
 
 	/**
@@ -131,12 +131,12 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	 * @generated
 	 */
 	@Override
-	public void setFeature(Feature newFeature) {
-		Feature oldFeature = feature;
-		feature = newFeature;
+	public void setRequiringFeature(Feature newRequiringFeature) {
+		Feature oldRequiringFeature = requiringFeature;
+		requiringFeature = newRequiringFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.REQUIRE_CONSTRAINT__FEATURE, oldFeature,
-					feature));
+			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.REQUIRE_CONSTRAINT__REQUIRING_FEATURE,
+					oldRequiringFeature, requiringFeature));
 	}
 
 	/**
@@ -189,10 +189,10 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case QmlPackage.REQUIRE_CONSTRAINT__FEATURE:
+		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRING_FEATURE:
 			if (resolve)
-				return getFeature();
-			return basicGetFeature();
+				return getRequiringFeature();
+			return basicGetRequiringFeature();
 		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRED_FEATURE:
 			return getRequiredFeature();
 		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRED_ATTRIBUTE:
@@ -212,8 +212,8 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case QmlPackage.REQUIRE_CONSTRAINT__FEATURE:
-			setFeature((Feature) newValue);
+		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRING_FEATURE:
+			setRequiringFeature((Feature) newValue);
 			return;
 		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRED_FEATURE:
 			getRequiredFeature().clear();
@@ -239,8 +239,8 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case QmlPackage.REQUIRE_CONSTRAINT__FEATURE:
-			setFeature((Feature) null);
+		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRING_FEATURE:
+			setRequiringFeature((Feature) null);
 			return;
 		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRED_FEATURE:
 			getRequiredFeature().clear();
@@ -263,8 +263,8 @@ public class RequireConstraintImpl extends ConstraintImpl implements RequireCons
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case QmlPackage.REQUIRE_CONSTRAINT__FEATURE:
-			return feature != null;
+		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRING_FEATURE:
+			return requiringFeature != null;
 		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRED_FEATURE:
 			return requiredFeature != null && !requiredFeature.isEmpty();
 		case QmlPackage.REQUIRE_CONSTRAINT__REQUIRED_ATTRIBUTE:
