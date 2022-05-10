@@ -3,11 +3,18 @@
 package it.disim.univaq.qml.impl;
 
 import it.disim.univaq.qml.Attribute;
+import it.disim.univaq.qml.AttributeValue;
 import it.disim.univaq.qml.QmlPackage;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +25,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link it.disim.univaq.qml.impl.AttributeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.AttributeImpl#getAttributevalue <em>Attributevalue</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class AttributeImpl extends MinimalEObjectImpl.Container implements Attribute {
+public class AttributeImpl extends MinimalEObjectImpl.Container implements Attribute {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -41,6 +49,16 @@ public abstract class AttributeImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAttributevalue() <em>Attributevalue</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributevalue()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AttributeValue> attributevalue;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,10 +108,40 @@ public abstract class AttributeImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
+	public EList<AttributeValue> getAttributevalue() {
+		if (attributevalue == null) {
+			attributevalue = new EObjectContainmentEList<AttributeValue>(AttributeValue.class, this,
+					QmlPackage.ATTRIBUTE__ATTRIBUTEVALUE);
+		}
+		return attributevalue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case QmlPackage.ATTRIBUTE__ATTRIBUTEVALUE:
+			return ((InternalEList<?>) getAttributevalue()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case QmlPackage.ATTRIBUTE__NAME:
 			return getName();
+		case QmlPackage.ATTRIBUTE__ATTRIBUTEVALUE:
+			return getAttributevalue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -103,11 +151,16 @@ public abstract class AttributeImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case QmlPackage.ATTRIBUTE__NAME:
 			setName((String) newValue);
+			return;
+		case QmlPackage.ATTRIBUTE__ATTRIBUTEVALUE:
+			getAttributevalue().clear();
+			getAttributevalue().addAll((Collection<? extends AttributeValue>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,6 +177,9 @@ public abstract class AttributeImpl extends MinimalEObjectImpl.Container impleme
 		case QmlPackage.ATTRIBUTE__NAME:
 			setName(NAME_EDEFAULT);
 			return;
+		case QmlPackage.ATTRIBUTE__ATTRIBUTEVALUE:
+			getAttributevalue().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -138,6 +194,8 @@ public abstract class AttributeImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 		case QmlPackage.ATTRIBUTE__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case QmlPackage.ATTRIBUTE__ATTRIBUTEVALUE:
+			return attributevalue != null && !attributevalue.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

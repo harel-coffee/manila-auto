@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.disim.univaq.qml.FeatureModel#getGroups <em>Groups</em>}</li>
  *   <li>{@link it.disim.univaq.qml.FeatureModel#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link it.disim.univaq.qml.FeatureModel#getQualityProperties <em>Quality Properties</em>}</li>
- *   <li>{@link it.disim.univaq.qml.FeatureModel#getQualityrequirement <em>Qualityrequirement</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.FeatureModel#getRequirement <em>Requirement</em>}</li>
  * </ul>
  *
  * @see it.disim.univaq.qml.QmlPackage#getFeatureModel()
@@ -86,25 +86,25 @@ public interface FeatureModel extends EObject {
 	EList<QualityProperty> getQualityProperties();
 
 	/**
-	 * Returns the value of the '<em><b>Qualityrequirement</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Requirement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Qualityrequirement</em>' containment reference.
-	 * @see #setQualityrequirement(QualityRequirements)
-	 * @see it.disim.univaq.qml.QmlPackage#getFeatureModel_Qualityrequirement()
+	 * @return the value of the '<em>Requirement</em>' containment reference.
+	 * @see #setRequirement(Requirement)
+	 * @see it.disim.univaq.qml.QmlPackage#getFeatureModel_Requirement()
 	 * @model containment="true"
 	 * @generated
 	 */
-	QualityRequirements getQualityrequirement();
+	Requirement getRequirement();
 
 	/**
-	 * Sets the value of the '{@link it.disim.univaq.qml.FeatureModel#getQualityrequirement <em>Qualityrequirement</em>}' containment reference.
+	 * Sets the value of the '{@link it.disim.univaq.qml.FeatureModel#getRequirement <em>Requirement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Qualityrequirement</em>' containment reference.
-	 * @see #getQualityrequirement()
+	 * @param value the new value of the '<em>Requirement</em>' containment reference.
+	 * @see #getRequirement()
 	 * @generated
 	 */
-	void setQualityrequirement(QualityRequirements value);
+	void setRequirement(Requirement value);
 
 } // FeatureModel

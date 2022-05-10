@@ -97,11 +97,6 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseOpenValueAttribute(OpenValueAttribute object) {
-			return createOpenValueAttributeAdapter();
-		}
-
-		@Override
 		public Adapter caseQualityProperty(QualityProperty object) {
 			return createQualityPropertyAdapter();
 		}
@@ -127,11 +122,6 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSelectionValueAttribute(SelectionValueAttribute object) {
-			return createSelectionValueAttributeAdapter();
-		}
-
-		@Override
 		public Adapter caseAttribute(Attribute object) {
 			return createAttributeAdapter();
 		}
@@ -152,8 +142,8 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseQualityRequirements(QualityRequirements object) {
-			return createQualityRequirementsAdapter();
+		public Adapter caseRequirement(Requirement object) {
+			return createRequirementAdapter();
 		}
 
 		@Override
@@ -174,6 +164,11 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseQualityRequirement(QualityRequirement object) {
 			return createQualityRequirementAdapter();
+		}
+
+		@Override
+		public Adapter caseAttributeSpecification(AttributeSpecification object) {
+			return createAttributeSpecificationAdapter();
 		}
 
 		@Override
@@ -280,20 +275,6 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.OpenValueAttribute <em>Open Value Attribute</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.disim.univaq.qml.OpenValueAttribute
-	 * @generated
-	 */
-	public Adapter createOpenValueAttributeAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.Attribute <em>Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -350,16 +331,16 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.QualityRequirements <em>Quality Requirements</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.Requirement <em>Requirement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.disim.univaq.qml.QualityRequirements
+	 * @see it.disim.univaq.qml.Requirement
 	 * @generated
 	 */
-	public Adapter createQualityRequirementsAdapter() {
+	public Adapter createRequirementAdapter() {
 		return null;
 	}
 
@@ -374,6 +355,20 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createQualityRequirementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.AttributeSpecification <em>Attribute Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.disim.univaq.qml.AttributeSpecification
+	 * @generated
+	 */
+	public Adapter createAttributeSpecificationAdapter() {
 		return null;
 	}
 
@@ -486,20 +481,6 @@ public class QmlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createThresholdAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.disim.univaq.qml.SelectionValueAttribute <em>Selection Value Attribute</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.disim.univaq.qml.SelectionValueAttribute
-	 * @generated
-	 */
-	public Adapter createSelectionValueAttributeAdapter() {
 		return null;
 	}
 

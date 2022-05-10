@@ -4,6 +4,7 @@ package it.disim.univaq.qml.impl;
 
 import it.disim.univaq.qml.AltGroup;
 import it.disim.univaq.qml.Attribute;
+import it.disim.univaq.qml.AttributeSpecification;
 import it.disim.univaq.qml.AttributeValue;
 import it.disim.univaq.qml.BaseType;
 import it.disim.univaq.qml.ComputationalComplexity;
@@ -17,7 +18,6 @@ import it.disim.univaq.qml.FeatureModel;
 import it.disim.univaq.qml.Group;
 import it.disim.univaq.qml.Level;
 import it.disim.univaq.qml.Metric;
-import it.disim.univaq.qml.OpenValueAttribute;
 import it.disim.univaq.qml.Operator;
 import it.disim.univaq.qml.OrGroup;
 import it.disim.univaq.qml.PredictionCorrectness;
@@ -27,9 +27,8 @@ import it.disim.univaq.qml.QmlPackage;
 import it.disim.univaq.qml.QualityNature;
 import it.disim.univaq.qml.QualityProperty;
 import it.disim.univaq.qml.QualityRequirement;
-import it.disim.univaq.qml.QualityRequirements;
 import it.disim.univaq.qml.RequireConstraint;
-import it.disim.univaq.qml.SelectionValueAttribute;
+import it.disim.univaq.qml.Requirement;
 import it.disim.univaq.qml.TaskType;
 import it.disim.univaq.qml.Threshold;
 
@@ -97,13 +96,6 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass openValueAttributeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass attributeEClass = null;
 
 	/**
@@ -132,7 +124,7 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass qualityRequirementsEClass = null;
+	private EClass requirementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -140,6 +132,13 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	private EClass qualityRequirementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass attributeSpecificationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -196,13 +195,6 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	private EClass thresholdEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass selectionValueAttributeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -369,7 +361,7 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getFeatureModel_Qualityrequirement() {
+	public EReference getFeatureModel_Requirement() {
 		return (EReference) featureModelEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -589,26 +581,6 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getOpenValueAttribute() {
-		return openValueAttributeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getOpenValueAttribute_Type() {
-		return (EAttribute) openValueAttributeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getAttribute() {
 		return attributeEClass;
 	}
@@ -621,6 +593,16 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	@Override
 	public EAttribute getAttribute_Name() {
 		return (EAttribute) attributeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAttribute_Attributevalue() {
+		return (EReference) attributeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -679,8 +661,8 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getQualityRequirements() {
-		return qualityRequirementsEClass;
+	public EClass getRequirement() {
+		return requirementEClass;
 	}
 
 	/**
@@ -689,8 +671,8 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getQualityRequirements_Task() {
-		return (EAttribute) qualityRequirementsEClass.getEStructuralFeatures().get(1);
+	public EReference getRequirement_Qualityrequirement() {
+		return (EReference) requirementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -699,8 +681,18 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getQualityRequirements_MadeOf() {
-		return (EReference) qualityRequirementsEClass.getEStructuralFeatures().get(0);
+	public EAttribute getRequirement_Task() {
+		return (EAttribute) requirementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getRequirement_Attributespecification() {
+		return (EReference) requirementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -731,6 +723,36 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	@Override
 	public EReference getQualityRequirement_Threshold() {
 		return (EReference) qualityRequirementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAttributeSpecification() {
+		return attributeSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAttributeSpecification_Attribute() {
+		return (EReference) attributeSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAttributeSpecification_Attributevalue() {
+		return (EReference) attributeSpecificationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -939,26 +961,6 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getSelectionValueAttribute() {
-		return selectionValueAttributeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getSelectionValueAttribute_Attributevalue() {
-		return (EReference) selectionValueAttributeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EEnum getLevel() {
 		return levelEEnum;
 	}
@@ -1048,7 +1050,7 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		createEReference(featureModelEClass, FEATURE_MODEL__GROUPS);
 		createEReference(featureModelEClass, FEATURE_MODEL__CONSTRAINT);
 		createEReference(featureModelEClass, FEATURE_MODEL__QUALITY_PROPERTIES);
-		createEReference(featureModelEClass, FEATURE_MODEL__QUALITYREQUIREMENT);
+		createEReference(featureModelEClass, FEATURE_MODEL__REQUIREMENT);
 
 		featureEClass = createEClass(FEATURE);
 		createEAttribute(featureEClass, FEATURE__NAME);
@@ -1076,9 +1078,6 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		createEReference(excludeConstraintEClass, EXCLUDE_CONSTRAINT__EXCLUDED_ATTRIBUTE);
 		createEReference(excludeConstraintEClass, EXCLUDE_CONSTRAINT__EXCLUDED_ATTRIBUTE_VALUE);
 
-		openValueAttributeEClass = createEClass(OPEN_VALUE_ATTRIBUTE);
-		createEAttribute(openValueAttributeEClass, OPEN_VALUE_ATTRIBUTE__TYPE);
-
 		qualityPropertyEClass = createEClass(QUALITY_PROPERTY);
 		createEReference(qualityPropertyEClass, QUALITY_PROPERTY__MEASURE);
 		createEAttribute(qualityPropertyEClass, QUALITY_PROPERTY__NATURE);
@@ -1101,11 +1100,9 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		createEReference(thresholdEClass, THRESHOLD__RELATED_TO);
 		createEAttribute(thresholdEClass, THRESHOLD__EQUALITY_OPERATOR);
 
-		selectionValueAttributeEClass = createEClass(SELECTION_VALUE_ATTRIBUTE);
-		createEReference(selectionValueAttributeEClass, SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE);
-
 		attributeEClass = createEClass(ATTRIBUTE);
 		createEAttribute(attributeEClass, ATTRIBUTE__NAME);
+		createEReference(attributeEClass, ATTRIBUTE__ATTRIBUTEVALUE);
 
 		attributeValueEClass = createEClass(ATTRIBUTE_VALUE);
 		createEAttribute(attributeValueEClass, ATTRIBUTE_VALUE__VALUE);
@@ -1115,9 +1112,10 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		privacyEClass = createEClass(PRIVACY);
 		createEAttribute(privacyEClass, PRIVACY__PRIVACY_LEVEL);
 
-		qualityRequirementsEClass = createEClass(QUALITY_REQUIREMENTS);
-		createEReference(qualityRequirementsEClass, QUALITY_REQUIREMENTS__MADE_OF);
-		createEAttribute(qualityRequirementsEClass, QUALITY_REQUIREMENTS__TASK);
+		requirementEClass = createEClass(REQUIREMENT);
+		createEReference(requirementEClass, REQUIREMENT__QUALITYREQUIREMENT);
+		createEAttribute(requirementEClass, REQUIREMENT__TASK);
+		createEReference(requirementEClass, REQUIREMENT__ATTRIBUTESPECIFICATION);
 
 		computationalComplexityEClass = createEClass(COMPUTATIONAL_COMPLEXITY);
 
@@ -1128,6 +1126,10 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		qualityRequirementEClass = createEClass(QUALITY_REQUIREMENT);
 		createEReference(qualityRequirementEClass, QUALITY_REQUIREMENT__RELATED_TO);
 		createEReference(qualityRequirementEClass, QUALITY_REQUIREMENT__THRESHOLD);
+
+		attributeSpecificationEClass = createEClass(ATTRIBUTE_SPECIFICATION);
+		createEReference(attributeSpecificationEClass, ATTRIBUTE_SPECIFICATION__ATTRIBUTE);
+		createEReference(attributeSpecificationEClass, ATTRIBUTE_SPECIFICATION__ATTRIBUTEVALUE);
 
 		// Create enums
 		levelEEnum = createEEnum(LEVEL);
@@ -1173,10 +1175,8 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		// Add supertypes to classes
 		requireConstraintEClass.getESuperTypes().add(this.getConstraint());
 		excludeConstraintEClass.getESuperTypes().add(this.getConstraint());
-		openValueAttributeEClass.getESuperTypes().add(this.getAttribute());
 		fairnessEClass.getESuperTypes().add(this.getQualityProperty());
 		explainabilityEClass.getESuperTypes().add(this.getQualityProperty());
-		selectionValueAttributeEClass.getESuperTypes().add(this.getAttribute());
 		predictionCorrectnessEClass.getESuperTypes().add(this.getQualityProperty());
 		privacyEClass.getESuperTypes().add(this.getQualityProperty());
 		computationalComplexityEClass.getESuperTypes().add(this.getQualityProperty());
@@ -1198,9 +1198,9 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		initEReference(getFeatureModel_QualityProperties(), this.getQualityProperty(), null, "qualityProperties", null,
 				0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureModel_Qualityrequirement(), this.getQualityRequirements(), null, "qualityrequirement",
-				null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureModel_Requirement(), this.getRequirement(), null, "requirement", null, 0, 1,
+				FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, Feature.class, !IS_TRANSIENT,
@@ -1259,11 +1259,6 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 				"excludedAttributeValue", null, 0, -1, ExcludeConstraint.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(openValueAttributeEClass, OpenValueAttribute.class, "OpenValueAttribute", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOpenValueAttribute_Type(), this.getBaseType(), "type", null, 1, 1, OpenValueAttribute.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(qualityPropertyEClass, QualityProperty.class, "QualityProperty", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getQualityProperty_Measure(), this.getMetric(), null, "measure", null, 0, -1,
@@ -1311,16 +1306,13 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 				Threshold.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 
-		initEClass(selectionValueAttributeEClass, SelectionValueAttribute.class, "SelectionValueAttribute",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSelectionValueAttribute_Attributevalue(), this.getAttributeValue(), null, "attributevalue",
-				null, 1, -1, SelectionValueAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(attributeEClass, Attribute.class, "Attribute", IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, Attribute.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAttribute_Attributevalue(), this.getAttributeValue(), null, "attributevalue", null, 1, -1,
+				Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(attributeValueEClass, AttributeValue.class, "AttributeValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -1335,13 +1327,16 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		initEAttribute(getPrivacy_PrivacyLevel(), this.getLevel(), "privacyLevel", null, 0, 1, Privacy.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(qualityRequirementsEClass, QualityRequirements.class, "QualityRequirements", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getQualityRequirements_MadeOf(), this.getQualityRequirement(), null, "madeOf", null, 1, -1,
-				QualityRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEClass(requirementEClass, Requirement.class, "Requirement", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRequirement_Qualityrequirement(), this.getQualityRequirement(), null, "qualityrequirement",
+				null, 1, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getQualityRequirements_Task(), this.getTaskType(), "task", null, 1, 1, QualityRequirements.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRequirement_Task(), this.getTaskType(), "task", null, 1, 1, Requirement.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRequirement_Attributespecification(), this.getAttributeSpecification(), null,
+				"attributespecification", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(computationalComplexityEClass, ComputationalComplexity.class, "ComputationalComplexity",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1359,6 +1354,15 @@ public class QmlPackageImpl extends EPackageImpl implements QmlPackage {
 		initEReference(getQualityRequirement_Threshold(), this.getThreshold(), null, "threshold", null, 0, -1,
 				QualityRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(attributeSpecificationEClass, AttributeSpecification.class, "AttributeSpecification", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAttributeSpecification_Attribute(), this.getAttribute(), null, "attribute", null, 1, 1,
+				AttributeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAttributeSpecification_Attributevalue(), this.getAttributeValue(), null, "attributevalue",
+				null, 1, 1, AttributeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(levelEEnum, Level.class, "Level");

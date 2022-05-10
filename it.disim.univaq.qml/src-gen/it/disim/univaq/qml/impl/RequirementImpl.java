@@ -2,10 +2,12 @@
  */
 package it.disim.univaq.qml.impl;
 
+import it.disim.univaq.qml.AttributeSpecification;
 import it.disim.univaq.qml.QmlPackage;
 import it.disim.univaq.qml.QualityRequirement;
-import it.disim.univaq.qml.QualityRequirements;
+import it.disim.univaq.qml.Requirement;
 import it.disim.univaq.qml.TaskType;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -24,28 +26,29 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Quality Requirements</b></em>'.
+ * An implementation of the model object '<em><b>Requirement</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.disim.univaq.qml.impl.QualityRequirementsImpl#getMadeOf <em>Made Of</em>}</li>
- *   <li>{@link it.disim.univaq.qml.impl.QualityRequirementsImpl#getTask <em>Task</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.RequirementImpl#getQualityrequirement <em>Qualityrequirement</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.RequirementImpl#getTask <em>Task</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.RequirementImpl#getAttributespecification <em>Attributespecification</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implements QualityRequirements {
+public class RequirementImpl extends MinimalEObjectImpl.Container implements Requirement {
 	/**
-	 * The cached value of the '{@link #getMadeOf() <em>Made Of</em>}' containment reference list.
+	 * The cached value of the '{@link #getQualityrequirement() <em>Qualityrequirement</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMadeOf()
+	 * @see #getQualityrequirement()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<QualityRequirement> madeOf;
+	protected EList<QualityRequirement> qualityrequirement;
 
 	/**
 	 * The default value of the '{@link #getTask() <em>Task</em>}' attribute.
@@ -68,11 +71,21 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	protected TaskType task = TASK_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getAttributespecification() <em>Attributespecification</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributespecification()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AttributeSpecification> attributespecification;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QualityRequirementsImpl() {
+	protected RequirementImpl() {
 		super();
 	}
 
@@ -83,7 +96,21 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return QmlPackage.Literals.QUALITY_REQUIREMENTS;
+		return QmlPackage.Literals.REQUIREMENT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<QualityRequirement> getQualityrequirement() {
+		if (qualityrequirement == null) {
+			qualityrequirement = new EObjectContainmentEList<QualityRequirement>(QualityRequirement.class, this,
+					QmlPackage.REQUIREMENT__QUALITYREQUIREMENT);
+		}
+		return qualityrequirement;
 	}
 
 	/**
@@ -106,8 +133,7 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 		TaskType oldTask = task;
 		task = newTask == null ? TASK_EDEFAULT : newTask;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.QUALITY_REQUIREMENTS__TASK, oldTask,
-					task));
+			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.REQUIREMENT__TASK, oldTask, task));
 	}
 
 	/**
@@ -116,12 +142,12 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	 * @generated
 	 */
 	@Override
-	public EList<QualityRequirement> getMadeOf() {
-		if (madeOf == null) {
-			madeOf = new EObjectContainmentEList<QualityRequirement>(QualityRequirement.class, this,
-					QmlPackage.QUALITY_REQUIREMENTS__MADE_OF);
+	public EList<AttributeSpecification> getAttributespecification() {
+		if (attributespecification == null) {
+			attributespecification = new EObjectContainmentEList<AttributeSpecification>(AttributeSpecification.class,
+					this, QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION);
 		}
-		return madeOf;
+		return attributespecification;
 	}
 
 	/**
@@ -132,8 +158,10 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case QmlPackage.QUALITY_REQUIREMENTS__MADE_OF:
-			return ((InternalEList<?>) getMadeOf()).basicRemove(otherEnd, msgs);
+		case QmlPackage.REQUIREMENT__QUALITYREQUIREMENT:
+			return ((InternalEList<?>) getQualityrequirement()).basicRemove(otherEnd, msgs);
+		case QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION:
+			return ((InternalEList<?>) getAttributespecification()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -146,10 +174,12 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case QmlPackage.QUALITY_REQUIREMENTS__MADE_OF:
-			return getMadeOf();
-		case QmlPackage.QUALITY_REQUIREMENTS__TASK:
+		case QmlPackage.REQUIREMENT__QUALITYREQUIREMENT:
+			return getQualityrequirement();
+		case QmlPackage.REQUIREMENT__TASK:
 			return getTask();
+		case QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION:
+			return getAttributespecification();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -163,12 +193,16 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case QmlPackage.QUALITY_REQUIREMENTS__MADE_OF:
-			getMadeOf().clear();
-			getMadeOf().addAll((Collection<? extends QualityRequirement>) newValue);
+		case QmlPackage.REQUIREMENT__QUALITYREQUIREMENT:
+			getQualityrequirement().clear();
+			getQualityrequirement().addAll((Collection<? extends QualityRequirement>) newValue);
 			return;
-		case QmlPackage.QUALITY_REQUIREMENTS__TASK:
+		case QmlPackage.REQUIREMENT__TASK:
 			setTask((TaskType) newValue);
+			return;
+		case QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION:
+			getAttributespecification().clear();
+			getAttributespecification().addAll((Collection<? extends AttributeSpecification>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,11 +216,14 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case QmlPackage.QUALITY_REQUIREMENTS__MADE_OF:
-			getMadeOf().clear();
+		case QmlPackage.REQUIREMENT__QUALITYREQUIREMENT:
+			getQualityrequirement().clear();
 			return;
-		case QmlPackage.QUALITY_REQUIREMENTS__TASK:
+		case QmlPackage.REQUIREMENT__TASK:
 			setTask(TASK_EDEFAULT);
+			return;
+		case QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION:
+			getAttributespecification().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -200,10 +237,12 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case QmlPackage.QUALITY_REQUIREMENTS__MADE_OF:
-			return madeOf != null && !madeOf.isEmpty();
-		case QmlPackage.QUALITY_REQUIREMENTS__TASK:
+		case QmlPackage.REQUIREMENT__QUALITYREQUIREMENT:
+			return qualityrequirement != null && !qualityrequirement.isEmpty();
+		case QmlPackage.REQUIREMENT__TASK:
 			return task != TASK_EDEFAULT;
+		case QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION:
+			return attributespecification != null && !attributespecification.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -225,4 +264,4 @@ public class QualityRequirementsImpl extends MinimalEObjectImpl.Container implem
 		return result.toString();
 	}
 
-} //QualityRequirementsImpl
+} //RequirementImpl

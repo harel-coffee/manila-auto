@@ -248,11 +248,8 @@ public class FeatureItemProvider extends ItemProviderAdapter implements IEditing
 		newChildDescriptors
 				.add(createChildParameter(QmlPackage.Literals.FEATURE__CHILDREN, QmlFactory.eINSTANCE.createFeature()));
 
-		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE__ATTRIBUTE,
-				QmlFactory.eINSTANCE.createOpenValueAttribute()));
-
-		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.FEATURE__ATTRIBUTE,
-				QmlFactory.eINSTANCE.createSelectionValueAttribute()));
+		newChildDescriptors.add(
+				createChildParameter(QmlPackage.Literals.FEATURE__ATTRIBUTE, QmlFactory.eINSTANCE.createAttribute()));
 	}
 
 	/**

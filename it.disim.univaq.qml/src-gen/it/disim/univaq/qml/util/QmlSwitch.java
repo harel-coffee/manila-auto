@@ -112,15 +112,6 @@ public class QmlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case QmlPackage.OPEN_VALUE_ATTRIBUTE: {
-			OpenValueAttribute openValueAttribute = (OpenValueAttribute) theEObject;
-			T result = caseOpenValueAttribute(openValueAttribute);
-			if (result == null)
-				result = caseAttribute(openValueAttribute);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case QmlPackage.QUALITY_PROPERTY: {
 			QualityProperty qualityProperty = (QualityProperty) theEObject;
 			T result = caseQualityProperty(qualityProperty);
@@ -160,15 +151,6 @@ public class QmlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case QmlPackage.SELECTION_VALUE_ATTRIBUTE: {
-			SelectionValueAttribute selectionValueAttribute = (SelectionValueAttribute) theEObject;
-			T result = caseSelectionValueAttribute(selectionValueAttribute);
-			if (result == null)
-				result = caseAttribute(selectionValueAttribute);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case QmlPackage.ATTRIBUTE: {
 			Attribute attribute = (Attribute) theEObject;
 			T result = caseAttribute(attribute);
@@ -201,9 +183,9 @@ public class QmlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case QmlPackage.QUALITY_REQUIREMENTS: {
-			QualityRequirements qualityRequirements = (QualityRequirements) theEObject;
-			T result = caseQualityRequirements(qualityRequirements);
+		case QmlPackage.REQUIREMENT: {
+			Requirement requirement = (Requirement) theEObject;
+			T result = caseRequirement(requirement);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -238,6 +220,13 @@ public class QmlSwitch<T> extends Switch<T> {
 		case QmlPackage.QUALITY_REQUIREMENT: {
 			QualityRequirement qualityRequirement = (QualityRequirement) theEObject;
 			T result = caseQualityRequirement(qualityRequirement);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case QmlPackage.ATTRIBUTE_SPECIFICATION: {
+			AttributeSpecification attributeSpecification = (AttributeSpecification) theEObject;
+			T result = caseAttributeSpecification(attributeSpecification);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -338,21 +327,6 @@ public class QmlSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Open Value Attribute</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Open Value Attribute</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseOpenValueAttribute(OpenValueAttribute object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -413,17 +387,17 @@ public class QmlSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Quality Requirements</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Requirement</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Quality Requirements</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Requirement</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseQualityRequirements(QualityRequirements object) {
+	public T caseRequirement(Requirement object) {
 		return null;
 	}
 
@@ -439,6 +413,21 @@ public class QmlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseQualityRequirement(QualityRequirement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Attribute Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Attribute Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAttributeSpecification(AttributeSpecification object) {
 		return null;
 	}
 
@@ -559,21 +548,6 @@ public class QmlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseThreshold(Threshold object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Selection Value Attribute</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Selection Value Attribute</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSelectionValueAttribute(SelectionValueAttribute object) {
 		return null;
 	}
 

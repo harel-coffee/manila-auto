@@ -4,7 +4,8 @@ package it.disim.univaq.qml.provider;
 
 import it.disim.univaq.qml.QmlFactory;
 import it.disim.univaq.qml.QmlPackage;
-import it.disim.univaq.qml.SelectionValueAttribute;
+import it.disim.univaq.qml.Requirement;
+import it.disim.univaq.qml.TaskType;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,24 +13,36 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.disim.univaq.qml.SelectionValueAttribute} object.
+ * This is the item provider adapter for a {@link it.disim.univaq.qml.Requirement} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
+public class RequirementItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SelectionValueAttributeItemProvider(AdapterFactory adapterFactory) {
+	public RequirementItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -44,8 +57,25 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addTaskPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Task feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTaskPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Requirement_task_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Requirement_task_feature",
+								"_UI_Requirement_type"),
+						QmlPackage.Literals.REQUIREMENT__TASK, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -60,7 +90,8 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(QmlPackage.Literals.SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE);
+			childrenFeatures.add(QmlPackage.Literals.REQUIREMENT__QUALITYREQUIREMENT);
+			childrenFeatures.add(QmlPackage.Literals.REQUIREMENT__ATTRIBUTESPECIFICATION);
 		}
 		return childrenFeatures;
 	}
@@ -79,14 +110,14 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 	}
 
 	/**
-	 * This returns SelectionValueAttribute.gif.
+	 * This returns Requirement.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SelectionValueAttribute"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Requirement"));
 	}
 
 	/**
@@ -107,9 +138,10 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SelectionValueAttribute) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_SelectionValueAttribute_type")
-				: getString("_UI_SelectionValueAttribute_type") + " " + label;
+		TaskType labelValue = ((Requirement) object).getTask();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ? getString("_UI_Requirement_type")
+				: getString("_UI_Requirement_type") + " " + label;
 	}
 
 	/**
@@ -123,8 +155,12 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(SelectionValueAttribute.class)) {
-		case QmlPackage.SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE:
+		switch (notification.getFeatureID(Requirement.class)) {
+		case QmlPackage.REQUIREMENT__TASK:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		case QmlPackage.REQUIREMENT__QUALITYREQUIREMENT:
+		case QmlPackage.REQUIREMENT__ATTRIBUTESPECIFICATION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -142,8 +178,22 @@ public class SelectionValueAttributeItemProvider extends AttributeItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.SELECTION_VALUE_ATTRIBUTE__ATTRIBUTEVALUE,
-				QmlFactory.eINSTANCE.createAttributeValue()));
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.REQUIREMENT__QUALITYREQUIREMENT,
+				QmlFactory.eINSTANCE.createQualityRequirement()));
+
+		newChildDescriptors.add(createChildParameter(QmlPackage.Literals.REQUIREMENT__ATTRIBUTESPECIFICATION,
+				QmlFactory.eINSTANCE.createAttributeSpecification()));
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return QmlEditPlugin.INSTANCE;
 	}
 
 }

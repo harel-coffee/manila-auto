@@ -58,15 +58,6 @@ public interface QmlFactory extends EFactory {
 	ExcludeConstraint createExcludeConstraint();
 
 	/**
-	 * Returns a new object of class '<em>Open Value Attribute</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Open Value Attribute</em>'.
-	 * @generated
-	 */
-	OpenValueAttribute createOpenValueAttribute();
-
-	/**
 	 * Returns a new object of class '<em>Fairness</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,13 +94,13 @@ public interface QmlFactory extends EFactory {
 	Threshold createThreshold();
 
 	/**
-	 * Returns a new object of class '<em>Selection Value Attribute</em>'.
+	 * Returns a new object of class '<em>Attribute</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Selection Value Attribute</em>'.
+	 * @return a new object of class '<em>Attribute</em>'.
 	 * @generated
 	 */
-	SelectionValueAttribute createSelectionValueAttribute();
+	Attribute createAttribute();
 
 	/**
 	 * Returns a new object of class '<em>Attribute Value</em>'.
@@ -139,13 +130,13 @@ public interface QmlFactory extends EFactory {
 	Privacy createPrivacy();
 
 	/**
-	 * Returns a new object of class '<em>Quality Requirements</em>'.
+	 * Returns a new object of class '<em>Requirement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Quality Requirements</em>'.
+	 * @return a new object of class '<em>Requirement</em>'.
 	 * @generated
 	 */
-	QualityRequirements createQualityRequirements();
+	Requirement createRequirement();
 
 	/**
 	 * Returns a new object of class '<em>Quality Requirement</em>'.
@@ -155,6 +146,15 @@ public interface QmlFactory extends EFactory {
 	 * @generated
 	 */
 	QualityRequirement createQualityRequirement();
+
+	/**
+	 * Returns a new object of class '<em>Attribute Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Attribute Specification</em>'.
+	 * @generated
+	 */
+	AttributeSpecification createAttributeSpecification();
 
 	/**
 	 * Returns a new object of class '<em>Computational Complexity</em>'.

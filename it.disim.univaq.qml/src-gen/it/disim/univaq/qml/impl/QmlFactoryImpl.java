@@ -64,8 +64,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createRequireConstraint();
 		case QmlPackage.EXCLUDE_CONSTRAINT:
 			return createExcludeConstraint();
-		case QmlPackage.OPEN_VALUE_ATTRIBUTE:
-			return createOpenValueAttribute();
 		case QmlPackage.FAIRNESS:
 			return createFairness();
 		case QmlPackage.EXPLAINABILITY:
@@ -74,16 +72,16 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createMetric();
 		case QmlPackage.THRESHOLD:
 			return createThreshold();
-		case QmlPackage.SELECTION_VALUE_ATTRIBUTE:
-			return createSelectionValueAttribute();
+		case QmlPackage.ATTRIBUTE:
+			return createAttribute();
 		case QmlPackage.ATTRIBUTE_VALUE:
 			return createAttributeValue();
 		case QmlPackage.PREDICTION_CORRECTNESS:
 			return createPredictionCorrectness();
 		case QmlPackage.PRIVACY:
 			return createPrivacy();
-		case QmlPackage.QUALITY_REQUIREMENTS:
-			return createQualityRequirements();
+		case QmlPackage.REQUIREMENT:
+			return createRequirement();
 		case QmlPackage.COMPUTATIONAL_COMPLEXITY:
 			return createComputationalComplexity();
 		case QmlPackage.OR_GROUP:
@@ -92,6 +90,8 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 			return createAltGroup();
 		case QmlPackage.QUALITY_REQUIREMENT:
 			return createQualityRequirement();
+		case QmlPackage.ATTRIBUTE_SPECIFICATION:
+			return createAttributeSpecification();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -197,17 +197,6 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	@Override
-	public OpenValueAttribute createOpenValueAttribute() {
-		OpenValueAttributeImpl openValueAttribute = new OpenValueAttributeImpl();
-		return openValueAttribute;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Fairness createFairness() {
 		FairnessImpl fairness = new FairnessImpl();
 		return fairness;
@@ -252,9 +241,9 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	@Override
-	public SelectionValueAttribute createSelectionValueAttribute() {
-		SelectionValueAttributeImpl selectionValueAttribute = new SelectionValueAttributeImpl();
-		return selectionValueAttribute;
+	public Attribute createAttribute() {
+		AttributeImpl attribute = new AttributeImpl();
+		return attribute;
 	}
 
 	/**
@@ -296,9 +285,9 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	 * @generated
 	 */
 	@Override
-	public QualityRequirements createQualityRequirements() {
-		QualityRequirementsImpl qualityRequirements = new QualityRequirementsImpl();
-		return qualityRequirements;
+	public Requirement createRequirement() {
+		RequirementImpl requirement = new RequirementImpl();
+		return requirement;
 	}
 
 	/**
@@ -310,6 +299,17 @@ public class QmlFactoryImpl extends EFactoryImpl implements QmlFactory {
 	public QualityRequirement createQualityRequirement() {
 		QualityRequirementImpl qualityRequirement = new QualityRequirementImpl();
 		return qualityRequirement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AttributeSpecification createAttributeSpecification() {
+		AttributeSpecificationImpl attributeSpecification = new AttributeSpecificationImpl();
+		return attributeSpecification;
 	}
 
 	/**

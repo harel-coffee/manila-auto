@@ -165,29 +165,6 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.OpenValueAttribute} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected OpenValueAttributeItemProvider openValueAttributeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.OpenValueAttribute}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createOpenValueAttributeAdapter() {
-		if (openValueAttributeItemProvider == null) {
-			openValueAttributeItemProvider = new OpenValueAttributeItemProvider(this);
-		}
-
-		return openValueAttributeItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Fairness} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -280,26 +257,26 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.SelectionValueAttribute} instances.
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Attribute} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SelectionValueAttributeItemProvider selectionValueAttributeItemProvider;
+	protected AttributeItemProvider attributeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.SelectionValueAttribute}.
+	 * This creates an adapter for a {@link it.disim.univaq.qml.Attribute}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSelectionValueAttributeAdapter() {
-		if (selectionValueAttributeItemProvider == null) {
-			selectionValueAttributeItemProvider = new SelectionValueAttributeItemProvider(this);
+	public Adapter createAttributeAdapter() {
+		if (attributeItemProvider == null) {
+			attributeItemProvider = new AttributeItemProvider(this);
 		}
 
-		return selectionValueAttributeItemProvider;
+		return attributeItemProvider;
 	}
 
 	/**
@@ -372,26 +349,26 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.QualityRequirements} instances.
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.Requirement} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QualityRequirementsItemProvider qualityRequirementsItemProvider;
+	protected RequirementItemProvider requirementItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.disim.univaq.qml.QualityRequirements}.
+	 * This creates an adapter for a {@link it.disim.univaq.qml.Requirement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createQualityRequirementsAdapter() {
-		if (qualityRequirementsItemProvider == null) {
-			qualityRequirementsItemProvider = new QualityRequirementsItemProvider(this);
+	public Adapter createRequirementAdapter() {
+		if (requirementItemProvider == null) {
+			requirementItemProvider = new RequirementItemProvider(this);
 		}
 
-		return qualityRequirementsItemProvider;
+		return requirementItemProvider;
 	}
 
 	/**
@@ -415,6 +392,29 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 		}
 
 		return qualityRequirementItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.disim.univaq.qml.AttributeSpecification} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AttributeSpecificationItemProvider attributeSpecificationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.disim.univaq.qml.AttributeSpecification}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAttributeSpecificationAdapter() {
+		if (attributeSpecificationItemProvider == null) {
+			attributeSpecificationItemProvider = new AttributeSpecificationItemProvider(this);
+		}
+
+		return attributeSpecificationItemProvider;
 	}
 
 	/**
@@ -599,8 +599,6 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			requireConstraintItemProvider.dispose();
 		if (excludeConstraintItemProvider != null)
 			excludeConstraintItemProvider.dispose();
-		if (openValueAttributeItemProvider != null)
-			openValueAttributeItemProvider.dispose();
 		if (fairnessItemProvider != null)
 			fairnessItemProvider.dispose();
 		if (explainabilityItemProvider != null)
@@ -609,16 +607,16 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			metricItemProvider.dispose();
 		if (thresholdItemProvider != null)
 			thresholdItemProvider.dispose();
-		if (selectionValueAttributeItemProvider != null)
-			selectionValueAttributeItemProvider.dispose();
+		if (attributeItemProvider != null)
+			attributeItemProvider.dispose();
 		if (attributeValueItemProvider != null)
 			attributeValueItemProvider.dispose();
 		if (predictionCorrectnessItemProvider != null)
 			predictionCorrectnessItemProvider.dispose();
 		if (privacyItemProvider != null)
 			privacyItemProvider.dispose();
-		if (qualityRequirementsItemProvider != null)
-			qualityRequirementsItemProvider.dispose();
+		if (requirementItemProvider != null)
+			requirementItemProvider.dispose();
 		if (computationalComplexityItemProvider != null)
 			computationalComplexityItemProvider.dispose();
 		if (orGroupItemProvider != null)
@@ -627,6 +625,8 @@ public class QmlItemProviderAdapterFactory extends QmlAdapterFactory
 			altGroupItemProvider.dispose();
 		if (qualityRequirementItemProvider != null)
 			qualityRequirementItemProvider.dispose();
+		if (attributeSpecificationItemProvider != null)
+			attributeSpecificationItemProvider.dispose();
 	}
 
 }

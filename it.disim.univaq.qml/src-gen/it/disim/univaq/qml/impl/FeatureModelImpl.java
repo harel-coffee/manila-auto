@@ -8,7 +8,7 @@ import it.disim.univaq.qml.FeatureModel;
 import it.disim.univaq.qml.Group;
 import it.disim.univaq.qml.QmlPackage;
 import it.disim.univaq.qml.QualityProperty;
-import it.disim.univaq.qml.QualityRequirements;
+import it.disim.univaq.qml.Requirement;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.disim.univaq.qml.impl.FeatureModelImpl#getGroups <em>Groups</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.FeatureModelImpl#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link it.disim.univaq.qml.impl.FeatureModelImpl#getQualityProperties <em>Quality Properties</em>}</li>
- *   <li>{@link it.disim.univaq.qml.impl.FeatureModelImpl#getQualityrequirement <em>Qualityrequirement</em>}</li>
+ *   <li>{@link it.disim.univaq.qml.impl.FeatureModelImpl#getRequirement <em>Requirement</em>}</li>
  * </ul>
  *
  * @generated
@@ -84,14 +84,14 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 	protected EList<QualityProperty> qualityProperties;
 
 	/**
-	 * The cached value of the '{@link #getQualityrequirement() <em>Qualityrequirement</em>}' containment reference.
+	 * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getQualityrequirement()
+	 * @see #getRequirement()
 	 * @generated
 	 * @ordered
 	 */
-	protected QualityRequirements qualityrequirement;
+	protected Requirement requirement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,8 +210,8 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 	 * @generated
 	 */
 	@Override
-	public QualityRequirements getQualityrequirement() {
-		return qualityrequirement;
+	public Requirement getRequirement() {
+		return requirement;
 	}
 
 	/**
@@ -219,13 +219,12 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetQualityrequirement(QualityRequirements newQualityrequirement,
-			NotificationChain msgs) {
-		QualityRequirements oldQualityrequirement = qualityrequirement;
-		qualityrequirement = newQualityrequirement;
+	public NotificationChain basicSetRequirement(Requirement newRequirement, NotificationChain msgs) {
+		Requirement oldRequirement = requirement;
+		requirement = newRequirement;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT, oldQualityrequirement, newQualityrequirement);
+					QmlPackage.FEATURE_MODEL__REQUIREMENT, oldRequirement, newRequirement);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -240,21 +239,21 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 	 * @generated
 	 */
 	@Override
-	public void setQualityrequirement(QualityRequirements newQualityrequirement) {
-		if (newQualityrequirement != qualityrequirement) {
+	public void setRequirement(Requirement newRequirement) {
+		if (newRequirement != requirement) {
 			NotificationChain msgs = null;
-			if (qualityrequirement != null)
-				msgs = ((InternalEObject) qualityrequirement).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT, null, msgs);
-			if (newQualityrequirement != null)
-				msgs = ((InternalEObject) newQualityrequirement).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT, null, msgs);
-			msgs = basicSetQualityrequirement(newQualityrequirement, msgs);
+			if (requirement != null)
+				msgs = ((InternalEObject) requirement).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - QmlPackage.FEATURE_MODEL__REQUIREMENT, null, msgs);
+			if (newRequirement != null)
+				msgs = ((InternalEObject) newRequirement).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - QmlPackage.FEATURE_MODEL__REQUIREMENT, null, msgs);
+			msgs = basicSetRequirement(newRequirement, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT,
-					newQualityrequirement, newQualityrequirement));
+			eNotify(new ENotificationImpl(this, Notification.SET, QmlPackage.FEATURE_MODEL__REQUIREMENT, newRequirement,
+					newRequirement));
 	}
 
 	/**
@@ -273,8 +272,8 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 			return ((InternalEList<?>) getConstraint()).basicRemove(otherEnd, msgs);
 		case QmlPackage.FEATURE_MODEL__QUALITY_PROPERTIES:
 			return ((InternalEList<?>) getQualityProperties()).basicRemove(otherEnd, msgs);
-		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
-			return basicSetQualityrequirement(null, msgs);
+		case QmlPackage.FEATURE_MODEL__REQUIREMENT:
+			return basicSetRequirement(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -295,8 +294,8 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 			return getConstraint();
 		case QmlPackage.FEATURE_MODEL__QUALITY_PROPERTIES:
 			return getQualityProperties();
-		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
-			return getQualityrequirement();
+		case QmlPackage.FEATURE_MODEL__REQUIREMENT:
+			return getRequirement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -325,8 +324,8 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 			getQualityProperties().clear();
 			getQualityProperties().addAll((Collection<? extends QualityProperty>) newValue);
 			return;
-		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
-			setQualityrequirement((QualityRequirements) newValue);
+		case QmlPackage.FEATURE_MODEL__REQUIREMENT:
+			setRequirement((Requirement) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -352,8 +351,8 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 		case QmlPackage.FEATURE_MODEL__QUALITY_PROPERTIES:
 			getQualityProperties().clear();
 			return;
-		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
-			setQualityrequirement((QualityRequirements) null);
+		case QmlPackage.FEATURE_MODEL__REQUIREMENT:
+			setRequirement((Requirement) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -375,8 +374,8 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 			return constraint != null && !constraint.isEmpty();
 		case QmlPackage.FEATURE_MODEL__QUALITY_PROPERTIES:
 			return qualityProperties != null && !qualityProperties.isEmpty();
-		case QmlPackage.FEATURE_MODEL__QUALITYREQUIREMENT:
-			return qualityrequirement != null;
+		case QmlPackage.FEATURE_MODEL__REQUIREMENT:
+			return requirement != null;
 		}
 		return super.eIsSet(featureID);
 	}
