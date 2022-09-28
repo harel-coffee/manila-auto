@@ -3,76 +3,76 @@
 	<feature automatic="selected" name="fairnessfm"/>
 	<feature automatic="selected" name="Dataset"/>
 	<feature automatic="selected" name="Label"/>
-	<feature name="Binary"/>
-	<feature name="Multi-class"/>
-	<feature name="Sensitive variables"/>
-	<feature name="Single sensitive var"/>
-	<feature name="Multiple sensitive vars"/>
-	<feature name="ML Task"/>
-	<feature name="Supervised"/>
-	<feature name="Classification"/>
-	<feature name="Logistic Regression"/>
-	<feature name="SVC"/>
-	<feature name="Gradient Descent Classifier"/>
-	<feature name="Gradient Boosting Classifier"/>
-	<feature name="MLP Classifier"/>
-	<feature name="Decision Tree Classifier"/>
-	<feature name="Random Forest Classifier"/>
-	<feature name="Regression"/>
-	<feature name="Linear Regression"/>
+	<feature manual="selected" name="Binary"/>
+	<feature automatic="unselected" name="Multi-class"/>
+	<feature automatic="selected" name="Sensitive variables"/>
+	<feature manual="selected" name="Single sensitive var"/>
+	<feature automatic="unselected" name="Multiple sensitive vars"/>
+	<feature automatic="selected" name="ML Task"/>
+	<feature automatic="selected" name="Supervised"/>
+	<feature automatic="unselected" name="Classification"/>
+	<feature automatic="unselected" name="Logistic Regression"/>
+	<feature automatic="unselected" name="SVC"/>
+	<feature automatic="unselected" name="Gradient Descent Classifier"/>
+	<feature automatic="unselected" name="Gradient Boosting Classifier"/>
+	<feature automatic="unselected" name="MLP Classifier"/>
+	<feature automatic="unselected" name="Decision Tree Classifier"/>
+	<feature automatic="unselected" name="Random Forest Classifier"/>
+	<feature automatic="selected" manual="selected" name="Regression"/>
+	<feature manual="selected" name="Linear Regression"/>
 	<feature name="SVR"/>
 	<feature name="Gradient Descent Regressor"/>
 	<feature name="Gradient Boosting Regressor"/>
-	<feature name="MLP Regressor"/>
+	<feature automatic="unselected" name="MLP Regressor"/>
 	<feature name="Decision Tree Regressor"/>
-	<feature name="Unsupervised"/>
-	<feature name="Clustering"/>
-	<feature name="KMeans"/>
-	<feature name="Quality"/>
-	<feature name="Fairness"/>
+	<feature automatic="unselected" name="Unsupervised"/>
+	<feature automatic="unselected" name="Clustering"/>
+	<feature automatic="unselected" name="KMeans"/>
+	<feature automatic="selected" name="Quality"/>
+	<feature automatic="selected" name="Fairness"/>
 	<feature name="Pre-Processing"/>
-	<feature name="Reweighing"/>
-	<feature name="DIR"/>
-	<feature name="DEMV"/>
-	<feature name="OptimizedPreprocessing"/>
-	<feature name="LFR"/>
+	<feature automatic="unselected" name="Reweighing"/>
+	<feature automatic="unselected" name="DIR"/>
+	<feature automatic="unselected" name="DEMV"/>
+	<feature automatic="unselected" name="OptimizedPreprocessing"/>
+	<feature automatic="unselected" name="LFR"/>
 	<feature name="CorrelationRemover"/>
-	<feature name="Sampling"/>
-	<feature name="In-Processing"/>
-	<feature name="ExponentiatedGradient"/>
-	<feature name="GridSearch"/>
-	<feature name="AdversarialDebiasing"/>
-	<feature name="GerryFairClassifier"/>
-	<feature name="MetaFairClassifier"/>
-	<feature name="PrejudiceRemover"/>
-	<feature name="Post-Processing"/>
-	<feature name="Blackbox"/>
-	<feature name="CalibratedEO"/>
-	<feature name="RejectOptionClassifier"/>
-	<feature name="Metrics"/>
-	<feature name="Classification Metrics"/>
-	<feature name="Accuracy"/>
-	<feature name="Precision"/>
-	<feature name="Recall"/>
-	<feature name="ROC"/>
-	<feature name="AUC"/>
-	<feature name="F1Score"/>
-	<feature name="ZeroOneLoss"/>
-	<feature name="Regression Metrics"/>
-	<feature name="MeanSquaredError"/>
+	<feature automatic="unselected" name="Sampling"/>
+	<feature automatic="selected" name="In-Processing"/>
+	<feature manual="selected" name="ExponentiatedGradient"/>
+	<feature manual="selected" name="GridSearch"/>
+	<feature automatic="unselected" name="AdversarialDebiasing"/>
+	<feature automatic="unselected" name="GerryFairClassifier"/>
+	<feature automatic="unselected" name="MetaFairClassifier"/>
+	<feature automatic="unselected" name="PrejudiceRemover"/>
+	<feature automatic="unselected" name="Post-Processing"/>
+	<feature automatic="unselected" name="Blackbox"/>
+	<feature automatic="unselected" name="CalibratedEO"/>
+	<feature automatic="unselected" name="RejectOptionClassifier"/>
+	<feature automatic="selected" name="Metrics"/>
+	<feature automatic="unselected" name="Classification Metrics"/>
+	<feature automatic="unselected" name="Accuracy"/>
+	<feature automatic="unselected" name="Precision"/>
+	<feature automatic="unselected" name="Recall"/>
+	<feature automatic="unselected" name="ROC"/>
+	<feature automatic="unselected" name="AUC"/>
+	<feature automatic="unselected" name="F1Score"/>
+	<feature automatic="unselected" name="ZeroOneLoss"/>
+	<feature automatic="selected" name="Regression Metrics"/>
+	<feature manual="selected" name="MeanSquaredError"/>
 	<feature name="MeanAbsoluteError"/>
 	<feature name="R2Error"/>
-	<feature name="Fairness Metrics"/>
-	<feature name="StatisticalParity"/>
-	<feature name="DisparateImpact"/>
-	<feature name="EqualizedOdds"/>
+	<feature automatic="selected" name="Fairness Metrics"/>
+	<feature manual="selected" name="StatisticalParity"/>
+	<feature manual="selected" name="DisparateImpact"/>
+	<feature manual="selected" name="EqualizedOdds"/>
 	<feature name="AverageOdds"/>
 	<feature name="TruePositiveDifference"/>
 	<feature name="TrueNegativeDifference"/>
-	<feature name="Aggregation Function"/>
-	<feature name="Min"/>
-	<feature name="Max"/>
-	<feature name="Sum"/>
-	<feature name="StatisticalMean"/>
-	<feature name="HarmonicMean"/>
+	<feature automatic="selected" name="Aggregation Function"/>
+	<feature automatic="unselected" name="Min"/>
+	<feature automatic="unselected" name="Max"/>
+	<feature automatic="unselected" name="Sum"/>
+	<feature automatic="unselected" name="StatisticalMean"/>
+	<feature manual="selected" name="HarmonicMean"/>
 </configuration>
