@@ -31,17 +31,30 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     try:
-        tree = ET.parse(os.path.join('configs', args.name))
+        tree = ET.parse(args.name)
         root = tree.getroot()
     except:
         sys.exit(
             "File not found in the configs folder. Make sure you add .xml at the end of the file name")
-
+    params = tree_parser(root)
+    print(params)
     env = Environment(loader=PackageLoader('generator'),
                       autoescape=select_autoescape(disabled_extensions=('py')), lstrip_blocks=True, trim_blocks=True)
-    template = env.get_template('script.py.jinja')
+    main = env.get_template('main.py.jinja')
+    utils = env.get_template('utils.py.jinja')
+    balancers = env.get_template('balancers.py.jinja')
+    demv = env.get_template('demv.py.jinja')
+    environment = env.get_template('environment.yml.jinja')
+    tools = env.get_template('tools.py.jinja')
     params = tree_parser(root)
     os.makedirs('gen', exist_ok=True)
-    with open(os.path.join('gen', 'script.py'), 'w') as f:
-        f.write(template.render(params))
+    with open(os.path.join('gen', 'main.py'), 'w') as f:
+        f.write(main.render(params))
+        f.write(utils.render())
+        f.write(environment.render(params))
+        if 'demv' in params:
+            f.write(demv.render())
+        if 'blackbox' in params:
+            f.write(balancers.render())
+            f.write(tools.render())
     sys.exit("Script generated")
