@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extendedConfiguration>
+	<feature automatic="selected" manual="undefined" name="fairnessfm"/>
+	<feature automatic="selected" manual="undefined" name="Dataset"/>
+	<feature automatic="selected" manual="undefined" name="Label">
+		<attribute name="Positive value" value="2"/>
+		<attribute name="Name" value="contr_use"/>
+	</feature>
+	<feature automatic="unselected" manual="undefined" name="Binary"/>
+	<feature automatic="undefined" manual="selected" name="Multi-class"/>
+	<feature automatic="selected" manual="undefined" name="Sensitive variables"/>
+	<feature automatic="unselected" manual="undefined" name="Single sensitive var"/>
+	<feature automatic="undefined" manual="selected" name="Multiple sensitive vars">
+		<attribute name="Variable names" value="wife_religion,wife_work"/>
+		<attribute name="Unprivileged value" value="1,1"/>
+	</feature>
+	<feature automatic="selected" manual="undefined" name="ML Task"/>
+	<feature automatic="selected" manual="undefined" name="Supervised"/>
+	<feature automatic="selected" manual="undefined" name="Classification"/>
+	<feature automatic="undefined" manual="selected" name="Logistic Regression"/>
+	<feature automatic="undefined" manual="selected" name="SVC"/>
+	<feature automatic="undefined" manual="undefined" name="Gradient Descent Classifier"/>
+	<feature automatic="undefined" manual="selected" name="Gradient Boosting Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="MLP Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="Decision Tree Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="Random Forest Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="Regression"/>
+	<feature automatic="unselected" manual="undefined" name="Linear Regression"/>
+	<feature automatic="unselected" manual="undefined" name="SVR"/>
+	<feature automatic="unselected" manual="undefined" name="Gradient Descent Regressor"/>
+	<feature automatic="unselected" manual="undefined" name="Gradient Boosting Regressor"/>
+	<feature automatic="unselected" manual="undefined" name="MLP Regressor"/>
+	<feature automatic="unselected" manual="undefined" name="Decision Tree Regressor"/>
+	<feature automatic="unselected" manual="undefined" name="Unsupervised"/>
+	<feature automatic="unselected" manual="undefined" name="Clustering"/>
+	<feature automatic="unselected" manual="undefined" name="KMeans"/>
+	<feature automatic="selected" manual="undefined" name="Quality"/>
+	<feature automatic="selected" manual="selected" name="Fairness"/>
+	<feature automatic="selected" manual="undefined" name="Pre-Processing"/>
+	<feature automatic="unselected" manual="undefined" name="Reweighing"/>
+	<feature automatic="unselected" manual="undefined" name="DIR"/>
+	<feature automatic="undefined" manual="selected" name="DEMV"/>
+	<feature automatic="unselected" manual="undefined" name="OptimizedPreprocessing"/>
+	<feature automatic="unselected" manual="undefined" name="LFR"/>
+	<feature automatic="undefined" manual="undefined" name="CorrelationRemover"/>
+	<feature automatic="undefined" manual="undefined" name="Sampling"/>
+	<feature automatic="selected" manual="undefined" name="In-Processing"/>
+	<feature automatic="undefined" manual="selected" name="ExponentiatedGradient"/>
+	<feature automatic="undefined" manual="selected" name="GridSearch"/>
+	<feature automatic="unselected" manual="undefined" name="AdversarialDebiasing"/>
+	<feature automatic="unselected" manual="undefined" name="GerryFairClassifier"/>
+	<feature automatic="unselected" manual="undefined" name="MetaFairClassifier"/>
+	<feature automatic="unselected" manual="undefined" name="PrejudiceRemover"/>
+	<feature automatic="undefined" manual="undefined" name="Post-Processing"/>
+	<feature automatic="undefined" manual="undefined" name="Blackbox"/>
+	<feature automatic="unselected" manual="undefined" name="CalibratedEO"/>
+	<feature automatic="unselected" manual="undefined" name="RejectOptionClassifier"/>
+	<feature automatic="selected" manual="undefined" name="Metrics"/>
+	<feature automatic="selected" manual="undefined" name="Classification Metrics"/>
+	<feature automatic="undefined" manual="selected" name="Accuracy"/>
+	<feature automatic="undefined" manual="undefined" name="Precision"/>
+	<feature automatic="undefined" manual="undefined" name="Recall"/>
+	<feature automatic="undefined" manual="undefined" name="ROC"/>
+	<feature automatic="undefined" manual="undefined" name="AUC"/>
+	<feature automatic="undefined" manual="undefined" name="F1Score"/>
+	<feature automatic="undefined" manual="undefined" name="ZeroOneLoss"/>
+	<feature automatic="unselected" manual="undefined" name="Regression Metrics"/>
+	<feature automatic="unselected" manual="undefined" name="MeanSquaredError"/>
+	<feature automatic="unselected" manual="undefined" name="MeanAbsoluteError"/>
+	<feature automatic="unselected" manual="undefined" name="R2Error"/>
+	<feature automatic="selected" manual="undefined" name="Fairness Metrics"/>
+	<feature automatic="undefined" manual="selected" name="StatisticalParity"/>
+	<feature automatic="undefined" manual="selected" name="DisparateImpact"/>
+	<feature automatic="undefined" manual="selected" name="EqualizedOdds"/>
+	<feature automatic="undefined" manual="undefined" name="AverageOdds"/>
+	<feature automatic="undefined" manual="undefined" name="TruePositiveDifference"/>
+	<feature automatic="undefined" manual="undefined" name="TrueNegativeDifference"/>
+	<feature automatic="selected" manual="undefined" name="Aggregation Function"/>
+	<feature automatic="unselected" manual="undefined" name="Min"/>
+	<feature automatic="unselected" manual="undefined" name="Max"/>
+	<feature automatic="unselected" manual="undefined" name="Sum"/>
+	<feature automatic="unselected" manual="undefined" name="StatisticalMean"/>
+	<feature automatic="undefined" manual="selected" name="HarmonicMean"/>
+</extendedConfiguration>

@@ -17,16 +17,19 @@
 				<alt abstract="true" mandatory="true" name="Label">
 					<graphics key="collapsed" value="false"/>
 					<attribute configurable="true" name="Name" type="string" unit=""/>
+					<attribute configurable="true" name="Positive value" type="long" unit=""/>
 					<feature abstract="true" name="Binary"/>
 					<feature abstract="true" name="Multi-class"/>
 				</alt>
 				<alt abstract="true" name="Sensitive variables">
 					<graphics key="collapsed" value="false"/>
 					<feature abstract="true" name="Single sensitive var">
-						<attribute configurable="true" name="variable name" type="string" unit=""/>
+						<attribute configurable="true" name="Variable name" type="string" unit=""/>
+						<attribute configurable="true" name="Unprivileged value" type="long" unit=""/>
 					</feature>
 					<feature abstract="true" name="Multiple sensitive vars">
-						<attribute configurable="true" name="variable names" type="string" unit=""/>
+						<attribute configurable="true" name="Variable names" type="string" unit=""/>
+						<attribute configurable="true" name="Unprivileged value" type="string" unit=""/>
 					</feature>
 				</alt>
 			</and>
