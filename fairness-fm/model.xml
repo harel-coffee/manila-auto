@@ -2,7 +2,8 @@
 <extendedFeatureModel>
 	<properties>
 		<graphics key="autolayoutconstraints" value="false"/>
-		<graphics key="legendautolayout" value="true"/>
+		<graphics key="legendposition" value="974,40"/>
+		<graphics key="legendautolayout" value="false"/>
 		<graphics key="showconstraints" value="true"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="vertical"/>
@@ -11,7 +12,7 @@
 		<graphics key="layoutalgorithm" value="4"/>
 	</properties>
 	<struct>
-		<and abstract="true" mandatory="true" name="fairnessfm">
+		<and abstract="true" mandatory="true" name="Manila">
 			<and abstract="true" mandatory="true" name="Dataset">
 				<graphics key="collapsed" value="false"/>
 				<alt abstract="true" mandatory="true" name="Label">
@@ -35,8 +36,10 @@
 			</and>
 			<alt abstract="true" name="ML Task">
 				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="Save trained model" type="boolean" unit="" value="false"/>
 				<alt abstract="true" name="Supervised">
 					<graphics key="collapsed" value="false"/>
+					<attribute configurable="true" name="train size" type="long" unit="" value="80"/>
 					<or abstract="true" name="Classification">
 						<graphics key="collapsed" value="false"/>
 						<feature name="Logistic Regression"/>
@@ -65,8 +68,8 @@
 					</and>
 				</and>
 			</alt>
-			<and abstract="true" name="Quality">
-				<or abstract="true" mandatory="true" name="Fairness">
+			<or abstract="true" name="Quality">
+				<or abstract="true" name="Fairness">
 					<graphics key="collapsed" value="false"/>
 					<or abstract="true" name="Pre-Processing">
 						<graphics key="collapsed" value="false"/>
@@ -94,7 +97,10 @@
 						<feature name="RejectOptionClassifier"/>
 					</or>
 				</or>
-			</and>
+				<feature abstract="true" name="Explainabity"/>
+				<feature abstract="true" name="Privacy"/>
+				<feature abstract="true" name="Interpretability"/>
+			</or>
 			<and abstract="true" name="Metrics">
 				<or abstract="true" name="Classification Metrics">
 					<graphics key="collapsed" value="false"/>
@@ -111,6 +117,11 @@
 					<feature name="MeanSquaredError"/>
 					<feature name="MeanAbsoluteError"/>
 					<feature name="R2Error"/>
+					<feature name="MeanSquaredLogaritmicError"/>
+					<feature name="MeanAbsolutePercentageError"/>
+					<feature name="MedianAbsoluteError"/>
+					<feature name="MaxError"/>
+					<feature name="D2Score"/>
 				</or>
 				<or abstract="true" name="Fairness Metrics">
 					<graphics key="collapsed" value="false"/>
@@ -130,6 +141,25 @@
 					<feature name="HarmonicMean"/>
 				</alt>
 			</and>
+			<alt abstract="true" name="Validation">
+				<attribute configurable="true" name="Save temporary results" type="boolean" unit="" value="false"/>
+				<feature name="K-Fold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+				<feature name="Leave One Out"/>
+				<feature name="Leave P Out">
+					<attribute configurable="true" name="P" type="long" unit="" value="30"/>
+				</feature>
+				<feature name="Stratified K-Fold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+				<feature name="Group K-Fold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+				<feature name="Stratified Group K-Fold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+			</alt>
 		</and>
 	</struct>
 	<constraints>

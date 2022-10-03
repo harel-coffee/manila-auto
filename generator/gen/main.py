@@ -60,7 +60,9 @@ def exec(data):
         for f in fairness_methods:
             model = deepcopy(model)
             data = data.copy()
-            if f == 'demv':
+            if f == 'reweighing':
+                rw
+            elif f == 'demv':
                 demv = DEMV(round_level=1)
                 metrics = cross_val(
                     model, data, label, unpriv_group, sensitive_features, positive_label, debiaser=demv, metrics=metrics)
