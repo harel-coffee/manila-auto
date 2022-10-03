@@ -22,18 +22,30 @@
 					<feature abstract="true" name="Binary"/>
 					<feature abstract="true" name="Multi-class"/>
 				</alt>
-				<alt abstract="true" name="Sensitive variables">
+				<alt abstract="true" name="Sensitive Variables">
 					<graphics key="collapsed" value="false"/>
 					<feature abstract="true" name="Single sensitive var">
 						<attribute configurable="true" name="Variable name" type="string" unit=""/>
 						<attribute configurable="true" name="Unprivileged value" type="long" unit=""/>
 					</feature>
 					<feature abstract="true" name="Multiple sensitive vars">
-						<attribute configurable="true" name="Variable names" type="string" unit=""/>
-						<attribute configurable="true" name="Unprivileged value" type="string" unit=""/>
+						<attribute configurable="true" name="Variable names (comma separated)" type="string" unit=""/>
+						<attribute configurable="true" name="Unprivileged values (comma separated)" type="string" unit=""/>
 					</feature>
 				</alt>
+				<feature abstract="true" name="StrictlyPositive"/>
 			</and>
+			<alt abstract="true" name="Preprocessing">
+				<feature name="StandardScaler"/>
+				<feature name="MinMaxScaler"/>
+				<feature name="MaxAbsScaler"/>
+				<feature name="RobustScaler"/>
+				<feature name="QuantileTransformerScaler"/>
+				<alt name="PowerTransformerScaler">
+					<feature name="YeoJohnson Method"/>
+					<feature name="BoxCox Method"/>
+				</alt>
+			</alt>
 			<alt abstract="true" name="ML Task">
 				<graphics key="collapsed" value="false"/>
 				<attribute configurable="true" name="Save trained model" type="boolean" unit="" value="false"/>
@@ -71,7 +83,7 @@
 			<or abstract="true" name="Quality">
 				<or abstract="true" name="Fairness">
 					<graphics key="collapsed" value="false"/>
-					<or abstract="true" name="Pre-Processing">
+					<or abstract="true" name="PreProcessing">
 						<graphics key="collapsed" value="false"/>
 						<feature name="Reweighing"/>
 						<feature name="DIR"/>
@@ -81,7 +93,7 @@
 						<feature name="CorrelationRemover"/>
 						<feature name="Sampling"/>
 					</or>
-					<or abstract="true" name="In-Processing">
+					<or abstract="true" name="InProcessing">
 						<graphics key="collapsed" value="false"/>
 						<feature name="ExponentiatedGradient"/>
 						<feature name="GridSearch"/>
@@ -90,7 +102,7 @@
 						<feature name="MetaFairClassifier"/>
 						<feature name="PrejudiceRemover"/>
 					</or>
-					<or abstract="true" name="Post-Processing">
+					<or abstract="true" name="PostProcessing">
 						<graphics key="collapsed" value="false"/>
 						<feature name="Blackbox"/>
 						<feature name="CalibratedEO"/>
@@ -143,20 +155,20 @@
 			</and>
 			<alt abstract="true" name="Validation">
 				<attribute configurable="true" name="Save temporary results" type="boolean" unit="" value="false"/>
-				<feature name="K-Fold">
+				<feature name="KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
 				<feature name="Leave One Out"/>
 				<feature name="Leave P Out">
 					<attribute configurable="true" name="P" type="long" unit="" value="30"/>
 				</feature>
-				<feature name="Stratified K-Fold">
+				<feature name="Stratified KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
-				<feature name="Group K-Fold">
+				<feature name="Group KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
-				<feature name="Stratified Group K-Fold">
+				<feature name="Stratified Group KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
 			</alt>
@@ -179,7 +191,7 @@
 		<rule>
 			<imp>
 				<var>Fairness</var>
-				<var>Sensitive variables</var>
+				<var>Sensitive Variables</var>
 			</imp>
 		</rule>
 		<rule>
@@ -240,7 +252,7 @@
 				<var>Regression</var>
 				<conj>
 					<not>
-						<var>Post-Processing</var>
+						<var>PostProcessing</var>
 					</not>
 					<conj>
 						<not>
@@ -360,6 +372,12 @@
 				<var>Fairness</var>
 				<var>Fairness Metrics</var>
 			</eq>
+		</rule>
+		<rule>
+			<imp>
+				<var>BoxCox Method</var>
+				<var>StrictlyPositive</var>
+			</imp>
 		</rule>
 	</constraints>
 </extendedFeatureModel>

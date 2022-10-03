@@ -220,21 +220,6 @@ def print_metrics(metrics):
         metrics['acc']), 3), ' +- ', round(np.std(metrics['acc']), 3))
 
 
-def prepareplots(metrics, name):
-
-    df = pd.DataFrame(metrics)
-    columnlist = []
-    for i in df.columns.values:
-        if (i != 'stop'):
-            columnlist.append(i)
-
-    df = df.explode(columnlist)
-
-    df.to_csv('ris/'+name+'_eval.csv')
-
-    return df
-
-
 def save_metrics(type, name, metric):
     df = pd.DataFrame(metric)
     df.explode(list(df.columns)).to_csv(f'ris/{name}_{type}.csv')
@@ -258,29 +243,3 @@ def blackboxbin(pred, label):
     pred[label] = y_adj
 
     return pred
-
-
-def get_items(dataset, number_of_features):
-    data = pd.read_csv("datarefactored/" + dataset + ".csv", index_col=0)
-    unpriv_group = {}
-    sensitive_features = []
-    sensfeat = pd.read_csv(
-        "datarefactored/sensitivefeatures.csv", index_col='dataset')
-    for i in range(1, number_of_features+1):
-        column = "unpriv_group" + str(i)
-        string = sensfeat.loc[dataset, column]
-        if(len(string.split(":")) == 2):
-            key, value = string.split(":")
-
-        else:
-            key, value, threshold = string.split(":")
-            threshold = int(threshold)
-            data.loc[data[key] < threshold, key] = 0
-            data.loc[data[key] >= threshold, key] = 1
-
-        unpriv_group[key] = value
-        sensitive_features.append(key)
-
-    positive_label = sensfeat.loc[dataset, 'positive_label']
-    label = sensfeat.loc[dataset, 'label']
-    return data, unpriv_group, sensitive_features, label, positive_label

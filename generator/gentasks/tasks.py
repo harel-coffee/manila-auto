@@ -1,9 +1,5 @@
-from abc import ABC
-
 from multigen.jinja import JinjaTask
 import os
-
-from sklearn import model_selection
 
 
 class MainTask(JinjaTask):

@@ -10,28 +10,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 
-
-# parser = argparse.ArgumentParser(description='Metrics generator for DEMV testing.',
-#                                  epilog="Example usage: python generatemetrics.py cmc biased 3 --classifier svc")
-
-# parser.add_argument('dataset', type=str,
-#                     help='Required argument: Chosen dataset to generate metrics for. Availability of datasets changes according to the chosen method.'
-#                     + ' All available datasets are: adult, cmc, compas, crime, drugs, german, obesity, park, wine.', choices=['adult', 'cmc', 'law', 'compas', 'crime', 'drug', 'german', 'obesity', 'park', 'wine', 'all'])
-
-# parser.add_argument('method', type=str,
-#                     help='Required argument: Chosen method to generate metrics for. Can be biased, eg, grid, uniform, smote, adasyn.', choices=['biased', 'eg', 'grid', 'uniform', 'smote', 'adasyn'])
-
-# parser.add_argument('number_of_features', type=int,
-#                     help='Required argument: Number of sensitive features in the dataset to consider, up to 3. If "1" is chosen, two datasets will be generated, one for each canonical sensitive feature  (as described in literature for that dataset)', choices=[1, 2, 3, 4])
-
-# parser.add_argument('--classifier', type=str, nargs='?', default="logistic",
-#                     help='Optional argument: classifier to use. Possible options are logistic, gradient, svc and mlp. Defaults to Logistic Regression (logistic).', choices=['logistic', 'gradient', 'svc', 'mlp'])
-# parser.add_argument("--cm", action=argparse.BooleanOptionalAction,
-#                     help="Optional argument: only generate Confusion Matrices for the selected dataset.")
-
-# args = parser.parse_args()
-
-
 def exec(data):
     label = 'contr_use'
     sensitive_features = ['wife_religion', 'wife_work']
@@ -117,3 +95,16 @@ def exec(data):
             model, constr, sample_weight_name="classifier__sample_weight")
         grid.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
         return grid, report
+
+if __name__ == '__main__':
+
+    import pickle
+
+    parser = argparse.ArgumentParser(description='Experiment file for fairness testing')
+    parser.add_argument('-d', '--dataset', type=str,
+                        help='Required argument: relative path of the dataset to process')
+    args = parser.parse_args()
+
+    model, report = exec(args.dataset)
+    report.to_csv('report.csv')
+    pickle.dump(model)
