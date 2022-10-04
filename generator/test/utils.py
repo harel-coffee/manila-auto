@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 from collections import defaultdict
 from sklearn.model_selection import KFold
-from sklearn.metrics import f1_score, accuracy_score, confusion_matrix, zero_one_loss
+from sklearn.metrics import f1_score, confusion_matrix, zero_one_loss, adjusted_mutual_info_score, auc, roc_curve
+from sklearn.metrics import accuracy_score
 from copy import deepcopy
 from fairlearn.metrics import MetricFrame
 from scipy import stats
@@ -202,5 +203,3 @@ def blackbox(pred, label, sensitive_var, binary=True):
     pred[label] = y_adj
 
     return pred
-
-

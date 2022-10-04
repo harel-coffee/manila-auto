@@ -3,12 +3,16 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+{%if reweighing or dir or lfr%}
   - aif360
+{%endif%}
+{%if exponentiated_gradient or grid_search%}
   - fairlearn
-  - matplotlib
-  - numpy
+{%endif%}
   - pandas
-  - python
+  - python=3.9
+{%if demv%}
   - imbalanced-learn
+{%endif%}
   - scikit-learn
   - scipy

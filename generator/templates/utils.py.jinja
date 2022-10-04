@@ -1,12 +1,4 @@
-import numpy as np
-import pandas as pd
-from collections import defaultdict
-from sklearn.model_selection import KFold
-from sklearn.metrics import f1_score, accuracy_score, confusion_matrix, zero_one_loss
-from copy import deepcopy
-from demv import DEMV
-from fairlearn.metrics import MetricFrame
-from scipy import stats
+{% include "components/utils_libraries.jinja"%}
 
 # METRICS
 
@@ -71,8 +63,7 @@ def _get_groups(data, label_name, positive_label, group_condition):
 
 
 def _compute_probs(data_pred, label_name, positive_label, group_condition):
-    unpriv_group, unpriv_group_pos, priv_group, priv_group_pos = _get_groups(data_pred, label_name, positive_label,
-                                                                             group_condition)
+    unpriv_group, unpriv_group_pos, priv_group, priv_group_pos = _get_groups(data_pred, label_name, positive_label, group_condition)
     unpriv_group_prob = (len(unpriv_group_pos)
                          / len(unpriv_group))
     priv_group_prob = (len(priv_group_pos)
@@ -91,7 +82,6 @@ def _compute_tpr_fpr(y_true, y_pred):
     FPR = FP/(FP+TN)
     return FPR, TPR
 
-
 def average_odds_difference(data_true: pd.DataFrame, data_pred: pd.DataFrame, group_condition: str, label: str):
     unpriv_group_true = data_true.query(group_condition)
     priv_group_true = data_true.drop(unpriv_group_true.index)
@@ -109,7 +99,6 @@ def average_odds_difference(data_true: pd.DataFrame, data_pred: pd.DataFrame, gr
         y_true_priv, y_pred_priv)
     return (fpr_unpriv - fpr_priv) + (tpr_unpriv - tpr_priv)/2
 
-
 def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_features: list):
     mf = MetricFrame(metrics=zero_one_loss,
                      y_true=y_true,
@@ -117,12 +106,44 @@ def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_feature
                      sensitive_features=sensitive_features)
     return mf.difference()
 
-
 def norm_data(data):
     return abs(1 - abs(data))
 
 
 # TRAINING FUNCTIONS
+
+def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
+    fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
+    for train, test in fold.split(data):
+        data = data.copy()
+        df_train = data.iloc[train]
+        df_test = data.iloc[test]
+        model = deepcopy(classifier)
+        if preprocessor == 'demv':
+            demv = DEMV(round_level=1)
+            df_train = demv.fit_transform(df_train, [keys for keys in groups_condition.keys()], label)
+        if inprocessor == 'eg':
+            constr = _get_constr(df_train, label)
+            model = ExponentiatedGradient(
+                model, constraints=constr, sample_weight_name="classifier__sample_weight")
+        if inprocessor == 'grid':
+            constr = _get_constr(df_train, label)
+            model = GridSearch(
+            model, constr, sample_weight_name="classifier__sample_weight")
+        exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
+        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp)
+        if postprocessor=='blackbox':
+            pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
+        compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
+    return model, metrics
+
+def _get_constr(df, label):
+    if len(df[label].unique()) == 2:
+        constr = BoundedGroupLoss(
+            DemographicParity(), upper_bound=0.1)
+    else:
+        constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+    return constr
 
 def _train_test_split(df_train, df_test, label):
     x_train = df_train.drop(label, axis=1).values
@@ -132,53 +153,7 @@ def _train_test_split(df_train, df_test, label):
     return x_train, x_test, y_train, y_test
 
 
-def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, debiaser=None, exp=False, n_splits=10):
-    fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
-    for train, test in fold.split(data):
-        data = data.copy()
-        df_train = data.iloc[train]
-        df_test = data.iloc[test]
-        model = deepcopy(classifier)
-        if debiaser:
-            run_metrics = _demv_training(model, debiaser, groups_condition, label,
-                                         df_train, df_test, positive_label, sensitive_features)
-        else:
-            run_metrics = _model_train(df_train, df_test, label, model, defaultdict(
-                list), groups_condition, sensitive_features, positive_label, exp)
-        for k in metrics.keys():
-            metrics[k].append(run_metrics[k])
-    return metrics
-
-
-def eval_demv(k, iters, data, classifier, label, groups, sensitive_features, positive_label=None, strategy='random'):
-    ris = defaultdict(list)
-    for i in range(0, iters+1, k):
-        data = data.copy()
-        demv = DEMV(1, debug=False, stop=i, strategy=strategy)
-        _, metrics = cross_val(classifier, data, label, groups,
-                               sensitive_features, debiaser=demv, positive_label=positive_label)
-        #metrics = _compute_mean(metrics)
-        ris['stop'].append(i)
-        for k, v in metrics.items():
-            val = []
-            for i in v:
-                val.append(np.mean(i))
-            ris[k].append(val)
-    return ris
-
-
-def _demv_training(classifier, debiaser, groups_condition, label, df_train, df_test, positive_label, sensitive_features):
-    metrics = defaultdict(list)
-
-    df_copy = df_train.copy()
-    data = debiaser.fit_transform(
-        df_copy, [keys for keys in groups_condition.keys()], label)
-    metrics = _model_train(data, df_test, label, classifier, metrics,
-                           groups_condition, sensitive_features, positive_label)
-    return metrics
-
-
-def _model_train(df_train, df_test, label, classifier, metrics, groups_condition, sensitive_features, positive_label, exp=False):
+def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False):
     x_train, x_test, y_train, y_test = _train_test_split(
         df_train, df_test, label)
     model = deepcopy(classifier)
@@ -188,6 +163,10 @@ def _model_train(df_train, df_test, label, classifier, metrics, groups_condition
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]
     df_pred[label] = pred
+    return df_pred
+
+
+def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, sensitive_features):
     stat_par = statistical_parity(
         df_pred, groups_condition, label, positive_label)
     eo = equalized_odds(
@@ -195,8 +174,8 @@ def _model_train(df_train, df_test, label, classifier, metrics, groups_condition
     di = disparate_impact(
         df_pred, groups_condition, label, positive_label=positive_label)
     zero_one_loss = zero_one_loss_diff(
-        y_true=y_test, y_pred=pred, sensitive_features=df_test[sensitive_features].values)
-    accuracy = accuracy_score(y_test, pred)
+        y_true=df_pred['y_true'].values, y_pred=df_pred[label].values, sensitive_features=df_pred[sensitive_features].values)
+    accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
     metrics['stat_par'].append(stat_par)
     metrics['eq_odds'].append(eo)
     metrics['disp_imp'].append(di)
@@ -206,40 +185,10 @@ def _model_train(df_train, df_test, label, classifier, metrics, groups_condition
         eo), norm_data(stat_par), norm_data(zero_one_loss)]))
     return metrics
 
-
-def print_metrics(metrics):
-    print('Statistical parity: ', round(np.mean(
-        metrics['stat_par']), 3), ' +- ', round(np.std(metrics['stat_par']), 3))
-    print('Equalized Odds: ', round(np.mean(
-        metrics['eq_odds']), 3), ' +- ', round(np.std(metrics['eq_odds']), 3))
-    print('Disparate impact: ', round(np.mean(
-        metrics['disp_imp']), 3), ' +- ', round(np.std(metrics['disp_imp']), 3))
-    print('Zero one loss: ', round(np.mean(
-        metrics['zero_one_loss']), 3), ' +- ', round(np.std(metrics['zero_one_loss']), 3))
-    print('Accuracy score: ', round(np.mean(
-        metrics['acc']), 3), ' +- ', round(np.std(metrics['acc']), 3))
-
-
-def save_metrics(type, name, metric):
-    df = pd.DataFrame(metric)
-    df.explode(list(df.columns)).to_csv(f'ris/{name}_{type}.csv')
-
-
-def blackbox(pred, label):
-    from balancers import MulticlassBalancer
-
-    pb = MulticlassBalancer(y='y_true', y_=label, a='combined', data=pred)
+def blackbox(pred, label, sensitive_var, binary=True):
+    pb = BinaryBalancer(y='y_true', y_=label, a=sensitive_var, data=pred) if binary else \
+        MulticlassBalancer(y='y_true', y_=label, a=sensitive_var, data=pred)
     y_adj = pb.adjust(cv=True, summary=False)
-    pred[label] = y_adj
-
-    return pred
-
-
-def blackboxbin(pred, label):
-    from balancers import BinaryBalancer
-
-    pb = BinaryBalancer(y='y_true', y_=label, a='combined', data=pred)
-    y_adj = pb.adjust(summary=False)
     pred[label] = y_adj
 
     return pred
