@@ -141,13 +141,10 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
             model = GridSearch(
             model, constr, sample_weight_name="classifier__sample_weight")
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
-        print(exp)
         pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp)
         if postprocessor=='blackbox':
-            pred = blackbox(pred, label, sensitive_features, len(pred[label].unique)==2)
-        run_metrics = compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
-        for k in metrics.keys():
-            metrics[k].append(run_metrics[k])
+            pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
+        compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
 def _get_constr(df, label):
@@ -165,12 +162,6 @@ def _train_test_split(df_train, df_test, label):
     y_test = df_test[label].values.ravel()
     return x_train, x_test, y_train, y_test
 
-# def _demv_training(classifier, debiaser, groups_condition, label, df_train, df_test, sensitive_features):
-#     df_copy = df_train.copy()
-#     data = debiaser.fit_transform(
-#         df_copy, [keys for keys in groups_condition.keys()], label)
-#     pred = _model_train(data, df_test, label, classifier, sensitive_features)
-#     return pred
 
 def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False):
     x_train, x_test, y_train, y_test = _train_test_split(
