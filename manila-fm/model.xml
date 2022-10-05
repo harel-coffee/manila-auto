@@ -121,9 +121,9 @@
 					<feature name="Accuracy"/>
 					<feature name="Precision"/>
 					<feature name="Recall"/>
+					<feature name="F1Score"/>
 					<feature name="ROC"/>
 					<feature name="AUC"/>
-					<feature name="F1Score"/>
 					<feature name="ZeroOneLoss"/>
 				</or>
 				<or abstract="true" name="Regression Metrics">
@@ -375,10 +375,10 @@
 			</eq>
 		</rule>
 		<rule>
-			<eq>
+			<imp>
 				<var>Fairness</var>
 				<var>Fairness Metrics</var>
-			</eq>
+			</imp>
 		</rule>
 		<rule>
 			<imp>
