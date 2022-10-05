@@ -31,14 +31,14 @@ def exec(data):
     label = 'contr_use'
     positive_label = 2
     
-    priv_group = [{
+    priv_group = {
     'wife_religion': 1,
     'wife_work': 1,
-    }]
-    unpriv_group = [{
+    }
+    unpriv_group = {
     'wife_religion': 0,
     'wife_work': 0,
-    }]
+    }
     sensitive_features = ["wife_religion", "wife_work"]
 
     save_data =  False 
@@ -49,10 +49,21 @@ def exec(data):
     }
 
     fairness_methods = {
+        'preprocessing': [
+            'demv',
+        ],
+ 
+        'inprocessing': [
+            'eg',
+            'grid',
+   
+        ],
     }
 
     base_metrics = {
         'stat_par': [],
+        'eq_odds': [],
+        'zero_one_loss': [],
         'disp_imp': [],
         'acc': [],
         'hmean': [],
@@ -72,18 +83,18 @@ def exec(data):
             if f == 'preprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
-                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, preprocessor=method)
+                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, preprocessor=method, n_splits=10)
                     df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
             elif f == 'inprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
-                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, inprocessor=method)
+                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, inprocessor=method, n_splits=10)
                     df_metrics = _store_metrics(
                         ris_metrics, m, method, save_data, save_model, model_fair)
             else:
                for method in fairness_methods[f]:
                    metrics = deepcopy(base_metrics)
-                   model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method)
+                   model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits=10)
                    df_metrics = _store_metrics(
                        ris_metrics, m, method, save_data, save_model, model_fair)
             ris = ris.append(df_metrics)

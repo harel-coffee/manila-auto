@@ -35,7 +35,7 @@
 						<attribute configurable="true" name="Privileged values comma separated" type="string" unit=""/>
 					</feature>
 				</alt>
-				<feature abstract="true" name="StrictlyPositive"/>
+				<feature abstract="true" name="StrictlyPositiveAttributes"/>
 			</and>
 			<alt abstract="true" name="Scaler">
 				<feature name="StandardScaler"/>
@@ -383,7 +383,7 @@
 		<rule>
 			<imp>
 				<var>BoxCox Method</var>
-				<var>StrictlyPositive</var>
+				<var>StrictlyPositiveAttributes</var>
 			</imp>
 		</rule>
 	</constraints>

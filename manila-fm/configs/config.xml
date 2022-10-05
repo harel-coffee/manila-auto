@@ -15,7 +15,7 @@
 		<attribute name="Privileged values comma separated" value="1,1"/>
 		<attribute name="Unprivileged values comma separated" value="0,0"/>
 	</feature>
-	<feature automatic="undefined" manual="undefined" name="StrictlyPositive"/>
+	<feature automatic="undefined" manual="undefined" name="StrictlyPositiveAttributes"/>
 	<feature automatic="selected" manual="undefined" name="Scaler"/>
 	<feature automatic="undefined" manual="selected" name="StandardScaler"/>
 	<feature automatic="unselected" manual="undefined" name="MinMaxScaler"/>
@@ -77,7 +77,7 @@
 	<feature automatic="undefined" manual="undefined" name="ROC"/>
 	<feature automatic="undefined" manual="undefined" name="AUC"/>
 	<feature automatic="undefined" manual="undefined" name="F1Score"/>
-	<feature automatic="undefined" manual="undefined" name="ZeroOneLoss"/>
+	<feature automatic="undefined" manual="selected" name="ZeroOneLoss"/>
 	<feature automatic="unselected" manual="undefined" name="Regression Metrics"/>
 	<feature automatic="unselected" manual="undefined" name="MeanSquaredError"/>
 	<feature automatic="unselected" manual="undefined" name="MeanAbsoluteError"/>
@@ -90,7 +90,7 @@
 	<feature automatic="selected" manual="undefined" name="Fairness Metrics"/>
 	<feature automatic="undefined" manual="selected" name="StatisticalParity"/>
 	<feature automatic="undefined" manual="selected" name="DisparateImpact"/>
-	<feature automatic="undefined" manual="undefined" name="EqualizedOdds"/>
+	<feature automatic="undefined" manual="selected" name="EqualizedOdds"/>
 	<feature automatic="undefined" manual="undefined" name="AverageOdds"/>
 	<feature automatic="undefined" manual="undefined" name="TruePositiveDifference"/>
 	<feature automatic="undefined" manual="undefined" name="TrueNegativeDifference"/>

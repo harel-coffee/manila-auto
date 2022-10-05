@@ -6,6 +6,8 @@ from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
  
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import zero_one_loss
+from fairlearn.metrics import MetricFrame
 from copy import deepcopy
 
 from scipy import stats
@@ -13,55 +15,6 @@ from demv import DEMV
 from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGradient, DemographicParity, ZeroOneLoss
 
 # METRICS
-
-def disparate_impact(data_pred, group_condition, label_name, positive_label):
-    unpriv_group_prob, priv_group_prob = _compute_probs(
-        data_pred, label_name, positive_label, group_condition)
-    return min(unpriv_group_prob / priv_group_prob,
-               priv_group_prob / unpriv_group_prob) if unpriv_group_prob != 0 else \
-        unpriv_group_prob / priv_group_prob
-
-
-def statistical_parity(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
-    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
-    label_query = label_name+'=='+str(positive_label)
-    unpriv_group_prob = (len(data_pred.query(query + '&' + label_query))
-                         / len(data_pred.query(query)))
-    priv_group_prob = (len(data_pred.query('~(' + query + ')&' + label_query))
-                       / len(data_pred.query('~(' + query+')')))
-    return unpriv_group_prob - priv_group_prob
-
-
-def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
-    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
-    label_query = label_name+'=='+str(positive_label)
-    tpr_query = 'y_true == ' + str(positive_label)
-    if(len(data_pred.query(query + '&' + label_query)) == 0):
-        unpriv_group_tpr = 0
-    else:
-        unpriv_group_tpr = (len(data_pred.query(query + '&' + label_query + '&' + tpr_query))
-                            / len(data_pred.query(query + '&' + label_query)))
-
-    if (len(data_pred.query('~(' + query+')&' + label_query)) == 0):
-        priv_group_tpr = 0
-    else:
-        priv_group_tpr = (len(data_pred.query('~(' + query + ')&' + label_query + '&' + tpr_query))
-                          / len(data_pred.query('~(' + query+')&' + label_query)))
-
-    if (len(data_pred.query(query + '& ~(' + label_query + ')')) == 0):
-        unpriv_group_fpr = 0
-    else:
-        unpriv_group_fpr = (len(data_pred.query(query + '&' + label_query + '& ~(' + tpr_query + ')'))
-                            / len(data_pred.query(query + '& ~(' + label_query + ')')))
-
-    if (len(data_pred.query('~(' + query+')& ~(' + label_query + ')')) == 0):
-        priv_group_fpr = 0
-    else:
-        priv_group_fpr = (len(data_pred.query('~(' + query + ')&' + label_query + '& ~(' + tpr_query + ')'))
-                          / len(data_pred.query('~(' + query+')& ~(' + label_query + ')')))
-
-    return max(np.abs(unpriv_group_tpr - priv_group_tpr), np.abs(unpriv_group_fpr - priv_group_fpr))
-
 
 def _get_groups(data, label_name, positive_label, group_condition):
     query = '&'.join([str(k) + '==' + str(v)
@@ -94,22 +47,52 @@ def _compute_tpr_fpr(y_true, y_pred):
     FPR = FP/(FP+TN)
     return FPR, TPR
 
-def average_odds_difference(data_true: pd.DataFrame, data_pred: pd.DataFrame, group_condition: str, label: str):
-    unpriv_group_true = data_true.query(group_condition)
-    priv_group_true = data_true.drop(unpriv_group_true.index)
-    unpriv_group_pred = data_pred.query(group_condition)
-    priv_group_pred = data_pred.drop(unpriv_group_pred.index)
+def disparate_impact(data_pred, group_condition, label_name, positive_label):
+    unpriv_group_prob, priv_group_prob = _compute_probs(
+        data_pred, label_name, positive_label, group_condition)
+    return min(unpriv_group_prob / priv_group_prob,
+               priv_group_prob / unpriv_group_prob) if unpriv_group_prob != 0 else \
+        unpriv_group_prob / priv_group_prob
 
-    y_true_unpriv = unpriv_group_true[label].values.ravel()
-    y_pred_unpric = unpriv_group_pred[label].values.ravel()
-    y_true_priv = priv_group_true[label].values.ravel()
-    y_pred_priv = priv_group_pred[label].values.ravel()
+def statistical_parity(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
+    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
+    label_query = label_name+'=='+str(positive_label)
+    unpriv_group_prob = (len(data_pred.query(query + '&' + label_query))
+                         / len(data_pred.query(query)))
+    priv_group_prob = (len(data_pred.query('~(' + query + ')&' + label_query))
+                       / len(data_pred.query('~(' + query+')')))
+    return unpriv_group_prob - priv_group_prob
 
-    fpr_unpriv, tpr_unpriv = _compute_tpr_fpr(
-        y_true_unpriv, y_pred_unpric)
-    fpr_priv, tpr_priv = _compute_tpr_fpr(
-        y_true_priv, y_pred_priv)
-    return (fpr_unpriv - fpr_priv) + (tpr_unpriv - tpr_priv)/2
+def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
+    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
+    label_query = label_name+'=='+str(positive_label)
+    tpr_query = 'y_true == ' + str(positive_label)
+    if(len(data_pred.query(query + '&' + label_query)) == 0):
+        unpriv_group_tpr = 0
+    else:
+        unpriv_group_tpr = (len(data_pred.query(query + '&' + label_query + '&' + tpr_query))
+                            / len(data_pred.query(query + '&' + label_query)))
+
+    if (len(data_pred.query('~(' + query+')&' + label_query)) == 0):
+        priv_group_tpr = 0
+    else:
+        priv_group_tpr = (len(data_pred.query('~(' + query + ')&' + label_query + '&' + tpr_query))
+                          / len(data_pred.query('~(' + query+')&' + label_query)))
+
+    if (len(data_pred.query(query + '& ~(' + label_query + ')')) == 0):
+        unpriv_group_fpr = 0
+    else:
+        unpriv_group_fpr = (len(data_pred.query(query + '&' + label_query + '& ~(' + tpr_query + ')'))
+                            / len(data_pred.query(query + '& ~(' + label_query + ')')))
+
+    if (len(data_pred.query('~(' + query+')& ~(' + label_query + ')')) == 0):
+        priv_group_fpr = 0
+    else:
+        priv_group_fpr = (len(data_pred.query('~(' + query + ')&' + label_query + '& ~(' + tpr_query + ')'))
+                          / len(data_pred.query('~(' + query+')& ~(' + label_query + ')')))
+
+    return max(np.abs(unpriv_group_tpr - priv_group_tpr), np.abs(unpriv_group_fpr - priv_group_fpr))
+
 
 def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_features: list):
     mf = MetricFrame(metrics=zero_one_loss,
@@ -144,8 +127,6 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
             model, constr, sample_weight_name="classifier__sample_weight")
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
         pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp)
-        if postprocessor=='blackbox':
-            pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
         compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
@@ -181,26 +162,28 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
 def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, sensitive_features):
     stat_par = statistical_parity(
         df_pred, groups_condition, label, positive_label)
+    metrics['stat_par'].append(stat_par)
     eo = equalized_odds(
         df_pred, groups_condition, label, positive_label)
+    metrics['eq_odds'].append(eo)
     di = disparate_impact(
         df_pred, groups_condition, label, positive_label=positive_label)
+    metrics['disp_imp'].append(di)
     zero_one_loss = zero_one_loss_diff(
         y_true=df_pred['y_true'].values, y_pred=df_pred[label].values, sensitive_features=df_pred[sensitive_features].values)
-    accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
-    metrics['stat_par'].append(stat_par)
-    metrics['eq_odds'].append(eo)
-    metrics['disp_imp'].append(di)
     metrics['zero_one_loss'].append(zero_one_loss)
+    accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
     metrics['acc'].append(accuracy)
-    metrics['hmean'].append(stats.hmean([accuracy, di, norm_data(
-        eo), norm_data(stat_par), norm_data(zero_one_loss)]))
+    metrics['hmean'].append(
+        stats.hmean([
+            accuracy,
+ 
+            di,
+ 
+            norm_data(eo), 
+            norm_data(stat_par), 
+            norm_data(zero_one_loss)
+        ])
+    )
     return metrics
 
-def blackbox(pred, label, sensitive_var, binary=True):
-    pb = BinaryBalancer(y='y_true', y_=label, a=sensitive_var, data=pred) if binary else \
-        MulticlassBalancer(y='y_true', y_=label, a=sensitive_var, data=pred)
-    y_adj = pb.adjust(cv=True, summary=False)
-    pred[label] = y_adj
-
-    return pred

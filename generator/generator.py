@@ -57,7 +57,6 @@ if __name__ == '__main__':
             "File not found in the configs folder. Make sure you add .xml at the end of the file name")
     params = tree_parser(root)
     check_params(params)
-    pprint(params)
     os.makedirs('gen', exist_ok=True)
     env = Environment(loader=PackageLoader('generator'),
                       autoescape=select_autoescape(disabled_extensions=(['py','yml'])), 
@@ -84,12 +83,4 @@ if __name__ == '__main__':
             f.write(tools.render())
         with open(os.path.join('gen', 'balancers.py'), 'w') as f:
             f.write(balancers.render())
-    # utils = env.get_template('utils.py.jinja')
-    # balancers = env.get_template('balancers.py.jinja')
-    # demv = env.get_template('demv.py.jinja')
-    # environment = env.get_template('environment.yml.jinja')
-    # tools = env.get_template('tools.py.jinja')
-    # generator = Generator()
-    # generator.generate(params, 'gen')
-
     sys.exit("Script generated")
