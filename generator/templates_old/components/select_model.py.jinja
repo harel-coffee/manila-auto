@@ -1,6 +1,0 @@
-model = make_pipeline(StandardScaler(), LogisticRegression())
-{%if reweighing %}
-model.fit(X_train, y_train, logisticregression__sample_weight=dataset_train.instance_weights.ravel())
-{% else %}
-model.fit(X_train, y_train)
-{% endif %}
