@@ -27,3 +27,5 @@ feature-model
 .vscode
 gen
 ris
+templates_old
+test
