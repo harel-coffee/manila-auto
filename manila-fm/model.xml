@@ -2,7 +2,7 @@
 <extendedFeatureModel>
 	<properties>
 		<graphics key="autolayoutconstraints" value="false"/>
-		<graphics key="legendposition" value="569,23"/>
+		<graphics key="legendposition" value="603,11"/>
 		<graphics key="legendautolayout" value="false"/>
 		<graphics key="showconstraints" value="true"/>
 		<graphics key="showshortnames" value="false"/>
@@ -38,6 +38,7 @@
 				<feature abstract="true" name="StrictlyPositiveAttributes"/>
 			</and>
 			<alt abstract="true" name="Scaler">
+				<graphics key="collapsed" value="false"/>
 				<feature name="StandardScaler"/>
 				<feature name="MinMaxScaler"/>
 				<feature name="MaxAbsScaler"/>
@@ -156,6 +157,7 @@
 				</alt>
 			</and>
 			<alt abstract="true" name="Validation">
+				<graphics key="collapsed" value="false"/>
 				<attribute configurable="true" name="Save temporary results" type="boolean" unit="" value="false"/>
 				<feature name="KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
@@ -177,6 +179,7 @@
 			<or abstract="true" mandatory="true" name="ResultPresentation">
 				<feature name="Tabular"/>
 				<or abstract="true" name="Chart">
+					<graphics key="collapsed" value="false"/>
 					<attribute configurable="true" name="x" type="string" unit=""/>
 					<attribute configurable="true" name="y" type="string" unit=""/>
 					<feature name="BarChart"/>
