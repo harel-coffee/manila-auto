@@ -107,4 +107,12 @@
 	<feature automatic="unselected" manual="undefined" name="Stratified KFold"/>
 	<feature automatic="unselected" manual="undefined" name="Group KFold"/>
 	<feature automatic="unselected" manual="undefined" name="Stratified Group KFold"/>
+	<feature automatic="undefined" manual="undefined" name="ResultPresentation"/>
+	<feature automatic="undefined" manual="undefined" name="Tabular"/>
+	<feature automatic="undefined" manual="undefined" name="Chart"/>
+	<feature automatic="undefined" manual="undefined" name="BarChart"/>
+	<feature automatic="undefined" manual="undefined" name="LineChart"/>
+	<feature automatic="undefined" manual="undefined" name="StripPlot"/>
+	<feature automatic="undefined" manual="undefined" name="BoxPlot"/>
+	<feature automatic="undefined" manual="undefined" name="PointPlot"/>
 </extendedConfiguration>
