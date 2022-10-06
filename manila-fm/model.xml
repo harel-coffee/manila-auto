@@ -2,19 +2,19 @@
 <extendedFeatureModel>
 	<properties>
 		<graphics key="autolayoutconstraints" value="false"/>
-		<graphics key="legendposition" value="603,11"/>
+		<graphics key="legendposition" value="566,26"/>
 		<graphics key="legendautolayout" value="false"/>
 		<graphics key="showconstraints" value="true"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="vertical"/>
 		<graphics key="showcollapsedconstraints" value="true"/>
 		<graphics key="legendhidden" value="false"/>
-		<graphics key="layoutalgorithm" value="4"/>
+		<graphics key="layoutalgorithm" value="6"/>
 	</properties>
 	<struct>
-		<and abstract="true" mandatory="true" name="Manila">
+		<and abstract="true" mandatory="true" name="Experiment">
 			<and abstract="true" mandatory="true" name="Dataset">
-				<graphics key="collapsed" value="false"/>
+				<graphics key="collapsed" value="true"/>
 				<alt abstract="true" mandatory="true" name="Label">
 					<graphics key="collapsed" value="false"/>
 					<attribute configurable="true" name="Name" type="string" unit=""/>
@@ -38,7 +38,7 @@
 				<feature abstract="true" name="StrictlyPositiveAttributes"/>
 			</and>
 			<alt abstract="true" name="Scaler">
-				<graphics key="collapsed" value="false"/>
+				<graphics key="collapsed" value="true"/>
 				<feature name="StandardScaler"/>
 				<feature name="MinMaxScaler"/>
 				<feature name="MaxAbsScaler"/>
@@ -53,7 +53,7 @@
 				<graphics key="collapsed" value="false"/>
 				<attribute configurable="true" name="Save trained model" type="boolean" unit="" value="false"/>
 				<alt abstract="true" name="Supervised">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<attribute configurable="true" name="train size" type="long" unit="" value="80"/>
 					<or abstract="true" name="Classification">
 						<graphics key="collapsed" value="false"/>
@@ -76,7 +76,7 @@
 					</or>
 				</alt>
 				<and abstract="true" name="Unsupervised">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<and abstract="true" mandatory="true" name="Clustering">
 						<graphics key="collapsed" value="false"/>
 						<feature mandatory="true" name="KMeans"/>
@@ -87,7 +87,7 @@
 				<or abstract="true" name="Fairness">
 					<graphics key="collapsed" value="false"/>
 					<or abstract="true" name="PreProcessing">
-						<graphics key="collapsed" value="false"/>
+						<graphics key="collapsed" value="true"/>
 						<feature name="Reweighing"/>
 						<feature name="DIR"/>
 						<feature name="DEMV"/>
@@ -97,7 +97,7 @@
 						<feature name="Sampling"/>
 					</or>
 					<or abstract="true" name="InProcessing">
-						<graphics key="collapsed" value="false"/>
+						<graphics key="collapsed" value="true"/>
 						<feature name="ExponentiatedGradient"/>
 						<feature name="GridSearch"/>
 						<feature name="AdversarialDebiasing"/>
@@ -106,7 +106,7 @@
 						<feature name="PrejudiceRemover"/>
 					</or>
 					<or abstract="true" name="PostProcessing">
-						<graphics key="collapsed" value="false"/>
+						<graphics key="collapsed" value="true"/>
 						<feature name="Blackbox"/>
 						<feature name="CalibratedEO"/>
 						<feature name="RejectOptionClassifier"/>
@@ -118,7 +118,7 @@
 			</or>
 			<and abstract="true" name="Metrics">
 				<or abstract="true" name="Classification Metrics">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<feature name="Accuracy"/>
 					<feature name="Precision"/>
 					<feature name="Recall"/>
@@ -128,7 +128,7 @@
 					<feature name="ZeroOneLoss"/>
 				</or>
 				<or abstract="true" name="Regression Metrics">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<feature name="MeanSquaredError"/>
 					<feature name="MeanAbsoluteError"/>
 					<feature name="R2Error"/>
@@ -139,7 +139,7 @@
 					<feature name="D2Score"/>
 				</or>
 				<or abstract="true" name="Fairness Metrics">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<feature name="StatisticalParity"/>
 					<feature name="DisparateImpact"/>
 					<feature name="EqualizedOdds"/>
@@ -148,7 +148,7 @@
 					<feature name="TrueNegativeDifference"/>
 				</or>
 				<alt abstract="true" mandatory="true" name="Aggregation Function">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<feature name="Min"/>
 					<feature name="Max"/>
 					<feature name="Sum"/>
@@ -157,7 +157,7 @@
 				</alt>
 			</and>
 			<alt abstract="true" name="Validation">
-				<graphics key="collapsed" value="false"/>
+				<graphics key="collapsed" value="true"/>
 				<attribute configurable="true" name="Save temporary results" type="boolean" unit="" value="false"/>
 				<feature name="KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
@@ -179,7 +179,7 @@
 			<or abstract="true" mandatory="true" name="ResultPresentation">
 				<feature name="Tabular"/>
 				<or abstract="true" name="Chart">
-					<graphics key="collapsed" value="false"/>
+					<graphics key="collapsed" value="true"/>
 					<attribute configurable="true" name="x" type="string" unit=""/>
 					<attribute configurable="true" name="y" type="string" unit=""/>
 					<feature name="BarChart"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <extendedConfiguration>
-	<feature automatic="selected" manual="undefined" name="Manila"/>
+	<feature automatic="selected" manual="undefined" name="Experiment"/>
 	<feature automatic="selected" manual="undefined" name="Dataset"/>
 	<feature automatic="selected" manual="undefined" name="Label">
 		<attribute name="Positive value" value="2"/>
