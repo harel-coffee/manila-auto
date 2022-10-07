@@ -44,7 +44,7 @@
 	<feature automatic="unselected" manual="undefined" name="Decision Tree Regressor"/>
 	<feature automatic="unselected" manual="undefined" name="Unsupervised"/>
 	<feature automatic="unselected" manual="undefined" name="Clustering"/>
-	<feature automatic="unselected" manual="undefined" name="KMeans"/>
+	<feature automatic="undefined" manual="undefined" name="Aggregation"/>
 	<feature automatic="undefined" manual="undefined" name="Quality"/>
 	<feature automatic="undefined" manual="undefined" name="Fairness"/>
 	<feature automatic="undefined" manual="undefined" name="PreProcessing"/>
