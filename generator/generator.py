@@ -4,7 +4,6 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 from jinja2 import Environment, PackageLoader, select_autoescape
-from pprint import pprint
 
 
 def camel_to_snake(name):

@@ -2,6 +2,15 @@
 <extendedConfiguration>
 	<feature automatic="selected" manual="undefined" name="Experiment"/>
 	<feature automatic="selected" manual="undefined" name="Dataset"/>
+	<feature automatic="undefined" manual="undefined" name="File extension"/>
+	<feature automatic="undefined" manual="undefined" name="CSV"/>
+	<feature automatic="undefined" manual="undefined" name="Pickle"/>
+	<feature automatic="undefined" manual="undefined" name="Excel"/>
+	<feature automatic="undefined" manual="undefined" name="JSON"/>
+	<feature automatic="undefined" manual="undefined" name="Text"/>
+	<feature automatic="undefined" manual="undefined" name="XML"/>
+	<feature automatic="undefined" manual="undefined" name="HTML"/>
+	<feature automatic="undefined" manual="undefined" name="HDF5"/>
 	<feature automatic="selected" manual="undefined" name="Label">
 		<attribute name="Positive value" value="2"/>
 		<attribute name="Name" value="contr_use"/>
