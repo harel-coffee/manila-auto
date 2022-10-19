@@ -2,15 +2,15 @@
 <extendedConfiguration>
 	<feature automatic="selected" manual="undefined" name="Experiment"/>
 	<feature automatic="selected" manual="undefined" name="Dataset"/>
-	<feature automatic="undefined" manual="undefined" name="File extension"/>
-	<feature automatic="undefined" manual="undefined" name="CSV"/>
-	<feature automatic="undefined" manual="undefined" name="Pickle"/>
-	<feature automatic="undefined" manual="undefined" name="Excel"/>
-	<feature automatic="undefined" manual="undefined" name="JSON"/>
-	<feature automatic="undefined" manual="undefined" name="Text"/>
-	<feature automatic="undefined" manual="undefined" name="XML"/>
-	<feature automatic="undefined" manual="undefined" name="HTML"/>
-	<feature automatic="undefined" manual="undefined" name="HDF5"/>
+	<feature automatic="selected" manual="undefined" name="File extension"/>
+	<feature automatic="undefined" manual="selected" name="CSV"/>
+	<feature automatic="unselected" manual="undefined" name="Pickle"/>
+	<feature automatic="unselected" manual="undefined" name="Excel"/>
+	<feature automatic="unselected" manual="undefined" name="JSON"/>
+	<feature automatic="unselected" manual="undefined" name="Text"/>
+	<feature automatic="unselected" manual="undefined" name="XML"/>
+	<feature automatic="unselected" manual="undefined" name="HTML"/>
+	<feature automatic="unselected" manual="undefined" name="HDF5"/>
 	<feature automatic="selected" manual="undefined" name="Label">
 		<attribute name="Positive value" value="2"/>
 		<attribute name="Name" value="contr_use"/>
@@ -21,8 +21,8 @@
 	<feature automatic="unselected" manual="undefined" name="Single sensitive var"/>
 	<feature automatic="undefined" manual="selected" name="Multiple sensitive vars">
 		<attribute name="Variable names comma separated" value="wife_religion,wife_work"/>
-		<attribute name="Privileged values comma separated" value="0,0"/>
-		<attribute name="Unprivileged values comma separated" value="1,1"/>
+		<attribute name="Privileged values comma separated" value="1,1"/>
+		<attribute name="Unprivileged values comma separated" value="0,0"/>
 	</feature>
 	<feature automatic="undefined" manual="undefined" name="StrictlyPositiveAttributes"/>
 	<feature automatic="selected" manual="undefined" name="Scaler"/>
@@ -34,14 +34,16 @@
 	<feature automatic="unselected" manual="undefined" name="PowerTransformerScaler"/>
 	<feature automatic="unselected" manual="undefined" name="YeoJohnson Method"/>
 	<feature automatic="unselected" manual="undefined" name="BoxCox Method"/>
-	<feature automatic="selected" manual="undefined" name="ML Task"/>
+	<feature automatic="selected" manual="undefined" name="ML Task">
+		<attribute name="Save trained model" value="true"/>
+	</feature>
 	<feature automatic="selected" manual="undefined" name="Supervised"/>
 	<feature automatic="selected" manual="undefined" name="Classification"/>
 	<feature automatic="undefined" manual="selected" name="Logistic Regression"/>
 	<feature automatic="undefined" manual="selected" name="SVC"/>
 	<feature automatic="undefined" manual="undefined" name="Gradient Descent Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="Gradient Boosting Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="MLP Classifier"/>
+	<feature automatic="undefined" manual="selected" name="Gradient Boosting Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="MLP Classifier"/>
 	<feature automatic="undefined" manual="undefined" name="Decision Tree Classifier"/>
 	<feature automatic="undefined" manual="undefined" name="Random Forest Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="Regression"/>
@@ -53,20 +55,20 @@
 	<feature automatic="unselected" manual="undefined" name="Decision Tree Regressor"/>
 	<feature automatic="unselected" manual="undefined" name="Unsupervised"/>
 	<feature automatic="unselected" manual="undefined" name="Clustering"/>
-	<feature automatic="undefined" manual="undefined" name="Aggregation"/>
-	<feature automatic="undefined" manual="undefined" name="Quality"/>
-	<feature automatic="undefined" manual="undefined" name="Fairness"/>
-	<feature automatic="undefined" manual="undefined" name="PreProcessing"/>
+	<feature automatic="unselected" manual="undefined" name="Aggregation"/>
+	<feature automatic="selected" manual="undefined" name="Quality"/>
+	<feature automatic="selected" manual="undefined" name="Fairness"/>
+	<feature automatic="selected" manual="undefined" name="PreProcessing"/>
 	<feature automatic="unselected" manual="undefined" name="Reweighing"/>
 	<feature automatic="unselected" manual="undefined" name="DIR"/>
-	<feature automatic="undefined" manual="undefined" name="DEMV"/>
+	<feature automatic="undefined" manual="selected" name="DEMV"/>
 	<feature automatic="unselected" manual="undefined" name="OptimizedPreprocessing"/>
 	<feature automatic="unselected" manual="undefined" name="LFR"/>
 	<feature automatic="undefined" manual="undefined" name="CorrelationRemover"/>
 	<feature automatic="undefined" manual="undefined" name="Sampling"/>
-	<feature automatic="undefined" manual="undefined" name="InProcessing"/>
-	<feature automatic="undefined" manual="undefined" name="ExponentiatedGradient"/>
-	<feature automatic="undefined" manual="undefined" name="GridSearch"/>
+	<feature automatic="selected" manual="selected" name="InProcessing"/>
+	<feature automatic="undefined" manual="selected" name="ExponentiatedGradient"/>
+	<feature automatic="undefined" manual="selected" name="GridSearch"/>
 	<feature automatic="unselected" manual="undefined" name="AdversarialDebiasing"/>
 	<feature automatic="unselected" manual="undefined" name="GerryFairClassifier"/>
 	<feature automatic="unselected" manual="undefined" name="MetaFairClassifier"/>
@@ -116,8 +118,8 @@
 	<feature automatic="unselected" manual="undefined" name="Stratified KFold"/>
 	<feature automatic="unselected" manual="undefined" name="Group KFold"/>
 	<feature automatic="unselected" manual="undefined" name="Stratified Group KFold"/>
-	<feature automatic="undefined" manual="undefined" name="ResultPresentation"/>
-	<feature automatic="undefined" manual="undefined" name="Tabular"/>
+	<feature automatic="selected" manual="undefined" name="ResultPresentation"/>
+	<feature automatic="undefined" manual="selected" name="Tabular"/>
 	<feature automatic="undefined" manual="undefined" name="Chart"/>
 	<feature automatic="undefined" manual="undefined" name="BarChart"/>
 	<feature automatic="undefined" manual="undefined" name="LineChart"/>

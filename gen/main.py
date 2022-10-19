@@ -7,6 +7,7 @@ from demv import DEMV
 from fairlearn.reductions import ExponentiatedGradient, BoundedGroupLoss, ZeroOneLoss, GridSearch, DemographicParity
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -46,6 +47,7 @@ def exec(data):
     ml_methods = {
         'logreg': LogisticRegression(),
         'svm': SVC(),
+        'gradient': GradientBoostingClassifier()
     }
 
     fairness_methods = {
@@ -85,19 +87,20 @@ def exec(data):
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, preprocessor=method, n_splits=10)
                     df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                    ris = ris.append(df_metrics)
             elif f == 'inprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, inprocessor=method, n_splits=10)
                     df_metrics = _store_metrics(
                         ris_metrics, m, method, save_data, save_model, model_fair)
+                    ris = ris.append(df_metrics)
             else:
                for method in fairness_methods[f]:
                    metrics = deepcopy(base_metrics)
                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits=10)
-                   df_metrics = _store_metrics(
-                       ris_metrics, m, method, save_data, save_model, model_fair)
-            ris = ris.append(df_metrics)
+                   df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                   ris = ris.append(df_metrics)
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
     best_ris = report.iloc[0,:]
@@ -137,7 +140,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dataset', type=str,
                         help='Required argument: relative path of the dataset to process')
     args = parser.parse_args()
-    data = pd.read_csv(args.dataset)
+    data = pd.read_csv('test_data/cmc.csv')
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
     report.to_csv(os.path.join('ris','report.csv'))

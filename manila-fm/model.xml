@@ -2,8 +2,8 @@
 <extendedFeatureModel>
 	<properties>
 		<graphics key="autolayoutconstraints" value="false"/>
-		<graphics key="legendposition" value="126,33"/>
-		<graphics key="legendautolayout" value="false"/>
+		<graphics key="legendposition" value="1127,491"/>
+		<graphics key="legendautolayout" value="true"/>
 		<graphics key="showconstraints" value="true"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="vertical"/>
@@ -16,6 +16,7 @@
 			<and abstract="true" mandatory="true" name="Dataset">
 				<graphics key="collapsed" value="false"/>
 				<alt abstract="true" mandatory="true" name="File extension">
+					<graphics key="collapsed" value="false"/>
 					<feature name="CSV"/>
 					<feature name="Pickle"/>
 					<feature name="Excel"/>
