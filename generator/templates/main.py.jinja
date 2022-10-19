@@ -213,5 +213,5 @@ if __name__ == '__main__':
     data = pd.read_csv(args.dataset)
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
-    report.to_csv(os.path.join('ris','report.csv'))
+    report.round(3).to_csv(os.path.join('ris','report.csv'))
     pickle.dump(model, open(os.path.join('ris','model.pkl'), 'wb'))

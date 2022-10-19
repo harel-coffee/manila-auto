@@ -21,8 +21,8 @@
 	<feature automatic="unselected" manual="undefined" name="Single sensitive var"/>
 	<feature automatic="undefined" manual="selected" name="Multiple sensitive vars">
 		<attribute name="Variable names comma separated" value="wife_religion,wife_work"/>
-		<attribute name="Privileged values comma separated" value="1,1"/>
-		<attribute name="Unprivileged values comma separated" value="0,0"/>
+		<attribute name="Privileged values comma separated" value="0,0"/>
+		<attribute name="Unprivileged values comma separated" value="1,1"/>
 	</feature>
 	<feature automatic="undefined" manual="undefined" name="StrictlyPositiveAttributes"/>
 	<feature automatic="selected" manual="undefined" name="Scaler"/>
@@ -35,7 +35,7 @@
 	<feature automatic="unselected" manual="undefined" name="YeoJohnson Method"/>
 	<feature automatic="unselected" manual="undefined" name="BoxCox Method"/>
 	<feature automatic="selected" manual="undefined" name="ML Task">
-		<attribute name="Save trained model" value="true"/>
+		<attribute name="Save trained model" value="false"/>
 	</feature>
 	<feature automatic="selected" manual="undefined" name="Supervised"/>
 	<feature automatic="selected" manual="undefined" name="Classification"/>

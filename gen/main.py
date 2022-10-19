@@ -140,8 +140,8 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dataset', type=str,
                         help='Required argument: relative path of the dataset to process')
     args = parser.parse_args()
-    data = pd.read_csv('test_data/cmc.csv')
+    data = pd.read_csv(args.dataset)
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
-    report.to_csv(os.path.join('ris','report.csv'))
+    report.round(3).to_csv(os.path.join('ris','report.csv'))
     pickle.dump(model, open(os.path.join('ris','model.pkl'), 'wb'))
