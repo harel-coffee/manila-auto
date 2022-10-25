@@ -66,7 +66,7 @@
 			<alt abstract="true" name="ML Task">
 				<graphics key="collapsed" value="false"/>
 				<attribute configurable="true" name="Save trained model" type="boolean" unit="" value="false"/>
-				<alt abstract="true" name="Supervised">
+				<and abstract="true" name="Supervised">
 					<graphics key="collapsed" value="false"/>
 					<attribute configurable="true" name="train size" type="long" unit="" value="80"/>
 					<or abstract="true" name="Classification">
@@ -88,7 +88,7 @@
 						<feature name="MLP Regressor"/>
 						<feature name="Decision Tree Regressor"/>
 					</or>
-				</alt>
+				</and>
 				<alt abstract="true" name="Unsupervised">
 					<graphics key="collapsed" value="false"/>
 					<feature abstract="true" name="Clustering">

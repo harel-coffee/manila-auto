@@ -45,6 +45,10 @@ def exec(data):
     {% endfor %}
     }
     sensitive_features = [{{variables|map("tojson")|join(", ")}}]
+    {%else%}
+    unpriv_group = []
+    priv_group = []
+    sensitive_features = []
     {% endif %}
 
     save_data = {% if save_temporary_results == 'true' %} True {%else%} False {%endif%}
@@ -125,12 +129,7 @@ def exec(data):
     for m in ml_methods.keys():
         {%if scaler%}
         model = Pipeline([
-            {%if standard_scaler%}
-            ('scaler', StandardScaler()),
-            {%endif%}
-            {%if min_max_scaler%}
-            ('scaler', MinMaxScaler()),
-            {%endif%}
+            {{""}}{%include 'components/model_scalers.jinja'%}
             ('classifier', ml_methods[m])
         ])
         {%else%}
@@ -158,18 +157,18 @@ def exec(data):
                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits={{K | default(10,true)}})
                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
                    ris = ris.append(df_metrics)
+    {%if fairness%}
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
+    {%else%}
+    report = ris.groupby(['model']).agg(
+        np.mean).sort_values(agg_metric, ascending=False).reset_index()
+    {%endif%}
     best_ris = report.iloc[0,:]
     model = ml_methods[best_ris['model']]
     {% if scaler %}
     model = Pipeline([
-        {% if standard_scaler %}
-        ('scaler', StandardScaler()),
-        {% endif %}
-        {% if min_max_scaler %}
-        ('scaler', MinMaxScaler()),
-        {% endif %}
+        {{''}}{%include 'components/model_scalers.jinja'%}
         ('classifier', model)
     ])
     {% endif %}

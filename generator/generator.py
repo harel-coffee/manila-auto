@@ -1,5 +1,6 @@
 import argparse
 import os
+from pprint import pprint
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -67,7 +68,7 @@ if __name__ == '__main__':
     demv = env.get_template('demv.py.jinja')
     environment = env.get_template('environment.yml.jinja')
     tools = env.get_template('tools.py.jinja')
-
+    pprint(params)
     with open(os.path.join('gen', 'main.py'), 'w') as f:
         f.write(main.render(params))
     with open(os.path.join('gen', 'utils.py'), 'w') as f:

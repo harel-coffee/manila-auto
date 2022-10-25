@@ -1,7 +1,7 @@
 # Things to implement
 
 - [X] File extensions
-- [ ] Normalizers
+- [X] Normalizers
 - Classifiers:
   - [ ] Gradient Descent
   - [ ] MLP Classifier

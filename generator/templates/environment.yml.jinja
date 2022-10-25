@@ -17,6 +17,9 @@ dependencies:
 {%if demv%}
   - imbalanced-learn
 {%endif%}
+{%if parquet%}
+  - pyarrow
+{%endif%}
   - scikit-learn
   - scipy
 {%if hdf5%}

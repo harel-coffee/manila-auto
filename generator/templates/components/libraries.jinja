@@ -16,9 +16,33 @@ from sklearn.svm import SVC
 {% if gradient__boosting__classifier %}
 from sklearn.ensemble import GradientBoostingClassifier
 {% endif %}
+{% if gradient__descent__classifier %}
+from sklearn.linear_model import SDGClassifier
+{% endif %}
+{% if decision__tree__classifier %}
+from sklearn.tree import DecisionTreeClassifier
+{% endif %}
+{% if random__forest__classifier%}
+from sklearn.ensemble import RandomForestClassifier
+{% endif %}
 {% if scaler %}
 from sklearn.pipeline import Pipeline
 {% endif %}
 {% if standard_scaler %}
 from sklearn.preprocessing import StandardScaler
+{% endif%}
+{% if min_max_scaler %}
+from sklearn.preprocessing import MinMaxScaler
+{% endif%}
+{% if max_abs_scaler %}
+from sklearn.preprocessing import MaxAbsScaler
+{% endif%}
+{% if robust_scaler %}
+from sklearn.preprocessing import RobustScaler
+{% endif%}
+{% if quantile_transformer_scaler %}
+from sklearn.preprocessing import QuantileTransformer
+{% endif%}
+{% if power_transformer_scaler %}
+from sklearn.preprocessing import PowerTransformer
 {% endif%}
