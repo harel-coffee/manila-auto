@@ -1,0 +1,32 @@
+# Things to implement
+
+- [X] File extensions
+- [ ] Normalizers
+- Classifiers:
+  - [ ] Gradient Descent
+  - [ ] MLP Classifier
+  - [ ] Decision Tree
+  - [ ] Random Forest
+- Regressors:
+  - [ ] Linear Regressor
+  - [ ] SVR
+  - [ ] Gradient Descent
+  - [ ] MLP Regressor
+  - [ ] Decision Tree
+- Fairness:
+  - [ ] RW
+  - [ ] DIR
+  - [ ] OptPreproc
+  - [ ] LFR
+  - [ ] CorrelationRemover
+  - [ ] Sampling
+  - [ ] AdversarialDebiasing
+  - [ ] GerryFair
+  - [ ] MetaFair
+  - [ ] PrejudiceRem
+  - [ ] Blackbox
+  - [ ] Calibrated EO
+  - [ ] RejectOption
+- [ ] Metrics
+- [ ] Validations
+- [ ] Charts

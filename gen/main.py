@@ -140,7 +140,10 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dataset', type=str,
                         help='Required argument: relative path of the dataset to process')
     args = parser.parse_args()
-    data = pd.read_csv(args.dataset)
+    
+    data = pd.read_csv(args.dataset
+    , header=None
+    )
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
     report.round(3).to_csv(os.path.join('ris','report.csv'))

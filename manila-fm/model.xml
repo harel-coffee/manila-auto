@@ -15,10 +15,12 @@
 		<and abstract="true" mandatory="true" name="Experiment">
 			<and abstract="true" mandatory="true" name="Dataset">
 				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="has_header" type="boolean" unit="" value="true"/>
+				<attribute configurable="true" name="index_col" type="long" unit=""/>
 				<alt abstract="true" mandatory="true" name="File extension">
 					<graphics key="collapsed" value="false"/>
 					<feature name="CSV"/>
-					<feature name="Pickle"/>
+					<feature name="Parquet"/>
 					<feature name="Excel"/>
 					<feature name="JSON"/>
 					<feature name="Text"/>

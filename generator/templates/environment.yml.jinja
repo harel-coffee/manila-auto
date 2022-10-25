@@ -9,6 +9,9 @@ dependencies:
 {%if exponentiated_gradient or grid_search%}
   - fairlearn
 {%endif%}
+{%if excel%}
+  - openpyxl
+{%endif%}
   - pandas
   - python=3.9
 {%if demv%}
@@ -16,3 +19,8 @@ dependencies:
 {%endif%}
   - scikit-learn
   - scipy
+{%if hdf5%}
+  -pip
+  -pip:
+    - tables
+{%endif%}
