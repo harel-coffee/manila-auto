@@ -63,8 +63,20 @@ def exec(data):
         'svm': SVC(),
         {% endif %}
         {% if gradient__boosting__classifier %}
-        'gradient': GradientBoostingClassifier()
+        'gradient': GradientBoostingClassifier(),
         {%endif%}
+        {%if mlp__classifier%}
+        'mlp': MLPClassifier(),
+        {%endif%}
+        {% if gradient__descent__classifier %}
+        'sdg': SGDClassifier(),
+        {% endif %}
+        {% if decision__tree__classifier %}
+        'tree': DecisionTreeClassifier(),
+        {% endif %}
+        {% if random__forest__classifier%}
+        'forest': RandomForestClassifier()
+        {% endif %}
     }
 
     fairness_methods = {
@@ -188,6 +200,7 @@ def exec(data):
         ('classifier', model)
     ])
     {% endif %}
+    {%if fairness%}
     {% if demv %}
     if best_ris['fairness_method'] == 'demv':
         demv = DEMV(round_level=1)
@@ -217,7 +230,10 @@ def exec(data):
         grid.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
         return grid, report
     {%endif%}
-
+    {%else%}
+    model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
+    return model, report
+    {%endif%}
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

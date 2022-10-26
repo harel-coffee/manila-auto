@@ -13,7 +13,7 @@
 	<feature automatic="unselected" manual="undefined" name="HDF5"/>
 	<feature automatic="selected" manual="undefined" name="Label">
 		<attribute name="Positive value" value="1"/>
-		<attribute name="Name" value="y"/>
+		<attribute name="Name" value="contr_use"/>
 	</feature>
 	<feature automatic="unselected" manual="undefined" name="Binary"/>
 	<feature automatic="undefined" manual="selected" name="MultiClass"/>
@@ -33,13 +33,13 @@
 	<feature automatic="selected" manual="undefined" name="ML Task"/>
 	<feature automatic="selected" manual="selected" name="Supervised"/>
 	<feature automatic="selected" manual="undefined" name="Classification"/>
-	<feature automatic="undefined" manual="undefined" name="Logistic Regression"/>
+	<feature automatic="undefined" manual="selected" name="Logistic Regression"/>
 	<feature automatic="undefined" manual="selected" name="SVC"/>
-	<feature automatic="undefined" manual="undefined" name="Gradient Descent Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="Gradient Boosting Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="MLP Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="Decision Tree Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="Random Forest Classifier"/>
+	<feature automatic="undefined" manual="selected" name="Gradient Descent Classifier"/>
+	<feature automatic="undefined" manual="selected" name="Gradient Boosting Classifier"/>
+	<feature automatic="undefined" manual="selected" name="MLP Classifier"/>
+	<feature automatic="undefined" manual="selected" name="Decision Tree Classifier"/>
+	<feature automatic="undefined" manual="selected" name="Random Forest Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="Regression"/>
 	<feature automatic="unselected" manual="undefined" name="Linear Regression"/>
 	<feature automatic="unselected" manual="undefined" name="SVR"/>
@@ -60,9 +60,9 @@
 	<feature automatic="unselected" manual="undefined" name="LFR"/>
 	<feature automatic="undefined" manual="undefined" name="CorrelationRemover"/>
 	<feature automatic="undefined" manual="undefined" name="Sampling"/>
-	<feature automatic="undefined" manual="undefined" name="InProcessing"/>
-	<feature automatic="undefined" manual="undefined" name="ExponentiatedGradient"/>
-	<feature automatic="undefined" manual="undefined" name="GridSearch"/>
+	<feature automatic="unselected" manual="undefined" name="InProcessing"/>
+	<feature automatic="unselected" manual="undefined" name="ExponentiatedGradient"/>
+	<feature automatic="unselected" manual="undefined" name="GridSearch"/>
 	<feature automatic="unselected" manual="undefined" name="AdversarialDebiasing"/>
 	<feature automatic="unselected" manual="undefined" name="GerryFairClassifier"/>
 	<feature automatic="unselected" manual="undefined" name="MetaFairClassifier"/>
@@ -100,8 +100,8 @@
 	<feature automatic="undefined" manual="undefined" name="TruePositiveDifference"/>
 	<feature automatic="undefined" manual="undefined" name="TrueNegativeDifference"/>
 	<feature automatic="selected" manual="undefined" name="Aggregation Function"/>
-	<feature automatic="unselected" manual="undefined" name="Min"/>
-	<feature automatic="undefined" manual="selected" name="Max"/>
+	<feature automatic="undefined" manual="selected" name="Min"/>
+	<feature automatic="unselected" manual="undefined" name="Max"/>
 	<feature automatic="unselected" manual="undefined" name="Sum"/>
 	<feature automatic="unselected" manual="undefined" name="StatisticalMean"/>
 	<feature automatic="unselected" manual="undefined" name="HarmonicMean"/>

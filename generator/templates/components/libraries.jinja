@@ -7,7 +7,7 @@ from fairlearn.reductions import ExponentiatedGradient, BoundedGroupLoss, ZeroOn
 {% if logistic__regression %}
 from sklearn.linear_model import LogisticRegression
 {% endif %}
-{% if mlp_classifier %}
+{% if mlp__classifier %}
 from sklearn.neural_network import MLPClassifier
 {% endif %}
 {% if svc %}
@@ -17,7 +17,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import GradientBoostingClassifier
 {% endif %}
 {% if gradient__descent__classifier %}
-from sklearn.linear_model import SDGClassifier
+from sklearn.linear_model import SGDClassifier
 {% endif %}
 {% if decision__tree__classifier %}
 from sklearn.tree import DecisionTreeClassifier

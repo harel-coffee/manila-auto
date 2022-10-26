@@ -3,7 +3,13 @@ import os
 import pickle
 from copy import deepcopy
 from utils import *
+from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.linear_model import SGDClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PowerTransformer
 
@@ -25,7 +31,7 @@ def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair)
 
 
 def exec(data):
-    label = 'y'
+    label = 'contr_use'
     positive_label = 1
     
     unpriv_group = []
@@ -35,7 +41,13 @@ def exec(data):
     save_data =  False 
     save_model =  False     
     ml_methods = {
+        'logreg': LogisticRegression(),
         'svm': SVC(),
+        'gradient': GradientBoostingClassifier(),
+        'mlp': MLPClassifier(),
+        'sdg': SGDClassifier(),
+        'tree': DecisionTreeClassifier(),
+        'forest': RandomForestClassifier()
     }
 
     fairness_methods = {
@@ -78,7 +90,8 @@ def exec(data):
         )),
         ('classifier', model)
     ])
-
+    model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
+    return model, report
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
