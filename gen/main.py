@@ -55,28 +55,19 @@ def exec(data):
         )),
             ('classifier', ml_methods[m])
         ])
-        for f in fairness_methods.keys():
-            model = deepcopy(model)
-            data = data.copy()
-            if f == 'preprocessing':
-                for method in fairness_methods[f]:
-                    metrics = deepcopy(base_metrics)
-                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, preprocessor=method, n_splits=10)
-                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
-                    ris = ris.append(df_metrics)
-            elif f == 'inprocessing':
-                for method in fairness_methods[f]:
-                    metrics = deepcopy(base_metrics)
-                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, inprocessor=method, n_splits=10)
-                    df_metrics = _store_metrics(
-                        ris_metrics, m, method, save_data, save_model, model_fair)
-                    ris = ris.append(df_metrics)
-            else:
-               for method in fairness_methods[f]:
-                   metrics = deepcopy(base_metrics)
-                   model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits=10)
-                   df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
-                   ris = ris.append(df_metrics)
+
+        model = deepcopy(model)
+        data = data.copy()
+        metrics = deepcopy(base_metrics)
+        model_fair, ris_metrics = cross_val(
+            classifier=model, data=data, groups_condition=unpriv_group, 
+            label=label, metrics=metrics, 
+            positive_label=positive_label, 
+            sensitive_features=sensitive_features, 
+            n_splits=10)
+        df_metrics = _store_metrics(ris_metrics, m, 'None', save_data, save_model, model_fair)
+        ris = ris.append(df_metrics)
+
     report = ris.groupby(['model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
     best_ris = report.iloc[0,:]

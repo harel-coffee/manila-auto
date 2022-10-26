@@ -5,6 +5,5 @@ channels:
 dependencies:
   - pandas
   - python=3.9
-  - pyarrow
   - scikit-learn
   - scipy

@@ -121,7 +121,7 @@ def norm_data(data):
 
 def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
     {%if not validation%}
-    n_splits = 1
+    n_splits = 2
     {%endif%}
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
     for train, test in fold.split(data):

@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-
-
+from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
  
 from sklearn.metrics import accuracy_score
@@ -54,7 +53,7 @@ def norm_data(data):
 # TRAINING FUNCTIONS
 
 def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
-    n_splits = 1
+    n_splits = 2
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
     for train, test in fold.split(data):
         data = data.copy()

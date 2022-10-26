@@ -129,12 +129,14 @@ def exec(data):
     for m in ml_methods.keys():
         {%if scaler%}
         model = Pipeline([
-            {{""}}{%include 'components/model_scalers.jinja'%}
+            {{""}}{%include 'components/model_scalers.py.jinja'%}
             ('classifier', ml_methods[m])
         ])
         {%else%}
         model = ml_methods[m]
         {%endif%}
+
+        {% if fairness%}
         for f in fairness_methods.keys():
             model = deepcopy(model)
             data = data.copy()
@@ -152,11 +154,25 @@ def exec(data):
                         ris_metrics, m, method, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
             else:
-               for method in fairness_methods[f]:
-                   metrics = deepcopy(base_metrics)
-                   model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits={{K | default(10,true)}})
-                   df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
-                   ris = ris.append(df_metrics)
+                for method in fairness_methods[f]:
+                    metrics = deepcopy(base_metrics)
+                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits={{K | default(10,true)}})
+                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                    ris = ris.append(df_metrics)
+        {% else%}
+        model = deepcopy(model)
+        data = data.copy()
+        metrics = deepcopy(base_metrics)
+        model_fair, ris_metrics = cross_val(
+            classifier=model, data=data, groups_condition=unpriv_group, 
+            label=label, metrics=metrics, 
+            positive_label=positive_label, 
+            sensitive_features=sensitive_features, 
+            n_splits={{K | default(10, true)}})
+        df_metrics = _store_metrics(ris_metrics, m, 'None', save_data, save_model, model_fair)
+        ris = ris.append(df_metrics)
+        {%endif%}
+
     {%if fairness%}
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
@@ -168,7 +184,7 @@ def exec(data):
     model = ml_methods[best_ris['model']]
     {% if scaler %}
     model = Pipeline([
-        {{''}}{%include 'components/model_scalers.jinja'%}
+        {{''}}{%include 'components/model_scalers.py.jinja'%}
         ('classifier', model)
     ])
     {% endif %}

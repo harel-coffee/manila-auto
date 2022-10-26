@@ -2,6 +2,7 @@
 
 - [X] File extensions
 - [X] Normalizers
+- [ ] Fix process if no fairness method is selected
 - Classifiers:
   - [ ] Gradient Descent
   - [ ] MLP Classifier

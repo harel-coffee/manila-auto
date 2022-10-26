@@ -3,8 +3,8 @@
 	<feature automatic="selected" manual="undefined" name="Experiment"/>
 	<feature automatic="selected" manual="undefined" name="Dataset"/>
 	<feature automatic="selected" manual="undefined" name="File extension"/>
-	<feature automatic="unselected" manual="undefined" name="CSV"/>
-	<feature automatic="undefined" manual="selected" name="Parquet"/>
+	<feature automatic="undefined" manual="selected" name="CSV"/>
+	<feature automatic="unselected" manual="undefined" name="Parquet"/>
 	<feature automatic="unselected" manual="undefined" name="Excel"/>
 	<feature automatic="unselected" manual="undefined" name="JSON"/>
 	<feature automatic="unselected" manual="undefined" name="Text"/>

@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
-
-{% if k_fold %}
 from sklearn.model_selection import KFold
-{% endif %}
-
 from sklearn.metrics import confusion_matrix
 {%if f1_score %}
 from sklearn.metrics import f1_score
