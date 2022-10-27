@@ -15,12 +15,12 @@
   - [X] MLP Regressor
   - [X] Decision Tree
 - Fairness:
-  - [ ] RW
-  - [ ] DIR
+  - [X] RW
+  - [X] DIR
   - [ ] OptPreproc
   - [ ] LFR
   - [ ] CorrelationRemover
-  - [ ] Sampling
+  - [X] Sampling
   - [ ] AdversarialDebiasing
   - [ ] GerryFair
   - [ ] MetaFair
