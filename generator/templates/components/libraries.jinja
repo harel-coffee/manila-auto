@@ -46,3 +46,21 @@ from sklearn.preprocessing import QuantileTransformer
 {% if power_transformer_scaler %}
 from sklearn.preprocessing import PowerTransformer
 {% endif%}
+{% if linear__regression%}
+from sklearn.linear_model import LinearRegression
+{%endif%}
+{% if svr%}
+from sklearn.svm import SVR
+{%endif%}
+{%if gradient__descent__regressor%}
+from sklearn.linear_model import SGDRegressor
+{%endif%}
+{% if gradient__boosting__regressor %}
+from sklearn.ensemble import GradientBoostingRegressor
+{% endif %}
+{%if mlp__regressor%}
+from sklearn.neural_network import MLPRegressor
+{%endif%}
+{%if decision__tree__regressor %}
+from sklearn.tree import DecisionTreeRegressor
+{%endif%}

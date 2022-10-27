@@ -3,15 +3,14 @@ import os
 import pickle
 from copy import deepcopy
 from utils import *
-from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import SVC
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.linear_model import SGDClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PowerTransformer
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.linear_model import SGDRegressor
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.neural_network import MLPRegressor
+from sklearn.tree import DecisionTreeRegressor
 
 def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair):
     df_metrics = pd.DataFrame(metrics)
@@ -41,23 +40,21 @@ def exec(data):
     save_data =  False 
     save_model =  False     
     ml_methods = {
-        'logreg': LogisticRegression(),
-        'svm': SVC(),
-        'gradient': GradientBoostingClassifier(),
-        'mlp': MLPClassifier(),
-        'sdg': SGDClassifier(),
-        'tree': DecisionTreeClassifier(),
-        'forest': RandomForestClassifier()
+        'linreg': LinearRegression(),
+        'svr': SVR(),
+        'sdgreg': SGDRegressor(),
+        'gradient_reg': GradientBoostingRegressor(),
+        'mlp_reg': MLPRegressor(),
+        'tree_reg': DecisionTreeRegressor(),
     }
 
     fairness_methods = {
     }
 
     base_metrics = {
-        'acc': [],
     }
 
-    agg_metric = []
+    agg_metric = 
     dataset_label =  'multi-class' 
     ris = pd.DataFrame()
     for m in ml_methods.keys():

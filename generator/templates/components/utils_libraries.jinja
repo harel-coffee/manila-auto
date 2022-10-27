@@ -24,3 +24,6 @@ from demv import DEMV
 {%if exponentiated_gradient or grid_search%}
 from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGradient, DemographicParity, ZeroOneLoss
 {%endif%}
+{%if reweighing%}
+from aif360.sklearn.preprocessing import Reweighing
+{%endif%}

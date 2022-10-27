@@ -32,30 +32,30 @@
 	<feature automatic="unselected" manual="undefined" name="BoxCox Method"/>
 	<feature automatic="selected" manual="undefined" name="ML Task"/>
 	<feature automatic="selected" manual="selected" name="Supervised"/>
-	<feature automatic="selected" manual="undefined" name="Classification"/>
-	<feature automatic="undefined" manual="selected" name="Logistic Regression"/>
-	<feature automatic="undefined" manual="selected" name="SVC"/>
-	<feature automatic="undefined" manual="selected" name="Gradient Descent Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Gradient Boosting Classifier"/>
-	<feature automatic="undefined" manual="selected" name="MLP Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Decision Tree Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Random Forest Classifier"/>
-	<feature automatic="unselected" manual="undefined" name="Regression"/>
-	<feature automatic="unselected" manual="undefined" name="Linear Regression"/>
-	<feature automatic="unselected" manual="undefined" name="SVR"/>
-	<feature automatic="unselected" manual="undefined" name="Gradient Descent Regressor"/>
-	<feature automatic="unselected" manual="undefined" name="Gradient Boosting Regressor"/>
-	<feature automatic="unselected" manual="undefined" name="MLP Regressor"/>
-	<feature automatic="unselected" manual="undefined" name="Decision Tree Regressor"/>
+	<feature automatic="unselected" manual="undefined" name="Classification"/>
+	<feature automatic="unselected" manual="undefined" name="Logistic Regression"/>
+	<feature automatic="unselected" manual="undefined" name="SVC"/>
+	<feature automatic="unselected" manual="undefined" name="Gradient Descent Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="Gradient Boosting Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="MLP Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="Decision Tree Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="Random Forest Classifier"/>
+	<feature automatic="selected" manual="undefined" name="Regression"/>
+	<feature automatic="undefined" manual="selected" name="Linear Regression"/>
+	<feature automatic="undefined" manual="selected" name="SVR"/>
+	<feature automatic="undefined" manual="selected" name="Gradient Descent Regressor"/>
+	<feature automatic="undefined" manual="selected" name="Gradient Boosting Regressor"/>
+	<feature automatic="undefined" manual="selected" name="MLP Regressor"/>
+	<feature automatic="undefined" manual="selected" name="Decision Tree Regressor"/>
 	<feature automatic="unselected" manual="undefined" name="Unsupervised"/>
 	<feature automatic="unselected" manual="undefined" name="Clustering"/>
 	<feature automatic="unselected" manual="undefined" name="Aggregation"/>
 	<feature automatic="undefined" manual="undefined" name="Quality"/>
 	<feature automatic="undefined" manual="undefined" name="Fairness"/>
 	<feature automatic="undefined" manual="undefined" name="PreProcessing"/>
-	<feature automatic="unselected" manual="undefined" name="Reweighing"/>
+	<feature automatic="unselected" manual="selected" name="Reweighing"/>
 	<feature automatic="unselected" manual="undefined" name="DIR"/>
-	<feature automatic="undefined" manual="undefined" name="DEMV"/>
+	<feature automatic="unselected" manual="undefined" name="DEMV"/>
 	<feature automatic="unselected" manual="undefined" name="OptimizedPreprocessing"/>
 	<feature automatic="unselected" manual="undefined" name="LFR"/>
 	<feature automatic="undefined" manual="undefined" name="CorrelationRemover"/>
@@ -67,31 +67,31 @@
 	<feature automatic="unselected" manual="undefined" name="GerryFairClassifier"/>
 	<feature automatic="unselected" manual="undefined" name="MetaFairClassifier"/>
 	<feature automatic="unselected" manual="undefined" name="PrejudiceRemover"/>
-	<feature automatic="undefined" manual="undefined" name="PostProcessing"/>
-	<feature automatic="undefined" manual="undefined" name="Blackbox"/>
+	<feature automatic="unselected" manual="undefined" name="PostProcessing"/>
+	<feature automatic="unselected" manual="undefined" name="Blackbox"/>
 	<feature automatic="unselected" manual="undefined" name="CalibratedEO"/>
 	<feature automatic="unselected" manual="undefined" name="RejectOptionClassifier"/>
 	<feature automatic="undefined" manual="undefined" name="Explainabity"/>
 	<feature automatic="undefined" manual="undefined" name="Privacy"/>
 	<feature automatic="undefined" manual="undefined" name="Interpretability"/>
 	<feature automatic="selected" manual="undefined" name="Metrics"/>
-	<feature automatic="selected" manual="undefined" name="Classification Metrics"/>
-	<feature automatic="undefined" manual="selected" name="Accuracy"/>
-	<feature automatic="undefined" manual="undefined" name="Precision"/>
-	<feature automatic="undefined" manual="undefined" name="Recall"/>
-	<feature automatic="undefined" manual="undefined" name="F1Score"/>
-	<feature automatic="undefined" manual="undefined" name="ROC"/>
-	<feature automatic="undefined" manual="undefined" name="AUC"/>
-	<feature automatic="undefined" manual="undefined" name="ZeroOneLoss"/>
-	<feature automatic="unselected" manual="undefined" name="Regression Metrics"/>
-	<feature automatic="unselected" manual="undefined" name="MeanSquaredError"/>
-	<feature automatic="unselected" manual="undefined" name="MeanAbsoluteError"/>
-	<feature automatic="unselected" manual="undefined" name="R2Error"/>
-	<feature automatic="unselected" manual="undefined" name="MeanSquaredLogaritmicError"/>
-	<feature automatic="unselected" manual="undefined" name="MeanAbsolutePercentageError"/>
-	<feature automatic="unselected" manual="undefined" name="MedianAbsoluteError"/>
-	<feature automatic="unselected" manual="undefined" name="MaxError"/>
-	<feature automatic="unselected" manual="undefined" name="D2Score"/>
+	<feature automatic="unselected" manual="undefined" name="Classification Metrics"/>
+	<feature automatic="unselected" manual="undefined" name="Accuracy"/>
+	<feature automatic="unselected" manual="undefined" name="Precision"/>
+	<feature automatic="unselected" manual="undefined" name="Recall"/>
+	<feature automatic="unselected" manual="undefined" name="F1Score"/>
+	<feature automatic="unselected" manual="undefined" name="ROC"/>
+	<feature automatic="unselected" manual="undefined" name="AUC"/>
+	<feature automatic="unselected" manual="undefined" name="ZeroOneLoss"/>
+	<feature automatic="selected" manual="undefined" name="Regression Metrics"/>
+	<feature automatic="undefined" manual="selected" name="MeanSquaredError"/>
+	<feature automatic="undefined" manual="undefined" name="MeanAbsoluteError"/>
+	<feature automatic="undefined" manual="undefined" name="R2Error"/>
+	<feature automatic="undefined" manual="undefined" name="MeanSquaredLogaritmicError"/>
+	<feature automatic="undefined" manual="undefined" name="MeanAbsolutePercentageError"/>
+	<feature automatic="undefined" manual="undefined" name="MedianAbsoluteError"/>
+	<feature automatic="undefined" manual="undefined" name="MaxError"/>
+	<feature automatic="undefined" manual="undefined" name="D2Score"/>
 	<feature automatic="undefined" manual="undefined" name="Fairness Metrics"/>
 	<feature automatic="undefined" manual="undefined" name="StatisticalParity"/>
 	<feature automatic="undefined" manual="undefined" name="DisparateImpact"/>

@@ -3,10 +3,10 @@ import pandas as pd
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
  
-from sklearn.metrics import accuracy_score
 from copy import deepcopy
 
 from scipy import stats
+from aif360.sklearn.preprocessing import Reweighing
 
 # METRICS
 
@@ -55,13 +55,18 @@ def norm_data(data):
 def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
     n_splits = 2
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
+    weigths = None
     for train, test in fold.split(data):
         data = data.copy()
         df_train = data.iloc[train]
         df_test = data.iloc[test]
         model = deepcopy(classifier)
+        if preprocessor == 'rw':
+            prot_attr = [df_train[s] for s in sensitive_features]
+            rw = Reweighing(prot_attr)
+            x, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
-        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp)
+        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights)
         compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
@@ -74,12 +79,12 @@ def _train_test_split(df_train, df_test, label):
     return x_train, x_test, y_train, y_test
 
 
-def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False):
+def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False, weights=None):
     x_train, x_test, y_train, y_test = _train_test_split(
         df_train, df_test, label)
     model = deepcopy(classifier)
     model.fit(x_train, y_train,
-              sensitive_features=df_train[sensitive_features]) if exp else model.fit(x_train, y_train)
+              sensitive_features=df_train[sensitive_features]) if exp else model.fit(x_train, y_train, sample_weights=weights)
     pred = model.predict(x_test)
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]
@@ -88,7 +93,5 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
 
 
 def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, sensitive_features):
-    accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
-    metrics['acc'].append(accuracy)
     return metrics
 

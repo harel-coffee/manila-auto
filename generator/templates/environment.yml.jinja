@@ -3,9 +3,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-{%if reweighing or dir or lfr%}
-  - aif360
-{%endif%}
 {%if exponentiated_gradient or grid_search%}
   - fairlearn
 {%endif%}
@@ -22,8 +19,13 @@ dependencies:
 {%endif%}
   - scikit-learn
   - scipy
-{%if hdf5%}
   -pip
+  {%if hdf5 or reweighing or dir or lfr or optimized_preprocessing or lfr or correlation_remover or adversarial_debiasing or gerry_fair_classifier or meta_fair_classifier or prejudice_remover or calibrated_eo or reject_option_classifier%}
   -pip:
+    {%if hdf5%}
     - tables
+    {%endif%}
+    {%if reweighing or dir or lfr or optimized_preprocessing or lfr or correlation_remover or adversarial_debiasing or gerry_fair_classifier or meta_fair_classifier or prejudice_remover or calibrated_eo or reject_option_classifier%}
+    - aif360
+    {%endif%}
 {%endif%}

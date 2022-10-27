@@ -124,11 +124,18 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
     n_splits = 2
     {%endif%}
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
+    weigths = None
     for train, test in fold.split(data):
         data = data.copy()
         df_train = data.iloc[train]
         df_test = data.iloc[test]
         model = deepcopy(classifier)
+        {%if reweighing%}
+        if preprocessor == 'rw':
+            prot_attr = [df_train[s] for s in sensitive_features]
+            rw = Reweighing(prot_attr)
+            x, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])
+        {%endif%}
         {%if demv%}
         if preprocessor == 'demv':
             demv = DEMV(round_level=1)
@@ -147,7 +154,7 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
             model, constr, sample_weight_name="classifier__sample_weight")
         {%endif%}
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
-        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp)
+        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights)
         {%if blackbox%}
         if postprocessor=='blackbox':
             pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
@@ -173,12 +180,12 @@ def _train_test_split(df_train, df_test, label):
     return x_train, x_test, y_train, y_test
 
 
-def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False):
+def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False, weights=None):
     x_train, x_test, y_train, y_test = _train_test_split(
         df_train, df_test, label)
     model = deepcopy(classifier)
     model.fit(x_train, y_train,
-              sensitive_features=df_train[sensitive_features]) if exp else model.fit(x_train, y_train)
+              sensitive_features=df_train[sensitive_features]) if exp else model.fit(x_train, y_train, sample_weights=weights)
     pred = model.predict(x_test)
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]

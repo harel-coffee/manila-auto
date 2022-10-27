@@ -63,20 +63,38 @@ def exec(data):
         'svm': SVC(),
         {% endif %}
         {% if gradient__boosting__classifier %}
-        'gradient': GradientBoostingClassifier(),
+        'gradient_class': GradientBoostingClassifier(),
         {%endif%}
         {%if mlp__classifier%}
         'mlp': MLPClassifier(),
         {%endif%}
         {% if gradient__descent__classifier %}
-        'sdg': SGDClassifier(),
+        'sdgclass': SGDClassifier(),
         {% endif %}
         {% if decision__tree__classifier %}
         'tree': DecisionTreeClassifier(),
         {% endif %}
         {% if random__forest__classifier%}
-        'forest': RandomForestClassifier()
+        'forest': RandomForestClassifier(),
         {% endif %}
+        {% if linear__regression%}
+        'linreg': LinearRegression(),
+        {%endif%}
+        {% if svr%}
+        'svr': SVR(),
+        {%endif%}
+        {%if gradient__descent__regressor%}
+        'sdgreg': SGDRegressor(),
+        {%endif%}
+        {% if gradient__boosting__regressor %}
+        'gradient_reg': GradientBoostingRegressor(),
+        {% endif %}
+        {%if mlp__regressor%}
+        'mlp_reg': MLPRegressor(),
+        {%endif%}
+        {%if decision__tree__regressor %}
+        'tree_reg': DecisionTreeRegressor(),
+        {%endif%}
     }
 
     fairness_methods = {

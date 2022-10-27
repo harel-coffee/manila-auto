@@ -4,16 +4,16 @@
 - [X] Normalizers
 - [X] Fix process if no fairness method is selected
 - Classifiers:
-  - [ ] Gradient Descent
-  - [ ] MLP Classifier
-  - [ ] Decision Tree
-  - [ ] Random Forest
+  - [X] Gradient Descent
+  - [X] MLP Classifier
+  - [X] Decision Tree
+  - [X] Random Forest
 - Regressors:
-  - [ ] Linear Regressor
-  - [ ] SVR
-  - [ ] Gradient Descent
-  - [ ] MLP Regressor
-  - [ ] Decision Tree
+  - [X] Linear Regressor
+  - [X] SVR
+  - [X] Gradient Descent
+  - [X] MLP Regressor
+  - [X] Decision Tree
 - Fairness:
   - [ ] RW
   - [ ] DIR
