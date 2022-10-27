@@ -2,14 +2,13 @@
 <extendedFeatureModel>
 	<properties>
 		<graphics key="autolayoutconstraints" value="false"/>
-		<graphics key="legendposition" value="1127,491"/>
 		<graphics key="legendautolayout" value="true"/>
 		<graphics key="showconstraints" value="true"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="vertical"/>
 		<graphics key="showcollapsedconstraints" value="true"/>
 		<graphics key="legendhidden" value="false"/>
-		<graphics key="layoutalgorithm" value="6"/>
+		<graphics key="layoutalgorithm" value="4"/>
 	</properties>
 	<struct>
 		<and abstract="true" mandatory="true" name="Experiment">
@@ -101,7 +100,7 @@
 				<graphics key="collapsed" value="false"/>
 				<or abstract="true" name="Fairness">
 					<graphics key="collapsed" value="false"/>
-					<or abstract="true" name="PreProcessing">
+					<and abstract="true" name="PreProcessing">
 						<graphics key="collapsed" value="false"/>
 						<feature name="Reweighing"/>
 						<feature name="DIR"/>
@@ -109,8 +108,7 @@
 						<feature name="OptimizedPreprocessing"/>
 						<feature name="LFR"/>
 						<feature name="CorrelationRemover"/>
-						<feature name="Sampling"/>
-					</or>
+					</and>
 					<or abstract="true" name="InProcessing">
 						<graphics key="collapsed" value="false"/>
 						<feature name="ExponentiatedGradient"/>
@@ -209,24 +207,6 @@
 		</and>
 	</struct>
 	<constraints>
-		<rule>
-			<imp>
-				<var>Single sensitive var</var>
-				<conj>
-					<not>
-						<var>Sampling</var>
-					</not>
-					<conj>
-						<not>
-							<var>Blackbox</var>
-						</not>
-						<not>
-							<var>DIR</var>
-						</not>
-					</conj>
-				</conj>
-			</imp>
-		</rule>
 		<rule>
 			<imp>
 				<var>Fairness</var>
@@ -409,6 +389,42 @@
 				<var>BoxCox Method</var>
 				<var>StrictlyPositiveAttributes</var>
 			</imp>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Multiple sensitive vars</var>
+				</not>
+				<not>
+					<var>Blackbox</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>DIR</var>
+				</not>
+				<not>
+					<var>Multiple sensitive vars</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PreProcessing</var>
+				</not>
+				<not>
+					<var>Multiple sensitive vars</var>
+				</not>
+				<var>Reweighing</var>
+				<var>DIR</var>
+				<var>CorrelationRemover</var>
+				<var>DEMV</var>
+				<var>LFR</var>
+				<var>OptimizedPreprocessing</var>
+			</disj>
 		</rule>
 	</constraints>
 </extendedFeatureModel>

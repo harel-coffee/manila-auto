@@ -3,8 +3,10 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - fairlearn
   - pandas
   - python=3.9
+  - imbalanced-learn
   - scikit-learn
   - scipy
   -pip

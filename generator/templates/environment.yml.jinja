@@ -19,9 +19,9 @@ dependencies:
 {%endif%}
   - scikit-learn
   - scipy
-  -pip
+  - pip
   {%if hdf5 or reweighing or dir or lfr or optimized_preprocessing or lfr or correlation_remover or adversarial_debiasing or gerry_fair_classifier or meta_fair_classifier or prejudice_remover or calibrated_eo or reject_option_classifier%}
-  -pip:
+  - pip:
     {%if hdf5%}
     - tables
     {%endif%}

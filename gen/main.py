@@ -3,14 +3,14 @@ import os
 import pickle
 from copy import deepcopy
 from utils import *
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import PowerTransformer
-from sklearn.linear_model import LinearRegression
-from sklearn.svm import SVR
-from sklearn.linear_model import SGDRegressor
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.neural_network import MLPRegressor
-from sklearn.tree import DecisionTreeRegressor
+from demv import DEMV
+from fairlearn.reductions import ExponentiatedGradient, BoundedGroupLoss, ZeroOneLoss, GridSearch, DemographicParity
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.linear_model import SGDClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair):
     df_metrics = pd.DataFrame(metrics)
@@ -30,65 +30,99 @@ def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair)
 
 
 def exec(data):
-    label = 'contr_use'
+    label = 'income'
     positive_label = 1
     
-    unpriv_group = []
-    priv_group = []
-    sensitive_features = []
+    unpriv_group = { 'sex': 1 }
+    priv_group = { 'sex': 0 }
+    sensitive_features = ['sex']
 
     save_data =  False 
     save_model =  False     
     ml_methods = {
-        'linreg': LinearRegression(),
-        'svr': SVR(),
-        'sdgreg': SGDRegressor(),
-        'gradient_reg': GradientBoostingRegressor(),
-        'mlp_reg': MLPRegressor(),
-        'tree_reg': DecisionTreeRegressor(),
+        'logreg': LogisticRegression(),
+        'svm': SVC(),
+        'gradient_class': GradientBoostingClassifier(),
     }
 
     fairness_methods = {
+        'preprocessing': [
+            'demv',
+            'reweighing',
+            'dir',
+        ],
+ 
+        # 'inprocessing': [
+        #     'eg',
+        #     'grid',
+   
+        # ],
     }
 
     base_metrics = {
+        'stat_par': [],
+        'eq_odds': [],
+        'disp_imp': [],
+        'acc': [],
+        'hmean': [],
     }
 
-    agg_metric = 
-    dataset_label =  'multi-class' 
+    agg_metric =  'hmean' 
+    dataset_label =  'binary' 
     ris = pd.DataFrame()
     for m in ml_methods.keys():
-        model = Pipeline([
-            ('scaler', PowerTransformer(
-        method='yeo-johnson'
-        )),
-            ('classifier', ml_methods[m])
-        ])
+        model = ml_methods[m]
 
-        model = deepcopy(model)
-        data = data.copy()
-        metrics = deepcopy(base_metrics)
-        model_fair, ris_metrics = cross_val(
-            classifier=model, data=data, groups_condition=unpriv_group, 
-            label=label, metrics=metrics, 
-            positive_label=positive_label, 
-            sensitive_features=sensitive_features, 
-            n_splits=10)
-        df_metrics = _store_metrics(ris_metrics, m, 'None', save_data, save_model, model_fair)
-        ris = ris.append(df_metrics)
+        for f in fairness_methods.keys():
+            model = deepcopy(model)
+            data = data.copy()
+            if f == 'preprocessing':
+                for method in fairness_methods[f]:
+                    metrics = deepcopy(base_metrics)
+                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, preprocessor=method, n_splits=10)
+                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                    ris = ris.append(df_metrics)
+            elif f == 'inprocessing':
+                for method in fairness_methods[f]:
+                    metrics = deepcopy(base_metrics)
+                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, inprocessor=method, n_splits=10)
+                    df_metrics = _store_metrics(
+                        ris_metrics, m, method, save_data, save_model, model_fair)
+                    ris = ris.append(df_metrics)
+            else:
+                for method in fairness_methods[f]:
+                    metrics = deepcopy(base_metrics)
+                    model_fair, ris_metrics = cross_val(classifier=model, data=data, groups_condition=unpriv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits=10)
+                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                    ris = ris.append(df_metrics)
 
-    report = ris.groupby(['model']).agg(
+    report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
     best_ris = report.iloc[0,:]
     model = ml_methods[best_ris['model']]
-    model = Pipeline([
-        ('scaler', PowerTransformer(
-        method='yeo-johnson'
-        )),
-        ('classifier', model)
-    ])
-    model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
-    return model, report
+    if best_ris['fairness_method'] == 'demv':
+        demv = DEMV(round_level=1)
+        data = demv.fit_transform(data, sensitive_features, label)
+        model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
+        return model, report
+    if best_ris['fairness_method'] == 'eg':
+        if dataset_label == 'binary':
+            constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
+        else:
+            constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+        eg = ExponentiatedGradient(
+            model, constr, sample_weight_name="classifier__sample_weight")
+        eg.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
+        return eg, report
+    else:
+        if dataset_label == 'binary':
+            constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
+        else:
+            constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+        grid = GridSearch(
+            model, constr, sample_weight_name="classifier__sample_weight")
+        grid.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
+        return grid, report
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

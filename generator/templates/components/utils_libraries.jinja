@@ -12,18 +12,21 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import zero_one_loss
 from fairlearn.metrics import MetricFrame
 {%endif%}
+{%if exponentiated_gradient or grid_search%}
+from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGradient, DemographicParity, ZeroOneLoss
+{%endif%}
+from aif360.datasets import BinaryLabelDataset
+{%if reweighing%}
+from aif360.sklearn.preprocessing import Reweighing
+{%endif%}
+{%if dir%}
+from aif360.algorithms.preprocessing import DisparateImpactRemover
+{%endif%}
 from copy import deepcopy
-
 from scipy import stats
 {%if blackbox%}
 from balancers import MulticlassBalancer, BinaryBalancer
 {%endif%}
 {%if demv%}
 from demv import DEMV
-{%endif%}
-{%if exponentiated_gradient or grid_search%}
-from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGradient, DemographicParity, ZeroOneLoss
-{%endif%}
-{%if reweighing%}
-from aif360.sklearn.preprocessing import Reweighing
 {%endif%}

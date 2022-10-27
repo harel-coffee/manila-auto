@@ -27,8 +27,8 @@ def exec(data):
     positive_label = {{positive_value}}
     
     {% if single_sensitive_var%}
-    unpriv_group = [{ '{{variable_name}}': {{unprivileged_value}} }]
-    priv_group = [{ '{{variable_name}}': {{privileged_value}} }]
+    unpriv_group = { '{{variable_name}}': {{unprivileged_value}} }
+    priv_group = { '{{variable_name}}': {{privileged_value}} }
     sensitive_features = ['{{variable_name}}']
     {% elif multiple_sensitive_vars %}
     {% set variables = variable_names_comma_separated.split(',') %}
@@ -107,7 +107,7 @@ def exec(data):
             'reweighing',
             {%endif%}
             {%if dir%}
-            'dir'
+            'dir',
             {%endif%}
         ],
         {%endif%}
