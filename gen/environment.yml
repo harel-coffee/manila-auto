@@ -9,6 +9,6 @@ dependencies:
   - imbalanced-learn
   - scikit-learn
   - scipy
-  -pip
-  -pip:
-    - aif360
+  - pip
+  - pip:
+    - aif360aif360[OptimPreproc, LFR, AdversarialDebiasing, DisparateImpactRemover, LIME, ART, Reductions]

@@ -5,7 +5,7 @@
 
 # TRAINING FUNCTIONS
 
-def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
+def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
     {%if not validation%}
     n_splits = 2
     {%endif%}
@@ -26,16 +26,28 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
         if preprocessor == 'dir':
             bin_data = BinaryLabelDataset(favorable_label=positive_label, 
                 unfavorable_label=1-positive_label, 
-                df=df_train, label_names=[label], 
+                df=df_train, 
+                label_names=[label], 
                 protected_attribute_names=sensitive_features)
             dir = DisparateImpactRemover(sensitive_attribute=sensitive_features[0])
             trans_data = dir.fit_transform(bin_data)
             df_train, _ = trans_data.convert_to_dataframe()
         {%endif%}
+        {%if lfr%}
+        if preprocessor == 'lfr':
+            bin_data = BinaryLabelDataset(favorable_label=positive_label, 
+                unfavorable_label=1-positive_label, 
+                df=df_train, 
+                label_names=[label], 
+                protected_attribute_names=sensitive_features)
+            lfr = LFR(unprivileged_groups=[unpriv_group], privileged_groups=[priv_group])
+            bin_data_fair = lfr.fit_transform(bin_data)
+            df_train, _ = bin_data_fair.convert_to_dataframe()
+        {%endif%}
         {%if demv or sampling%}
         if preprocessor == 'demv':
             demv = DEMV(round_level=1)
-            df_train = demv.fit_transform(df_train, [keys for keys in groups_condition.keys()], label)
+            df_train = demv.fit_transform(df_train, [keys for keys in unpriv_group.keys()], label)
         {%endif%}
         {%if exponentiated_gradient%}
         if inprocessor == 'eg':
@@ -55,7 +67,7 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
         if postprocessor=='blackbox':
             pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
         {%endif%}
-        compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
+        compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
 {%if exponentiated_gradient or grid_search%}
@@ -88,20 +100,20 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
     return df_pred
 
 
-def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, sensitive_features):
+def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
 {%if statistical_parity%}
     stat_par = statistical_parity(
-        df_pred, groups_condition, label, positive_label)
+        df_pred, unpriv_group, label, positive_label)
     metrics['stat_par'].append(stat_par)
 {%endif%}
 {%if equalized_odds%}
     eo = equalized_odds(
-        df_pred, groups_condition, label, positive_label)
+        df_pred, unpriv_group, label, positive_label)
     metrics['eq_odds'].append(eo)
 {%endif%}
 {%if disparate_impact%}
     di = disparate_impact(
-        df_pred, groups_condition, label, positive_label=positive_label)
+        df_pred, unpriv_group, label, positive_label=positive_label)
     metrics['disp_imp'].append(di)
 {%endif%}
 {%if zero_one_loss%}

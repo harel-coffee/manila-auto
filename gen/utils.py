@@ -8,6 +8,7 @@ from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGrad
 from aif360.datasets import BinaryLabelDataset
 from aif360.sklearn.preprocessing import Reweighing
 from aif360.algorithms.preprocessing import DisparateImpactRemover
+from aif360.algorithms.preprocessing import LFR
 from copy import deepcopy
 from scipy import stats
 from demv import DEMV
@@ -97,7 +98,7 @@ def norm_data(data):
 
 # TRAINING FUNCTIONS
 
-def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
+def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
     n_splits = 2
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
     for train, test in fold.split(data):
@@ -113,14 +114,24 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
         if preprocessor == 'dir':
             bin_data = BinaryLabelDataset(favorable_label=positive_label, 
                 unfavorable_label=1-positive_label, 
-                df=df_train, label_names=[label], 
+                df=df_train, 
+                label_names=[label], 
                 protected_attribute_names=sensitive_features)
             dir = DisparateImpactRemover(sensitive_attribute=sensitive_features[0])
             trans_data = dir.fit_transform(bin_data)
             df_train, _ = trans_data.convert_to_dataframe()
+        if preprocessor == 'lfr':
+            bin_data = BinaryLabelDataset(favorable_label=positive_label, 
+                unfavorable_label=1-positive_label, 
+                df=df_train, 
+                label_names=[label], 
+                protected_attribute_names=sensitive_features)
+            lfr = LFR(unprivileged_groups=[unpriv_group], privileged_groups=[priv_group])
+            bin_data_fair = lfr.fit_transform(bin_data)
+            df_train, _ = bin_data_fair.convert_to_dataframe()
         if preprocessor == 'demv':
             demv = DEMV(round_level=1)
-            df_train = demv.fit_transform(df_train, [keys for keys in groups_condition.keys()], label)
+            df_train = demv.fit_transform(df_train, [keys for keys in unpriv_group.keys()], label)
         if inprocessor == 'eg':
             constr = _get_constr(df_train, label)
             model = ExponentiatedGradient(
@@ -131,7 +142,7 @@ def cross_val(classifier, data, label, groups_condition, sensitive_features, pos
             model, constr, sample_weight_name="sample_weight")
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
         pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights)
-        compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
+        compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
 def _get_constr(df, label):
@@ -162,15 +173,15 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
     return df_pred
 
 
-def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, sensitive_features):
+def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
     stat_par = statistical_parity(
-        df_pred, groups_condition, label, positive_label)
+        df_pred, unpriv_group, label, positive_label)
     metrics['stat_par'].append(stat_par)
     eo = equalized_odds(
-        df_pred, groups_condition, label, positive_label)
+        df_pred, unpriv_group, label, positive_label)
     metrics['eq_odds'].append(eo)
     di = disparate_impact(
-        df_pred, groups_condition, label, positive_label=positive_label)
+        df_pred, unpriv_group, label, positive_label=positive_label)
     metrics['disp_imp'].append(di)
     accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
     metrics['acc'].append(accuracy)

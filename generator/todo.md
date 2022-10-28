@@ -17,8 +17,8 @@
 - Fairness:
   - [X] RW
   - [X] DIR
-  - [ ] OptPreproc
-  - [ ] LFR
+  - ~~[ ] OptPreproc~~
+  - [X] LFR
   - [ ] CorrelationRemover
   - [X] Sampling
   - [ ] AdversarialDebiasing

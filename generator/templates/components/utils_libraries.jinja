@@ -22,6 +22,9 @@ from aif360.sklearn.preprocessing import Reweighing
 {%if dir%}
 from aif360.algorithms.preprocessing import DisparateImpactRemover
 {%endif%}
+{%if lfr%}
+from aif360.algorithms.preprocessing import LFR
+{%endif%}
 from copy import deepcopy
 from scipy import stats
 {%if blackbox%}

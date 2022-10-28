@@ -61,9 +61,8 @@
 	<feature automatic="undefined" manual="selected" name="DIR"/>
 	<feature automatic="undefined" manual="selected" name="DEMV"/>
 	<feature automatic="undefined" manual="undefined" name="OptimizedPreprocessing"/>
-	<feature automatic="undefined" manual="undefined" name="LFR"/>
+	<feature automatic="undefined" manual="selected" name="LFR"/>
 	<feature automatic="undefined" manual="undefined" name="CorrelationRemover"/>
-	<feature automatic="undefined" manual="undefined" name="Sampling"/>
 	<feature automatic="selected" manual="undefined" name="InProcessing"/>
 	<feature automatic="undefined" manual="selected" name="ExponentiatedGradient"/>
 	<feature automatic="undefined" manual="selected" name="GridSearch"/>
