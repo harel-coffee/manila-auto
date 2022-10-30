@@ -61,6 +61,11 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             model = GridSearch(
             model, constr, sample_weight_name={{'"classifier__sample_weight"' if scaler else '"sample_weight"'}})
         {%endif%}
+        {%if adversarial_debiasing%}
+        if inprocessor == 'adv':
+            model = AdversarialDebiasing(prot_attr=[df_train[s] for s in sensitive_features])
+            tf.disable_eager_execution()
+        {%endif%}
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
         pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights)
         {%if blackbox%}
@@ -98,6 +103,7 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
     df_pred['y_true'] = df_pred[label]
     df_pred[label] = pred
     return df_pred
+
 
 
 def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
