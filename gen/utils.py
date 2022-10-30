@@ -8,10 +8,11 @@ from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGrad
 from aif360.datasets import BinaryLabelDataset
 from aif360.sklearn.preprocessing import Reweighing
 from aif360.algorithms.preprocessing import DisparateImpactRemover
-from aif360.algorithms.preprocessing import LFR
 from copy import deepcopy
 from scipy import stats
 from demv import DEMV
+from aif360.sklearn.inprocessing import AdversarialDebiasing
+import tensorflow.compat.v1 as tf
 
 # METRICS
 
@@ -99,7 +100,6 @@ def norm_data(data):
 # TRAINING FUNCTIONS
 
 def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
-    n_splits = 2
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
     for train, test in fold.split(data):
         weights = None
@@ -120,15 +120,6 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             dir = DisparateImpactRemover(sensitive_attribute=sensitive_features[0])
             trans_data = dir.fit_transform(bin_data)
             df_train, _ = trans_data.convert_to_dataframe()
-        if preprocessor == 'lfr':
-            bin_data = BinaryLabelDataset(favorable_label=positive_label, 
-                unfavorable_label=1-positive_label, 
-                df=df_train, 
-                label_names=[label], 
-                protected_attribute_names=sensitive_features)
-            lfr = LFR(unprivileged_groups=[unpriv_group], privileged_groups=[priv_group])
-            bin_data_fair = lfr.fit_transform(bin_data)
-            df_train, _ = bin_data_fair.convert_to_dataframe()
         if preprocessor == 'demv':
             demv = DEMV(round_level=1)
             df_train = demv.fit_transform(df_train, [keys for keys in unpriv_group.keys()], label)
@@ -140,6 +131,9 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             constr = _get_constr(df_train, label)
             model = GridSearch(
             model, constr, sample_weight_name="sample_weight")
+        if inprocessor == 'adv':
+            model = AdversarialDebiasing(prot_attr=[df_train[s] for s in sensitive_features])
+            tf.disable_eager_execution()
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
         pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights)
         compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)

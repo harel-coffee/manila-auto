@@ -53,12 +53,12 @@ def exec(data):
             'demv',
             'reweighing',
             'dir',
-            'lfr',
         ],
  
         'inprocessing': [
             'eg',
             'grid',
+            'adv',
    
         ],
     }

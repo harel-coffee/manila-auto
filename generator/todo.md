@@ -18,8 +18,7 @@
   - [X] RW
   - [X] DIR
   - ~~[ ] OptPreproc~~
-  - [X] LFR
-  - [ ] CorrelationRemover
+  - [X] LFR **(richiede configurazione iperparametri)**
   - [X] Sampling
   - [ ] AdversarialDebiasing
   - [ ] GerryFair

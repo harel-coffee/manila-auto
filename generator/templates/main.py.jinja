@@ -121,7 +121,10 @@ def exec(data):
             {% endif %}
             {% if grid_search %}
             'grid',
-            {% endif %}   
+            {% endif %}
+            {% if adversarial_debiasing %}
+            'adv',
+            {% endif%}   
         ],
         {% endif %}
         {% if post_processing %}

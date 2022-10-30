@@ -33,3 +33,7 @@ from balancers import MulticlassBalancer, BinaryBalancer
 {%if demv%}
 from demv import DEMV
 {%endif%}
+{%if adversarial_debiasing%}
+from aif360.sklearn.inprocessing import AdversarialDebiasing
+import tensorflow.compat.v1 as tf
+{%endif%}

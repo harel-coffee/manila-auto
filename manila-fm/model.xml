@@ -105,9 +105,6 @@
 						<feature name="Reweighing"/>
 						<feature name="DIR"/>
 						<feature name="DEMV"/>
-						<feature name="OptimizedPreprocessing"/>
-						<feature name="LFR"/>
-						<feature name="CorrelationRemover"/>
 					</and>
 					<or abstract="true" name="InProcessing">
 						<graphics key="collapsed" value="false"/>
@@ -215,112 +212,6 @@
 		</rule>
 		<rule>
 			<imp>
-				<var>MultiClass</var>
-				<conj>
-					<not>
-						<var>Reweighing</var>
-					</not>
-					<conj>
-						<not>
-							<var>DIR</var>
-						</not>
-						<conj>
-							<not>
-								<var>OptimizedPreprocessing</var>
-							</not>
-							<conj>
-								<not>
-									<var>LFR</var>
-								</not>
-								<conj>
-									<not>
-										<var>AdversarialDebiasing</var>
-									</not>
-									<conj>
-										<not>
-											<var>GerryFairClassifier</var>
-										</not>
-										<conj>
-											<not>
-												<var>MetaFairClassifier</var>
-											</not>
-											<conj>
-												<not>
-													<var>PrejudiceRemover</var>
-												</not>
-												<conj>
-													<not>
-														<var>CalibratedEO</var>
-													</not>
-													<not>
-														<var>RejectOptionClassifier</var>
-													</not>
-												</conj>
-											</conj>
-										</conj>
-									</conj>
-								</conj>
-							</conj>
-						</conj>
-					</conj>
-				</conj>
-			</imp>
-		</rule>
-		<rule>
-			<imp>
-				<var>Regression</var>
-				<conj>
-					<not>
-						<var>PostProcessing</var>
-					</not>
-					<conj>
-						<not>
-							<var>Reweighing</var>
-						</not>
-						<conj>
-							<not>
-								<var>DIR</var>
-							</not>
-							<conj>
-								<not>
-									<var>DEMV</var>
-								</not>
-								<conj>
-									<not>
-										<var>OptimizedPreprocessing</var>
-									</not>
-									<conj>
-										<not>
-											<var>LFR</var>
-										</not>
-										<conj>
-											<not>
-												<var>AdversarialDebiasing</var>
-											</not>
-											<conj>
-												<not>
-													<var>GerryFairClassifier</var>
-												</not>
-												<conj>
-													<not>
-														<var>MetaFairClassifier</var>
-													</not>
-													<not>
-														<var>PrejudiceRemover</var>
-													</not>
-												</conj>
-											</conj>
-										</conj>
-									</conj>
-								</conj>
-							</conj>
-						</conj>
-					</conj>
-				</conj>
-			</imp>
-		</rule>
-		<rule>
-			<imp>
 				<disj>
 					<var>ExponentiatedGradient</var>
 					<var>GridSearch</var>
@@ -341,9 +232,14 @@
 					<not>
 						<var>GerryFairClassifier</var>
 					</not>
-					<not>
-						<var>MetaFairClassifier</var>
-					</not>
+					<conj>
+						<not>
+							<var>MetaFairClassifier</var>
+						</not>
+						<not>
+							<var>AdversarialDebiasing</var>
+						</not>
+					</conj>
 				</conj>
 				<var>ML Task</var>
 			</imp>
@@ -413,17 +309,161 @@
 		<rule>
 			<disj>
 				<not>
-					<var>PreProcessing</var>
+					<var>MultiClass</var>
 				</not>
 				<not>
-					<var>Multiple sensitive vars</var>
+					<var>Reweighing</var>
 				</not>
-				<var>Reweighing</var>
-				<var>DIR</var>
-				<var>CorrelationRemover</var>
-				<var>DEMV</var>
-				<var>LFR</var>
-				<var>OptimizedPreprocessing</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>DIR</var>
+				</not>
+				<not>
+					<var>MultiClass</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>AdversarialDebiasing</var>
+				</not>
+				<not>
+					<var>MultiClass</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>GerryFairClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>MetaFairClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>PrejudiceRemover</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>CalibratedEO</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>RejectOptionClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Regression</var>
+				</not>
+				<not>
+					<var>PostProcessing</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Regression</var>
+				</not>
+				<not>
+					<var>Reweighing</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Regression</var>
+				</not>
+				<not>
+					<var>DIR</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>DEMV</var>
+				</not>
+				<not>
+					<var>Regression</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>AdversarialDebiasing</var>
+				</not>
+				<not>
+					<var>Regression</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Regression</var>
+				</not>
+				<not>
+					<var>GerryFairClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Regression</var>
+				</not>
+				<not>
+					<var>MetaFairClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Regression</var>
+				</not>
+				<not>
+					<var>PrejudiceRemover</var>
+				</not>
 			</disj>
 		</rule>
 	</constraints>
