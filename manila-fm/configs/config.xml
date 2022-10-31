@@ -64,7 +64,7 @@
 	<feature automatic="undefined" manual="selected" name="ExponentiatedGradient"/>
 	<feature automatic="undefined" manual="selected" name="GridSearch"/>
 	<feature automatic="undefined" manual="selected" name="AdversarialDebiasing"/>
-	<feature automatic="undefined" manual="undefined" name="GerryFairClassifier"/>
+	<feature automatic="undefined" manual="selected" name="GerryFairClassifier"/>
 	<feature automatic="undefined" manual="undefined" name="MetaFairClassifier"/>
 	<feature automatic="undefined" manual="undefined" name="PrejudiceRemover"/>
 	<feature automatic="undefined" manual="undefined" name="PostProcessing"/>

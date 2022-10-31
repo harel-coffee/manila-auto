@@ -60,6 +60,7 @@ def exec(data):
             'grid',
             'adv',
    
+            'gerry',
         ],
     }
 
@@ -102,32 +103,32 @@ def exec(data):
 
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
-    best_ris = report.iloc[0,:]
-    model = ml_methods[best_ris['model']]
-    if best_ris['fairness_method'] == 'demv':
-        demv = DEMV(round_level=1)
-        data = demv.fit_transform(data, sensitive_features, label)
-        model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
-        return model, report
-    if best_ris['fairness_method'] == 'eg':
-        if dataset_label == 'binary':
-            constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
-        else:
-            constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
-        eg = ExponentiatedGradient(
-            model, constr, sample_weight_name="classifier__sample_weight")
-        eg.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
-        return eg, report
-    else:
-        if dataset_label == 'binary':
-            constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
-        else:
-            constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
-        grid = GridSearch(
-            model, constr, sample_weight_name="classifier__sample_weight")
-        grid.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
-        return grid, report
-
+    # best_ris = report.iloc[0,:]
+    # model = ml_methods[best_ris['model']]
+    #     #     #     # if best_ris['fairness_method'] == 'demv':
+    #     demv = DEMV(round_level=1)
+    #     data = demv.fit_transform(data, sensitive_features, label)
+    #     model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
+    #     return model, report
+    #     #     # if best_ris['fairness_method'] == 'eg':
+    #     if dataset_label == 'binary':
+    #         constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
+    #     else:
+    #         constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+    #     eg = ExponentiatedGradient(
+    #         model, constr, sample_weight_name="classifier__sample_weight")
+    #     eg.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
+    #     return eg, report
+    #     #     # else:
+    #     if dataset_label == 'binary':
+    #         constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
+    #     else:
+    #         constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+    #     grid = GridSearch(
+    #         model, constr, sample_weight_name="classifier__sample_weight")
+    #     grid.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
+    #     return grid, report
+    #     # 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Experiment file for fairness testing')
@@ -137,7 +138,7 @@ if __name__ == '__main__':
     
     data = pd.read_csv(args.dataset
     )
-    model, report = exec(data)
+    report = exec(data)
     os.makedirs('ris', exist_ok=True)
     report.round(3).to_csv(os.path.join('ris','report.csv'))
-    pickle.dump(model, open(os.path.join('ris','model.pkl'), 'wb'))
+    # pickle.dump(model, open(os.path.join('ris','model.pkl'), 'wb'))

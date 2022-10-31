@@ -20,8 +20,8 @@
   - ~~[ ] OptPreproc~~
   - [X] LFR **(richiede configurazione iperparametri)**
   - [X] Sampling
-  - [ ] AdversarialDebiasing
-  - [ ] GerryFair
+  - [X] AdversarialDebiasing
+  - [X] GerryFair
   - [ ] MetaFair
   - [ ] PrejudiceRem
   - [ ] Blackbox

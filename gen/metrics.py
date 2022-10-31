@@ -1,4 +1,6 @@
-# METRICS
+import numpy as np
+import pandas as pd
+from sklearn.metrics import confusion_matrix
 
 def _get_groups(data, label_name, positive_label, group_condition):
     query = '&'.join([str(k) + '==' + str(v)
@@ -31,15 +33,12 @@ def _compute_tpr_fpr(y_true, y_pred):
     FPR = FP/(FP+TN)
     return FPR, TPR
 
-{% if disparate_impact %}
 def disparate_impact(data_pred, group_condition, label_name, positive_label):
     unpriv_group_prob, priv_group_prob = _compute_probs(
         data_pred, label_name, positive_label, group_condition)
     return min(unpriv_group_prob / priv_group_prob,
-               priv_group_prob / unpriv_group_prob) if unpriv_group_prob != 0 and priv_group_prob != 0 else 1
-{% endif %}
+               priv_group_prob / unpriv_group_prob) if unpriv_group_prob != 0 and priv_group_prob != 0 else 0
 
-{%if statistical_parity %}
 def statistical_parity(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
     query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
     label_query = label_name+'=='+str(positive_label)
@@ -48,9 +47,7 @@ def statistical_parity(data_pred: pd.DataFrame, group_condition: dict, label_nam
     priv_group_prob = (len(data_pred.query('~(' + query + ')&' + label_query))
                        / len(data_pred.query('~(' + query+')')))
     return unpriv_group_prob - priv_group_prob
-{%endif%}
 
-{%if equalized_odds %}
 def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
     query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
     label_query = label_name+'=='+str(positive_label)
@@ -80,35 +77,8 @@ def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: s
                           / len(data_pred.query('~(' + query+')& ~(' + label_query + ')')))
 
     return max(np.abs(unpriv_group_tpr - priv_group_tpr), np.abs(unpriv_group_fpr - priv_group_fpr))
-{%endif%}
 
-{%if average_odds%}
-def average_odds_difference(data_true: pd.DataFrame, data_pred: pd.DataFrame, group_condition: str, label: str):
-    unpriv_group_true = data_true.query(group_condition)
-    priv_group_true = data_true.drop(unpriv_group_true.index)
-    unpriv_group_pred = data_pred.query(group_condition)
-    priv_group_pred = data_pred.drop(unpriv_group_pred.index)
 
-    y_true_unpriv = unpriv_group_true[label].values.ravel()
-    y_pred_unpric = unpriv_group_pred[label].values.ravel()
-    y_true_priv = priv_group_true[label].values.ravel()
-    y_pred_priv = priv_group_pred[label].values.ravel()
-
-    fpr_unpriv, tpr_unpriv = _compute_tpr_fpr(
-        y_true_unpriv, y_pred_unpric)
-    fpr_priv, tpr_priv = _compute_tpr_fpr(
-        y_true_priv, y_pred_priv)
-    return (fpr_unpriv - fpr_priv) + (tpr_unpriv - tpr_priv)/2
-{%endif%}
-
-{%if zero_one_loss %}
-def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_features: list):
-    mf = MetricFrame(metrics=zero_one_loss,
-                     y_true=y_true,
-                     y_pred=y_pred,
-                     sensitive_features=sensitive_features)
-    return mf.difference()
-{%endif%}
 
 def norm_data(data):
     return abs(1 - abs(data))

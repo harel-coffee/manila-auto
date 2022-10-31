@@ -1,8 +1,5 @@
 {% include "components/utils_libraries.jinja"%}
 
-{% include "components/metrics.py.jinja"%}
-
-
 # TRAINING FUNCTIONS
 
 def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
@@ -66,8 +63,16 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             model = AdversarialDebiasing(prot_attr=[df_train[s] for s in sensitive_features])
             tf.disable_eager_execution()
         {%endif%}
-        exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
-        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights)
+        {%if gerry_fair_classifier%}
+        if inprocessor == 'gerry':
+            model = GerryFairClassifier(fairness_def='FP')
+        {%endif%}
+        if inprocessor == 'gerry' or inprocessor == 'meta':
+            pred = _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label)
+        else:
+            exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
+            adv = bool(inprocessor == 'adv')
+            pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
         {%if blackbox%}
         if postprocessor=='blackbox':
             pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
@@ -85,26 +90,45 @@ def _get_constr(df, label):
 {%endif%}
 
 def _train_test_split(df_train, df_test, label):
-    x_train = df_train.drop(label, axis=1).values
-    y_train = df_train[label].values.ravel()
-    x_test = df_test.drop(label, axis=1).values
-    y_test = df_test[label].values.ravel()
+    x_train = df_train.drop(label, axis=1)
+    y_train = df_train[label]
+    x_test = df_test.drop(label, axis=1)
+    y_test = df_test[label]
     return x_train, x_test, y_train, y_test
 
 
-def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False, weights=None):
+def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False, weights=None, adv=False):
     x_train, x_test, y_train, y_test = _train_test_split(
         df_train, df_test, label)
     model = deepcopy(classifier)
-    model.fit(x_train, y_train,
-              sensitive_features=df_train[sensitive_features]) if exp else {{"model.fit(x_train, y_train, classifier__sample_weight=weights)" if scaler else  "model.fit(x_train, y_train, sample_weight=weights)"}}
+    if adv:
+        model.fit(x_train, y_train)
+    else:
+        model.fit(x_train, y_train,
+                sensitive_features=df_train[sensitive_features]) if exp else {{"model.fit(x_train, y_train, classifier__sample_weight=weights)" if scaler else  "model.fit(x_train, y_train, sample_weight=weights)"}}
     pred = model.predict(x_test)
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]
     df_pred[label] = pred
     return df_pred
 
-
+def _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label):
+    bin_train = BinaryLabelDataset(favorable_label=positive_label, 
+        unfavorable_label=1-positive_label,
+        df=df_train, 
+        label_names=[label], 
+        protected_attribute_names=sensitive_features)
+    model.fit(bin_train)
+    bin_test = BinaryLabelDataset(favorable_label=positive_label, 
+        unfavorable_label=1-positive_label,
+        df=df_test, 
+        label_names=[label], 
+        protected_attribute_names=sensitive_features)
+    pred = model.predict(bin_test)
+    df_pred = df_test.copy()
+    df_pred['y_true'] = df_pred[label]
+    df_pred[label] = pred.labels
+    return df_pred
 
 def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
 {%if statistical_parity%}
