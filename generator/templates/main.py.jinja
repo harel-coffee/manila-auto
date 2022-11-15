@@ -128,13 +128,25 @@ def exec(data):
             {% if gerry_fair_classifier %}
             'gerry',
             {%endif%}
+            {% if meta_fair_classifier%}
+            'meta',
+            {%endif%}
+            {% if prejudice_remover%}
+            'prej',
+            {%endif%}
         ],
         {% endif %}
         {% if post_processing %}
         'postprocessing': [
             {% if blackbox %}
-            'blackbox'
+            'blackbox',
             {% endif %}
+            {% if calibrated_eo%}
+            'cal',
+            {%endif%}
+            {%if reject_option_classifier%}
+            'rej',
+            {%endif%}
         ]
         {% endif %}
     }
@@ -227,7 +239,7 @@ def exec(data):
     #     ('classifier', model)
     # ])
     # {% endif %}
-    # {%if fairness%}
+    {%if fairness%}
     # {% if demv %}
     # if best_ris['fairness_method'] == 'demv':
     #     demv = DEMV(round_level=1)

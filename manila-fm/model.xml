@@ -115,12 +115,11 @@
 						<feature name="MetaFairClassifier"/>
 						<feature name="PrejudiceRemover"/>
 					</or>
-					<or abstract="true" name="PostProcessing">
+					<and abstract="true" name="PostProcessing">
 						<graphics key="collapsed" value="false"/>
-						<feature name="Blackbox"/>
 						<feature name="CalibratedEO"/>
 						<feature name="RejectOptionClassifier"/>
-					</or>
+					</and>
 				</or>
 				<feature abstract="true" name="Explainabity"/>
 				<feature abstract="true" name="Privacy"/>
@@ -285,16 +284,6 @@
 				<var>BoxCox Method</var>
 				<var>StrictlyPositiveAttributes</var>
 			</imp>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>Multiple sensitive vars</var>
-				</not>
-				<not>
-					<var>Blackbox</var>
-				</not>
-			</disj>
 		</rule>
 		<rule>
 			<disj>
@@ -465,6 +454,14 @@
 					<var>PrejudiceRemover</var>
 				</not>
 			</disj>
+		</rule>
+		<rule>
+			<imp>
+				<var>Multiple sensitive vars</var>
+				<not>
+					<var>PostProcessing</var>
+				</not>
+			</imp>
 		</rule>
 	</constraints>
 </extendedFeatureModel>

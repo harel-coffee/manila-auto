@@ -22,11 +22,11 @@
   - [X] Sampling
   - [X] AdversarialDebiasing
   - [X] GerryFair
-  - [ ] MetaFair
-  - [ ] PrejudiceRem
-  - [ ] Blackbox
-  - [ ] Calibrated EO
-  - [ ] RejectOption
+  - [X] MetaFair
+  - [X] PrejudiceRem
+  - ~~[ ] Blackbox~~
+  - [X] Calibrated EO **(non funziona con più variabili sensibili)**
+  - [X] RejectOption
 - [ ] Metrics
 - [ ] Validations
 - [ ] Charts

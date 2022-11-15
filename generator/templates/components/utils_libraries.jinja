@@ -39,5 +39,19 @@ import tensorflow.compat.v1 as tf
 {%if gerry_fair_classifier%}
 from aif360.algorithms.inprocessing import GerryFairClassifier
 {%endif%}
-
+{%if meta_fair_classifier%}
+from aif360.algorithms.inprocessing import MetaFairClassifier
+{%endif%}
+{%if prejudice_remover%}
+from aif360.algorithms.inprocessing import PrejudiceRemover
+{%endif%}
+{%if post_processing%}
+from aif360.sklearn.postprocessing import PostProcessingMeta
+{%endif%}
+{%if calibrated_eo%}
+from aif360.sklearn.postprocessing import CalibratedEqualizedOdds
+{%endif%}
+{%if reject_option_classifier%}
+from aif360.sklearn.postprocessing import RejectOptionClassifierCV
+{%endif%}
 from metrics import *

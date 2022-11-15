@@ -10,6 +10,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
     for train, test in fold.split(data):
         weights = None
         data = data.copy()
+        data = data.set_index([s for s in sensitive_features])
         df_train = data.iloc[train]
         df_test = data.iloc[test]
         model = deepcopy(classifier)
@@ -67,15 +68,37 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
         if inprocessor == 'gerry':
             model = GerryFairClassifier(fairness_def='FP')
         {%endif%}
-        if inprocessor == 'gerry' or inprocessor == 'meta':
-            pred = _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label)
+        {%if meta_fair_classifier%}
+        if inprocessor == 'meta':
+            model = MetaFairClassifier(sensitive_attr=sensitive_features[0])
+        {%endif%}
+        {%if prejudice_remover%}
+        if inprocessor == 'prej':
+            model = PrejudiceRemover(sensitive_attr=sensitive_features[0], class_attr=label)
+        {%endif%}
+        {%if gerry_fair_classifier or meta_fair_classifier or prejudice_remover%}
+        if inprocessor == 'gerry' or inprocessor == 'meta' or inprocessor == 'prej':
+            pred, model = _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label)
         else:
             exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
             adv = bool(inprocessor == 'adv')
-            pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
-        {%if blackbox%}
-        if postprocessor=='blackbox':
-            pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
+            pred, model = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
+        {%else%}
+        exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
+        adv = bool(inprocessor == 'adv')
+        pred, model = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
+        {%endif%}
+        {%if calibrated_eo%}
+        if postprocessor=='cal':
+            cal = CalibratedEqualizedOdds(prot_attr=sensitive_features[0])
+            model, pred = _compute_postprocessing(model, cal, df_train, df_test, label)
+        {%endif%}
+        {%if reject_option_classifier%}
+        if postprocessor == 'rej':
+            rej = RejectOptionClassifierCV(
+                scoring='statistical_parity', prot_attr='sex')
+            model, pred = _compute_postprocessing(
+                model, cal, df_train, df_test, label)
         {%endif%}
         compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)
     return model, metrics
@@ -106,12 +129,10 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
     else:
         model.fit(x_train, y_train,
                 sensitive_features=df_train[sensitive_features]) if exp else {{"model.fit(x_train, y_train, classifier__sample_weight=weights)" if scaler else  "model.fit(x_train, y_train, sample_weight=weights)"}}
-    pred = model.predict(x_test)
-    df_pred = df_test.copy()
-    df_pred['y_true'] = df_pred[label]
-    df_pred[label] = pred
-    return df_pred
+    df_pred = _predict_data(model, df_test, label, x_test)
+    return df_pred, model
 
+{%if gerry_fair_classifier or meta_fair_classifier or prejudice_remover%}
 def _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label):
     bin_train = BinaryLabelDataset(favorable_label=positive_label, 
         unfavorable_label=1-positive_label,
@@ -124,7 +145,20 @@ def _train_gerry_meta(df_train, df_test, label, model, sensitive_features, posit
         df=df_test, 
         label_names=[label], 
         protected_attribute_names=sensitive_features)
-    pred = model.predict(bin_test)
+    df_pred = _predict_data(model, df_test, label, bin_test)
+    return df_pred, model
+{%endif%}
+
+{%if calibrated_eo or reject_option_classifier%}
+def _compute_postprocessing(model, postprocessor, d_train, d_test, label):
+    meta = PostProcessingMeta(model, postprocessor)
+    meta.fit(d_train.drop(label, axis=1), d_train[label])
+    df_pred = _predict_data(meta, d_test, label, d_test.drop(label, axis=1))
+    return meta, df_pred
+{%endif%}
+
+def _predict_data(model, df_test, label, x_test):
+    pred = model.predict(x_test)
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]
     df_pred[label] = pred.labels
