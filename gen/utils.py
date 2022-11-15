@@ -9,15 +9,17 @@ from scipy import stats
 from aif360.sklearn.postprocessing import PostProcessingMeta
 from aif360.sklearn.postprocessing import CalibratedEqualizedOdds
 from aif360.sklearn.postprocessing import RejectOptionClassifierCV
+from sklearn.neural_network import MLPClassifier
 from metrics import *
 # TRAINING FUNCTIONS
 
 def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
+    n_splits = 2
+    data = data.set_index([s for s in sensitive_features])
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
     for train, test in fold.split(data):
         weights = None
         data = data.copy()
-        data = data.set_index([s for s in sensitive_features])
         df_train = data.iloc[train]
         df_test = data.iloc[test]
         model = deepcopy(classifier)
@@ -51,8 +53,15 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
     if adv:
         model.fit(x_train, y_train)
     else:
-        model.fit(x_train, y_train,
-                sensitive_features=df_train[sensitive_features]) if exp else model.fit(x_train, y_train, sample_weight=weights)
+        if exp:
+            model.fit(x_train, y_train,
+                    sensitive_features=df_train[sensitive_features]) 
+        else:
+            if isinstance(model, MLPClassifier):
+                model.fit(x_train, y_train)
+            else:
+                model.fit(x_train, y_train, sample_weight=weights)
+  
     df_pred = _predict_data(model, df_test, label, x_test)
     return df_pred, model
 
