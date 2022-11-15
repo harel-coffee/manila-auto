@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
- 
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 from aif360.datasets import BinaryLabelDataset
 from copy import deepcopy
@@ -9,7 +9,6 @@ from scipy import stats
 from aif360.sklearn.postprocessing import PostProcessingMeta
 from aif360.sklearn.postprocessing import CalibratedEqualizedOdds
 from aif360.sklearn.postprocessing import RejectOptionClassifierCV
-from sklearn.neural_network import MLPClassifier
 from metrics import *
 # TRAINING FUNCTIONS
 
@@ -57,10 +56,10 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
             model.fit(x_train, y_train,
                     sensitive_features=df_train[sensitive_features]) 
         else:
-            if isinstance(model, MLPClassifier):
-                model.fit(x_train, y_train)
+            if not isinstance(model['classifier'], MLPClassifier):
+                model.fit(x_train, y_train, classifier__sample_weight=weights)
             else:
-                model.fit(x_train, y_train, sample_weight=weights)
+                model.fit(x_train, y_train)
   
     df_pred = _predict_data(model, df_test, label, x_test)
     return df_pred, model

@@ -376,88 +376,32 @@
 			</disj>
 		</rule>
 		<rule>
-			<disj>
-				<not>
-					<var>Regression</var>
-				</not>
+			<imp>
+				<var>Multiple sensitive vars</var>
 				<not>
 					<var>PostProcessing</var>
 				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>Regression</var>
-				</not>
-				<not>
-					<var>Reweighing</var>
-				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>Regression</var>
-				</not>
-				<not>
-					<var>DIR</var>
-				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>DEMV</var>
-				</not>
-				<not>
-					<var>Regression</var>
-				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>AdversarialDebiasing</var>
-				</not>
-				<not>
-					<var>Regression</var>
-				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>Regression</var>
-				</not>
-				<not>
-					<var>GerryFairClassifier</var>
-				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>Regression</var>
-				</not>
-				<not>
-					<var>MetaFairClassifier</var>
-				</not>
-			</disj>
-		</rule>
-		<rule>
-			<disj>
-				<not>
-					<var>Regression</var>
-				</not>
-				<not>
-					<var>PrejudiceRemover</var>
-				</not>
-			</disj>
+			</imp>
 		</rule>
 		<rule>
 			<imp>
-				<var>Multiple sensitive vars</var>
+				<var>SVC</var>
+				<not>
+					<var>PostProcessing</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Regression</var>
+				<not>
+					<var>Fairness</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Gradient Descent Classifier</var>
 				<not>
 					<var>PostProcessing</var>
 				</not>

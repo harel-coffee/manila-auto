@@ -54,4 +54,7 @@ from aif360.sklearn.postprocessing import CalibratedEqualizedOdds
 {%if reject_option_classifier%}
 from aif360.sklearn.postprocessing import RejectOptionClassifierCV
 {%endif%}
+{%if mlp__classifier%}
+from sklearn.neural_network import MLPClassifier
+{%endif%}
 from metrics import *

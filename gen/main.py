@@ -5,9 +5,7 @@ from copy import deepcopy
 from utils import *
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
-from sklearn.svm import SVC
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 
@@ -40,10 +38,8 @@ def exec(data):
     save_model =  False     
     ml_methods = {
         'logreg': LogisticRegression(),
-        'svm': SVC(),
         'gradient_class': GradientBoostingClassifier(),
         'mlp': MLPClassifier(),
-        'sdgclass': SGDClassifier(),
         'tree': DecisionTreeClassifier(),
         'forest': RandomForestClassifier(),
     }
