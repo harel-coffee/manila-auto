@@ -231,6 +231,7 @@ def exec(data):
     report = ris.groupby(['model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
     {%endif%}
+    return report
     # best_ris = report.iloc[0,:]
     # model = ml_methods[best_ris['model']]
     # {% if scaler %}
@@ -239,7 +240,7 @@ def exec(data):
     #     ('classifier', model)
     # ])
     # {% endif %}
-    {%if fairness%}
+    #{%if fairness%}
     # {% if demv %}
     # if best_ris['fairness_method'] == 'demv':
     #     demv = DEMV(round_level=1)
@@ -271,8 +272,8 @@ def exec(data):
     # {%endif%}
     # {%else%}
     # model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
-    return report
-    {%endif%}
+    #return report
+    #{%endif%}
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

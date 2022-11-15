@@ -4,6 +4,7 @@ import pickle
 from copy import deepcopy
 from utils import *
 from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import SGDClassifier
@@ -41,6 +42,7 @@ def exec(data):
         'logreg': LogisticRegression(),
         'svm': SVC(),
         'gradient_class': GradientBoostingClassifier(),
+        'mlp': MLPClassifier(),
         'sdgclass': SGDClassifier(),
         'tree': DecisionTreeClassifier(),
         'forest': RandomForestClassifier(),
@@ -92,9 +94,10 @@ def exec(data):
 
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
+    return report
     # best_ris = report.iloc[0,:]
     # model = ml_methods[best_ris['model']]
-    #     #     #     #     # 
+    #     #    #     #     #     # 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Experiment file for fairness testing')

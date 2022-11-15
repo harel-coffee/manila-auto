@@ -31,7 +31,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             rej = RejectOptionClassifierCV(
                 scoring='statistical_parity', prot_attr='sex')
             model, pred = _compute_postprocessing(
-                model, cal, df_train, df_test, label)
+                model, rej, df_train, df_test, label)
         compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
@@ -63,11 +63,14 @@ def _compute_postprocessing(model, postprocessor, d_train, d_test, label):
     df_pred = _predict_data(meta, d_test, label, d_test.drop(label, axis=1))
     return meta, df_pred
 
-def _predict_data(model, df_test, label, x_test):
+def _predict_data(model, df_test, label, x_test, aif_data=False):
     pred = model.predict(x_test)
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]
-    df_pred[label] = pred.labels
+    if aif_data:
+        df_pred[label] = pred.labels
+    else:
+        df_pred[label] = pred
     return df_pred
 
 def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
