@@ -3,11 +3,14 @@ import os
 import pickle
 from copy import deepcopy
 from utils import *
+from demv import DEMV
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair):
     df_metrics = pd.DataFrame(metrics)
@@ -45,9 +48,13 @@ def exec(data):
     }
 
     fairness_methods = {
+        'no_method': 'no_method',
+        'preprocessing': [
+            'demv',
+            'reweighing',
+            'dir',
+        ],
         'postprocessing': [
-            'cal',
-            'rej',
         ]
     }
 
@@ -63,7 +70,10 @@ def exec(data):
     dataset_label =  'binary' 
     ris = pd.DataFrame()
     for m in ml_methods.keys():
-        model = ml_methods[m]
+        model = Pipeline([
+            ('scaler', StandardScaler()),
+            ('classifier', ml_methods[m])
+        ])
 
         for f in fairness_methods.keys():
             model = deepcopy(model)
@@ -81,19 +91,33 @@ def exec(data):
                     df_metrics = _store_metrics(
                         ris_metrics, m, method, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
-            else:
+            elif f == 'postprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits=10)
                     df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
+            else:
+                metrics = deepcopy(base_metrics)
+                model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, n_splits=10)
+                df_metrics = _store_metrics(ris_metrics, m, 'No method', save_data, save_model, model_fair)
+                ris = ris.append(df_metrics)
 
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
     return report
     # best_ris = report.iloc[0,:]
     # model = ml_methods[best_ris['model']]
-    #     #    #     #     #     # 
+    #     # model = Pipeline([
+    #     ('scaler', StandardScaler()),
+    #     ('classifier', model)
+    # ])
+    #     #    #     # if best_ris['fairness_method'] == 'demv':
+    #     demv = DEMV(round_level=1)
+    #     data = demv.fit_transform(data, sensitive_features, label)
+    #     model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
+    #     return model, report
+    #     #     #     # 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Experiment file for fairness testing')

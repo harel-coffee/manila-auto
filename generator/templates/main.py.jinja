@@ -98,6 +98,9 @@ def exec(data):
     }
 
     fairness_methods = {
+        {%if no__method%}
+        'no_method': 'no_method',
+        {%endif%}
         {%if pre_processing%}
         'preprocessing': [
             {%if demv%}
@@ -204,12 +207,17 @@ def exec(data):
                     df_metrics = _store_metrics(
                         ris_metrics, m, method, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
-            else:
+            elif f == 'postprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits={{K | default(10,true)}})
                     df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
+            else:
+                metrics = deepcopy(base_metrics)
+                model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, n_splits={{K | default(10,true)}})
+                df_metrics = _store_metrics(ris_metrics, m, 'No method', save_data, save_model, model_fair)
+                ris = ris.append(df_metrics)
         {% else%}
         model = deepcopy(model)
         data = data.copy()

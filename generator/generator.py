@@ -10,6 +10,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 def camel_to_snake(name):
     name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', name).lower().strip().replace(" ", "_")
+
 def tree_parser(root):
     params = dict()
     for feature in root.findall('feature'):
@@ -64,10 +65,8 @@ if __name__ == '__main__':
                       trim_blocks=True)
     main = env.get_template('main.py.jinja')
     utils = env.get_template('utils.py.jinja')
-    balancers = env.get_template('balancers.py.jinja')
     demv = env.get_template('demv.py.jinja')
     environment = env.get_template('environment.yml.jinja')
-    tools = env.get_template('tools.py.jinja')
     metrics = env.get_template('metrics.py.jinja')
     pprint(params)
     with open(os.path.join('gen', 'main.py'), 'w') as f:
@@ -81,9 +80,4 @@ if __name__ == '__main__':
     if 'demv' in params:
         with open(os.path.join('gen', 'demv.py'), 'w') as f:
             f.write(demv.render())
-    if 'blackbox' in params:
-        with open(os.path.join('gen', 'tools.py'), 'w') as f:
-            f.write(tools.render())
-        with open(os.path.join('gen', 'balancers.py'), 'w') as f:
-            f.write(balancers.render())
     sys.exit("Script generated")

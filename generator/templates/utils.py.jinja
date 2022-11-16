@@ -6,19 +6,21 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
     {%if not validation%}
     n_splits = 2
     {%endif%}
-    data = data.set_index([s for s in sensitive_features])
+    data_start = data.copy()
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
-    for train, test in fold.split(data):
+    for train, test in fold.split(data_start):
         weights = None
-        data = data.copy()
+        data = data_start.copy()
         df_train = data.iloc[train]
         df_test = data.iloc[test]
         model = deepcopy(classifier)
         {%if reweighing%}
         if preprocessor == 'rw':
-            prot_attr = [df_train[s] for s in sensitive_features]
+            df_train = df_train.set_index(sensitive_features[0])
+            prot_attr = [s for s in sensitive_features]
             rw = Reweighing(prot_attr)
             x, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])
+            df_train = df_train.reset_index()
         {%endif%}
         {%if dir%}
         if preprocessor == 'dir':
@@ -61,7 +63,9 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
         {%endif%}
         {%if adversarial_debiasing%}
         if inprocessor == 'adv':
-            model = AdversarialDebiasing(prot_attr=[df_train[s] for s in sensitive_features])
+            df_train = df_train.set_index([s for s in sensitive_features])
+            df_test = df_test.set_index([s for s in sensitive_features])
+            model = AdversarialDebiasing(prot_attr=[s for s in sensitive_features])
             tf.disable_eager_execution()
         {%endif%}
         {%if gerry_fair_classifier%}
@@ -88,6 +92,9 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
         adv = bool(inprocessor == 'adv')
         pred, model = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
         {%endif%}
+        if postprocessor:
+            df_train = df_train.set_index(sensitive_features[0])
+            df_test = df_test.set_index(sensitive_features[0])
         {%if calibrated_eo%}
         if postprocessor=='cal':
             cal = CalibratedEqualizedOdds(prot_attr=sensitive_features[0])
@@ -140,6 +147,8 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
             model.fit(x_train, y_train, {{"classifier__sample_weight" if scaler else "sample_weight"}}=weights)
             {%endif%}  
     df_pred = _predict_data(model, df_test, label, x_test)
+    if adv:
+        model.sess_.close()
     return df_pred, model
 
 {%if gerry_fair_classifier or meta_fair_classifier or prejudice_remover%}
@@ -178,6 +187,7 @@ def _predict_data(model, df_test, label, x_test, aif_data=False):
     return df_pred
 
 def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
+    df_pred = df_pred.reset_index()
 {%if statistical_parity%}
     stat_par = statistical_parity(
         df_pred, unpriv_group, label, positive_label)

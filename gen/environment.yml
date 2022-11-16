@@ -5,6 +5,7 @@ channels:
 dependencies:
   - pandas
   - python=3.9
+  - imbalanced-learn
   - scikit-learn
   - scipy
   - pip
