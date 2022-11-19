@@ -282,14 +282,130 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
         ])
     )
 {%endif%}
-    return metrics
-
-{%if blackbox%}
-def blackbox(pred, label, sensitive_var, binary=True):
-    pb = BinaryBalancer(y='y_true', y_=label, a=sensitive_var, data=pred) if binary else \
-        MulticlassBalancer(y='y_true', y_=label, a=sensitive_var, data=pred)
-    y_adj = pb.adjust(cv=True, summary=False)
-    pred[label] = y_adj
-
-    return pred
+{%if min%}
+    metrics['min'].append(
+        min([
+            {%if accuracy%}
+            accuracy_score,
+            {%endif%} 
+            {%if disparate_impact%}
+            di,
+            {%endif%} 
+            {%if equalized_odds%}
+            eo, 
+            {%endif%}
+            {%if statistical_parity%}
+            stat_par, 
+            {%endif%}
+            {%if zero_one_loss%}
+            zero_one_loss,
+            {%endif%}
+            {%if average_odds%}
+            ao,
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            tpr,
+            {%endif%}
+            {%if false_positive_difference%}
+            fpr,
+            {%endif%}
+        ])
+    )
 {%endif%}
+{%if max%}
+    metrics['max'].append(
+        max([
+            {%if accuracy%}
+            accuracy_score,
+            {%endif%} 
+            {%if disparate_impact%}
+            di,
+            {%endif%} 
+            {%if equalized_odds%}
+            eo, 
+            {%endif%}
+            {%if statistical_parity%}
+            stat_par, 
+            {%endif%}
+            {%if zero_one_loss%}
+            zero_one_loss,
+            {%endif%}
+            {%if average_odds%}
+            ao,
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            tpr,
+            {%endif%}
+            {%if false_positive_difference%}
+            fpr,
+            {%endif%}
+        ])
+    )
+    {%endif%}
+    {%if statistical_mean%}
+    metrics['mean'].append(
+        statistics.mean([
+            {%if accuracy%}
+            accuracy_score,
+            {%endif%} 
+            {%if disparate_impact%}
+            di,
+            {%endif%} 
+            {%if equalized_odds%}
+            eo, 
+            {%endif%}
+            {%if statistical_parity%}
+            stat_par, 
+            {%endif%}
+            {%if zero_one_loss%}
+            zero_one_loss,
+            {%endif%}
+            {%if average_odds%}
+            ao,
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            tpr,
+            {%endif%}
+            {%if false_positive_difference%}
+            fpr,
+            {%endif%}
+        ])
+    )
+    {%endif%}
+    return metrics

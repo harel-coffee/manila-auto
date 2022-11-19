@@ -48,3 +48,6 @@ from aif360.sklearn.postprocessing import RejectOptionClassifierCV
 from sklearn.neural_network import MLPClassifier
 {%endif%}
 from metrics import *
+{%if statistical_mean%}
+import statistics
+{%endif%}

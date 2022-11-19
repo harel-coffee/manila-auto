@@ -194,9 +194,32 @@ def exec(data):
         {% if harmonic_mean %}
         'hmean': [],
         {% endif %}
+        {% if max %}
+        'max': [],
+        {% endif %}
+        {% if min %}
+        'min': [],
+        {% endif %}
+        {% if statistical_mean %}
+        'mean': [],
+        {% endif %}
     }
 
-    agg_metric = {%if harmonic_mean %} 'hmean' {%endif%}
+{%if harmonic_mean %}
+    agg_metric = 'hmean' 
+{%endif%}
+
+{%if max %}
+    agg_metric = 'max' 
+{%endif%}
+
+{%if min %}
+    agg_metric = 'min' 
+{%endif%}
+
+{%if statistical_mean %}
+    agg_metric = 'mean' 
+{%endif%}
 
     dataset_label = {% if multi_class %} 'multi-class' {%else%} 'binary' {%endif%}
 

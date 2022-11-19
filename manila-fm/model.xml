@@ -162,7 +162,6 @@
 					<graphics key="collapsed" value="false"/>
 					<feature name="Min"/>
 					<feature name="Max"/>
-					<feature name="Sum"/>
 					<feature name="StatisticalMean"/>
 					<feature name="HarmonicMean"/>
 				</alt>
