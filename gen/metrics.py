@@ -1,6 +1,13 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
+ 
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import zero_one_loss
+from fairlearn.metrics import MetricFrame
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import roc_auc_score
 
 def _get_groups(data, label_name, positive_label, group_condition):
     query = '&'.join([str(k) + '==' + str(v)
@@ -21,17 +28,27 @@ def _compute_probs(data_pred, label_name, positive_label, group_condition):
                        / len(priv_group))
     return unpriv_group_prob, priv_group_prob
 
-
 def _compute_tpr_fpr(y_true, y_pred):
-    matrix = confusion_matrix(y_true, y_pred)
-    FP = matrix.sum(axis=0) - np.diag(matrix)
-    FN = matrix.sum(axis=1) - np.diag(matrix)
-    TP = np.diag(matrix)
-    TN = matrix.sum() - (FP + FN + TP)
-
+    TN, FP, FN, TP = confusion_matrix(y_true, y_pred).ravel()
     TPR = TP/(TP+FN)
     FPR = FP/(FP+TN)
     return FPR, TPR
+
+def _compute_tpr_fpr_groups(data_pred,label,group_condition):
+    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
+    unpriv_group = data_pred.query(query)
+    priv_group = data_pred.drop(unpriv_group.index)
+
+    y_true_unpriv = unpriv_group['y_true'].values.ravel()
+    y_pred_unpric = unpriv_group[label].values.ravel()
+    y_true_priv = priv_group['y_true'].values.ravel()
+    y_pred_priv = priv_group[label].values.ravel()
+    
+    fpr_unpriv, tpr_unpriv = _compute_tpr_fpr(
+        y_true_unpriv, y_pred_unpric)
+    fpr_priv, tpr_priv = _compute_tpr_fpr(
+        y_true_priv, y_pred_priv)
+    return fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv
 
 def disparate_impact(data_pred, group_condition, label_name, positive_label):
     unpriv_group_prob, priv_group_prob = _compute_probs(
@@ -78,7 +95,37 @@ def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: s
 
     return max(np.abs(unpriv_group_tpr - priv_group_tpr), np.abs(unpriv_group_fpr - priv_group_fpr))
 
+def average_odds_difference(data_pred: pd.DataFrame, group_condition: str, label: str):
+    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition)
+    return (fpr_unpriv - fpr_priv) + (tpr_unpriv - tpr_priv)/2
 
+def true_pos_diff(data_pred: pd.DataFrame, group_condition: str, label: str):
+    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition)
+    return tpr_unpriv - tpr_priv
+
+def false_pos_diff(data_pred: pd.DataFrame, group_condition: str, label: str):
+    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition)
+    return fpr_unpriv - fpr_priv
+
+def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_features: list):
+    mf = MetricFrame(metrics=zero_one_loss,
+                     y_true=y_true,
+                     y_pred=y_pred,
+                     sensitive_features=sensitive_features)
+    return mf.difference()
+
+def accuracy(df_pred: pd.DataFrame, label: str):
+    return accuracy_score(df_pred['y_true'].values, df_pred[label].values)
+
+def precision(df_pred: pd.DataFrame, label: str):
+    return precision_score(df_pred['y_true'].values, df_pred[label].values)
+
+def recall(df_pred: pd.DataFrame, label: str):
+    return recall_score(df_pred['y_true'].values, df_pred[label].values)
+
+
+def auc(df_pred: pd.DataFrame, label: str):
+    return roc_auc_score(df_pred['y_true'].values, df_pred[label].values)
 
 def norm_data(data):
     return abs(1 - abs(data))

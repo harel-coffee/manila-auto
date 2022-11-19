@@ -4,8 +4,8 @@ import pickle
 from copy import deepcopy
 from utils import *
 from demv import DEMV
+from fairlearn.reductions import ExponentiatedGradient, BoundedGroupLoss, ZeroOneLoss, GridSearch, DemographicParity
 from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -42,7 +42,6 @@ def exec(data):
     ml_methods = {
         'logreg': LogisticRegression(),
         'gradient_class': GradientBoostingClassifier(),
-        'mlp': MLPClassifier(),
         'tree': DecisionTreeClassifier(),
         'forest': RandomForestClassifier(),
     }
@@ -54,14 +53,33 @@ def exec(data):
             'reweighing',
             'dir',
         ],
+ 
+        'inprocessing': [
+            'eg',
+            'grid',
+            'adv',
+   
+            'gerry',
+            'meta',
+            'prej',
+        ],
         'postprocessing': [
+            'cal',
+            'rej',
         ]
     }
 
     base_metrics = {
+        'precision': [],
+        'recall': [],
+        'auc': [],
         'stat_par': [],
         'eq_odds': [],
+        'zero_one_loss': [],
         'disp_imp': [],
+        'ao': [],
+        'tpr_diff': [],
+        'fpr_diff': [],
         'acc': [],
         'hmean': [],
     }
@@ -117,7 +135,25 @@ def exec(data):
     #     data = demv.fit_transform(data, sensitive_features, label)
     #     model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
     #     return model, report
-    #     #     #     # 
+    #     #     # if best_ris['fairness_method'] == 'eg':
+    #     if dataset_label == 'binary':
+    #         constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
+    #     else:
+    #         constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+    #     eg = ExponentiatedGradient(
+    #         model, constr, sample_weight_name="classifier__sample_weight")
+    #     eg.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
+    #     return eg, report
+    #     #     # else:
+    #     if dataset_label == 'binary':
+    #         constr = BoundedGroupLoss(DemographicParity(), upper_bound=0.1)
+    #     else:
+    #         constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
+    #     grid = GridSearch(
+    #         model, constr, sample_weight_name="classifier__sample_weight")
+    #     grid.fit(data.drop(label, axis=1).values, data[label].values.ravel(),sensitive_features=data[sensitive_features])
+    #     return grid, report
+    #     # 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Experiment file for fairness testing')

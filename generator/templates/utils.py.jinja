@@ -19,7 +19,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             df_train = df_train.set_index(sensitive_features[0])
             prot_attr = [s for s in sensitive_features]
             rw = Reweighing(prot_attr)
-            x, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])
+            _, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])
             df_train = df_train.reset_index()
         {%endif%}
         {%if dir%}
@@ -203,20 +203,48 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
         df_pred, unpriv_group, label, positive_label=positive_label)
     metrics['disp_imp'].append(di)
 {%endif%}
+{%if average_odds%}
+    ao = average_odds_difference(df_pred, unpriv_group, label)
+    metrics['ao'] = ao
+{%endif%}
+{%if true_positive_difference%}
+    tpr = true_pos_diff(df_pred, unpriv_group, label)
+    metrics['tpr_diff'] = tpr
+{%endif%}
+{%if false_positive_difference%}
+    fpr = false_pos_diff(df_pred, unpriv_group, label)
+    metrics['fpr_diff'] = fpr
+{%endif%}
 {%if zero_one_loss%}
     zero_one_loss = zero_one_loss_diff(
         y_true=df_pred['y_true'].values, y_pred=df_pred[label].values, sensitive_features=df_pred[sensitive_features].values)
     metrics['zero_one_loss'].append(zero_one_loss)
 {%endif%}
 {%if accuracy%}
-    accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
-    metrics['acc'].append(accuracy)
+    accuracy_score = accuracy(df_pred, label)
+    metrics['acc'].append(accuracy_score)
+{%endif%}
+{%if precision%}
+    precision_score = precision(df_pred, label)
+    metrics['precision'].append(precision_score)
+{%endif%}
+{%if recall%}
+    recall_score = recall(df_pred, label)
+    metrics['recall'].append(recall_score)
+{%endif%}
+{%if f1score%}
+    f1_score = f1(df_pred, label)
+    metrics['f1score'].append(f1_score)
+{%endif%}
+{%if auc%}
+    auc_score = auc(df_pred, label)
+    metrics['auc'].append(auc_score)
 {%endif%}
 {%if harmonic_mean%}
     metrics['hmean'].append(
         stats.hmean([
             {%if accuracy%}
-            accuracy,
+            accuracy_score,
             {%endif%} 
             {%if disparate_impact%}
             di,
@@ -228,7 +256,28 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
             norm_data(stat_par), 
             {%endif%}
             {%if zero_one_loss%}
-            norm_data(zero_one_loss)
+            norm_data(zero_one_loss),
+            {%endif%}
+            {%if average_odds%}
+            norm_data(ao),
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            norm_data(tpr),
+            {%endif%}
+            {%if false_positive_difference%}
+            norm_data(fpr),
             {%endif%}
         ])
     )

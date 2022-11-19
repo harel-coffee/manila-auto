@@ -26,7 +26,7 @@
   - [X] PrejudiceRem
   - ~~[ ] Blackbox~~
   - [X] Calibrated EO **(non funziona con più variabili sensibili)**
-  - [X] RejectOption
-- [ ] Metrics
+  - [X] RejectOption **(non funziona con più variabili sensibili)**
+- [ ] Metrics **Fix Average Odds**
 - [ ] Validations
 - [ ] Charts

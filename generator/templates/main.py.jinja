@@ -155,6 +155,18 @@ def exec(data):
     }
 
     base_metrics = {
+        {%if precision %}
+        'precision': [],
+        {%endif%}
+        {%if recall %}
+        'recall': [],
+        {%endif%}
+        {%if f1score%}
+        'f1score': [],
+        {%endif%}
+        {%if auc%}
+        'auc': [],
+        {%endif%}
         {% if statistical_parity %}
         'stat_par': [],
         {% endif %}
@@ -167,6 +179,15 @@ def exec(data):
         {% if disparate_impact%}
         'disp_imp': [],
         {% endif %}
+        {% if average_odds %}
+        'ao': [],
+        {%endif%}
+        {% if true_positive_difference%}
+        'tpr_diff': [],
+        {% endif%}
+        {% if false_positive_difference%}
+        'fpr_diff': [],
+        {% endif%}
         {% if accuracy %}
         'acc': [],
         {% endif %}

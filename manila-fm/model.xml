@@ -2,7 +2,8 @@
 <extendedFeatureModel>
 	<properties>
 		<graphics key="autolayoutconstraints" value="false"/>
-		<graphics key="legendautolayout" value="true"/>
+		<graphics key="legendposition" value="716,31"/>
+		<graphics key="legendautolayout" value="false"/>
 		<graphics key="showconstraints" value="true"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="vertical"/>
@@ -134,7 +135,6 @@
 					<feature name="Precision"/>
 					<feature name="Recall"/>
 					<feature name="F1Score"/>
-					<feature name="ROC"/>
 					<feature name="AUC"/>
 					<feature name="ZeroOneLoss"/>
 				</or>
@@ -156,7 +156,7 @@
 					<feature name="EqualizedOdds"/>
 					<feature name="AverageOdds"/>
 					<feature name="TruePositiveDifference"/>
-					<feature name="TrueNegativeDifference"/>
+					<feature name="FalsePositiveDifference"/>
 				</or>
 				<alt abstract="true" mandatory="true" name="Aggregation Function">
 					<graphics key="collapsed" value="false"/>
@@ -405,6 +405,14 @@
 				<var>Gradient Descent Classifier</var>
 				<not>
 					<var>PostProcessing</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>AverageOdds</var>
+				<not>
+					<var>MultiClass</var>
 				</not>
 			</imp>
 		</rule>
