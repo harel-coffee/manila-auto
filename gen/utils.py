@@ -98,11 +98,11 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
     di = disparate_impact(
         df_pred, unpriv_group, label, positive_label=positive_label)
     metrics['disp_imp'].append(di)
-    ao = average_odds_difference(df_pred, unpriv_group, label)
+    ao = average_odds_difference(df_pred, unpriv_group, label, positive_label)
     metrics['ao'] = ao
-    tpr = true_pos_diff(df_pred, unpriv_group, label)
+    tpr = true_pos_diff(df_pred, unpriv_group, label, positive_label)
     metrics['tpr_diff'] = tpr
-    fpr = false_pos_diff(df_pred, unpriv_group, label)
+    fpr = false_pos_diff(df_pred, unpriv_group, label, positive_label)
     metrics['fpr_diff'] = fpr
     zero_one_loss = zero_one_loss_diff(
         y_true=df_pred['y_true'].values, y_pred=df_pred[label].values, sensitive_features=df_pred[sensitive_features].values)

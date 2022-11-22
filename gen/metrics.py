@@ -28,8 +28,22 @@ def _compute_probs(data_pred, label_name, positive_label, group_condition):
                        / len(priv_group))
     return unpriv_group_prob, priv_group_prob
 
-def _compute_tpr_fpr(y_true, y_pred):
-    TN, FP, FN, TP = confusion_matrix(y_true, y_pred).ravel()
+def _compute_tpr_fpr(y_true, y_pred, positive_label):
+    TN = 0
+    TP = 0
+    FP = 0
+    FN = 0
+    for i in range(len(y_true)):
+        if y_true[i] == positive_label:
+            if y_true[i] == y_pred[i]:
+                TP += 1
+            else:
+                FN += 1
+        else:
+            if y_pred[i] == positive_label:
+                FP += 1
+            else:
+                TN += 1
     TPR = TP/(TP+FN)
     FPR = FP/(FP+TN)
     return FPR, TPR
@@ -95,16 +109,17 @@ def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: s
 
     return max(np.abs(unpriv_group_tpr - priv_group_tpr), np.abs(unpriv_group_fpr - priv_group_fpr))
 
-def average_odds_difference(data_pred: pd.DataFrame, group_condition: str, label: str):
-    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition)
+def average_odds_difference(data_pred: pd.DataFrame, group_condition: str, label: str, positive_label: int):
+    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition, positive_label)
     return (fpr_unpriv - fpr_priv) + (tpr_unpriv - tpr_priv)/2
 
-def true_pos_diff(data_pred: pd.DataFrame, group_condition: str, label: str):
-    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition)
+def true_pos_diff(data_pred: pd.DataFrame, group_condition: str, label: str, positive_label: int):
+    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition, positive_label)
     return tpr_unpriv - tpr_priv
 
-def false_pos_diff(data_pred: pd.DataFrame, group_condition: str, label: str):
-    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(data_pred, label, group_condition)
+def false_pos_diff(data_pred: pd.DataFrame, group_condition: str, label: str, positive_label: int):
+    fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv = _compute_tpr_fpr_groups(
+        data_pred, label, group_condition, positive_label)
     return fpr_unpriv - fpr_priv
 
 def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_features: list):

@@ -204,15 +204,15 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
     metrics['disp_imp'].append(di)
 {%endif%}
 {%if average_odds%}
-    ao = average_odds_difference(df_pred, unpriv_group, label)
+    ao = average_odds_difference(df_pred, unpriv_group, label, positive_label)
     metrics['ao'] = ao
 {%endif%}
 {%if true_positive_difference%}
-    tpr = true_pos_diff(df_pred, unpriv_group, label)
+    tpr = true_pos_diff(df_pred, unpriv_group, label, positive_label)
     metrics['tpr_diff'] = tpr
 {%endif%}
 {%if false_positive_difference%}
-    fpr = false_pos_diff(df_pred, unpriv_group, label)
+    fpr = false_pos_diff(df_pred, unpriv_group, label, positive_label)
     metrics['fpr_diff'] = fpr
 {%endif%}
 {%if zero_one_loss%}
