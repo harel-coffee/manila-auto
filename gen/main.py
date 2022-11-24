@@ -3,10 +3,7 @@ import os
 import pickle
 from copy import deepcopy
 from utils import *
-from demv import DEMV
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -40,18 +37,17 @@ def exec(data):
     save_model =  False     
     ml_methods = {
         'logreg': LogisticRegression(),
-        'gradient_class': GradientBoostingClassifier(),
-        'tree': DecisionTreeClassifier(),
         'forest': RandomForestClassifier(),
     }
 
     fairness_methods = {
-        'no_method': 'no_method',
         'preprocessing': [
-            'demv',
             'reweighing',
             'dir',
         ],
+        'postprocessing': [
+            'cal',
+        ]
     }
 
     base_metrics = {
@@ -66,13 +62,13 @@ def exec(data):
         'tpr_diff': [],
         'fpr_diff': [],
         'acc': [],
-        'mean': [],
+        'hmean': [],
     }
 
+    agg_metric = 'hmean' 
 
 
 
-    agg_metric = 'mean' 
 
     dataset_label =  'binary' 
     ris = pd.DataFrame()
@@ -119,12 +115,7 @@ def exec(data):
     #     ('scaler', StandardScaler()),
     #     ('classifier', model)
     # ])
-    #     #    #     # if best_ris['fairness_method'] == 'demv':
-    #     demv = DEMV(round_level=1)
-    #     data = demv.fit_transform(data, sensitive_features, label)
-    #     model.fit(data.drop(label,axis=1).values, data[label].values.ravel())
-    #     return model, report
-    #     #     #     # 
+    #     #    #     #     #     # 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Experiment file for fairness testing')

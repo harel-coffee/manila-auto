@@ -48,7 +48,7 @@ def _compute_tpr_fpr(y_true, y_pred, positive_label):
     FPR = FP/(FP+TN)
     return FPR, TPR
 
-def _compute_tpr_fpr_groups(data_pred,label,group_condition):
+def _compute_tpr_fpr_groups(data_pred,label,group_condition,positive_label):
     query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
     unpriv_group = data_pred.query(query)
     priv_group = data_pred.drop(unpriv_group.index)
@@ -59,9 +59,9 @@ def _compute_tpr_fpr_groups(data_pred,label,group_condition):
     y_pred_priv = priv_group[label].values.ravel()
     
     fpr_unpriv, tpr_unpriv = _compute_tpr_fpr(
-        y_true_unpriv, y_pred_unpric)
+        y_true_unpriv, y_pred_unpric, positive_label)
     fpr_priv, tpr_priv = _compute_tpr_fpr(
-        y_true_priv, y_pred_priv)
+        y_true_priv, y_pred_priv, positive_label)
     return fpr_unpriv, tpr_unpriv, fpr_priv, tpr_priv
 
 def disparate_impact(data_pred, group_condition, label_name, positive_label):

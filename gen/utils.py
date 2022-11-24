@@ -6,9 +6,9 @@ from aif360.sklearn.preprocessing import Reweighing
 from aif360.algorithms.preprocessing import DisparateImpactRemover
 from copy import deepcopy
 from scipy import stats
-from demv import DEMV
+from aif360.sklearn.postprocessing import PostProcessingMeta
+from aif360.sklearn.postprocessing import CalibratedEqualizedOdds
 from metrics import *
-import statistics
 
 # TRAINING FUNCTIONS
 
@@ -36,15 +36,15 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             dir = DisparateImpactRemover(sensitive_attribute=sensitive_features[0])
             trans_data = dir.fit_transform(bin_data)
             df_train, _ = trans_data.convert_to_dataframe()
-        if preprocessor == 'demv':
-            demv = DEMV(round_level=1)
-            df_train = demv.fit_transform(df_train, [keys for keys in unpriv_group.keys()], label)
         exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
         adv = bool(inprocessor == 'adv')
         pred, model = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
         if postprocessor:
             df_train = df_train.set_index(sensitive_features[0])
             df_test = df_test.set_index(sensitive_features[0])
+        if postprocessor=='cal':
+            cal = CalibratedEqualizedOdds(prot_attr=sensitive_features[0])
+            model, pred = _compute_postprocessing(model, cal, df_train, df_test, label)
         compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
@@ -76,6 +76,11 @@ def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=F
     return df_pred, model
 
 
+def _compute_postprocessing(model, postprocessor, d_train, d_test, label):
+    meta = PostProcessingMeta(model, postprocessor)
+    meta.fit(d_train.drop(label, axis=1), d_train[label])
+    df_pred = _predict_data(meta, d_test, label, d_test.drop(label, axis=1))
+    return meta, df_pred
 
 def _predict_data(model, df_test, label, x_test, aif_data=False):
     pred = model.predict(x_test)
@@ -115,21 +120,21 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
     metrics['recall'].append(recall_score)
     auc_score = auc(df_pred, label)
     metrics['auc'].append(auc_score)
-    metrics['mean'].append(
-        statistics.mean([
+    metrics['hmean'].append(
+        stats.hmean([
             accuracy_score,
  
             di,
  
-            eo, 
-            stat_par, 
-            zero_one_loss,
-            ao,
+            norm_data(eo), 
+            norm_data(stat_par), 
+            norm_data(zero_one_loss),
+            norm_data(ao),
             precision_score,
             recall_score,
             auc_score,
-            tpr,
-            fpr,
+            norm_data(tpr),
+            norm_data(fpr),
         ])
     )
     return metrics
