@@ -68,7 +68,8 @@ if __name__ == '__main__':
     demv = env.get_template('demv.py.jinja')
     environment = env.get_template('environment.yml.jinja')
     metrics = env.get_template('metrics.py.jinja')
-    pprint(params)
+    trainer = env.get_template('model_trainer.py.jinja')
+    # pprint(params)
     with open(os.path.join('gen', 'main.py'), 'w') as f:
         f.write(main.render(params))
     with open(os.path.join('gen', 'utils.py'), 'w') as f:
@@ -77,6 +78,8 @@ if __name__ == '__main__':
         f.write(environment.render(params))
     with open(os.path.join('gen', 'metrics.py'), 'w') as f:
         f.write(metrics.render(params))
+    with open(os.path.join('gen', 'model_trainer.py'), 'w') as f:
+        f.write(trainer.render(params))
     if 'demv' in params:
         with open(os.path.join('gen', 'demv.py'), 'w') as f:
             f.write(demv.render())

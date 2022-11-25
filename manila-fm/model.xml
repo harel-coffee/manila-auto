@@ -407,5 +407,13 @@
 				</not>
 			</imp>
 		</rule>
+		<rule>
+			<imp>
+				<var>Reweighing</var>
+				<not>
+					<var>MLP Classifier</var>
+				</not>
+			</imp>
+		</rule>
 	</constraints>
 </extendedFeatureModel>

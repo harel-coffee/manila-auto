@@ -22,7 +22,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
         df_test = data.iloc[test]
         model = deepcopy(classifier)
         if preprocessor == 'rw':
-            df_train = df_train.set_index(sensitive_features[0])
+            df_train = df_train.set_index(sensitive_features)
             prot_attr = [s for s in sensitive_features]
             rw = Reweighing(prot_attr)
             _, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])

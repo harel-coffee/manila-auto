@@ -16,7 +16,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
         model = deepcopy(classifier)
         {%if reweighing%}
         if preprocessor == 'rw':
-            df_train = df_train.set_index(sensitive_features[0])
+            df_train = df_train.set_index(sensitive_features)
             prot_attr = [s for s in sensitive_features]
             rw = Reweighing(prot_attr)
             _, weights = rw.fit_transform(df_train.drop(label, axis=1), df_train[label])
@@ -44,7 +44,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             bin_data_fair = lfr.fit_transform(bin_data)
             df_train, _ = bin_data_fair.convert_to_dataframe()
         {%endif%}
-        {%if demv or sampling%}
+        {%if demv %}
         if preprocessor == 'demv':
             demv = DEMV(round_level=1)
             df_train = demv.fit_transform(df_train, [keys for keys in unpriv_group.keys()], label)
@@ -103,7 +103,7 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
         {%if reject_option_classifier%}
         if postprocessor == 'rej':
             rej = RejectOptionClassifierCV(
-                scoring='statistical_parity', prot_attr='sex')
+                scoring='statistical_parity', prot_attr=sensitive_features[0])
             model, pred = _compute_postprocessing(
                 model, rej, df_train, df_test, label)
         {%endif%}

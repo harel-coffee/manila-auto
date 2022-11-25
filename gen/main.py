@@ -3,6 +3,7 @@ import os
 import pickle
 from copy import deepcopy
 from utils import *
+from model_trainer import ModelTrainer
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
@@ -108,14 +109,52 @@ def exec(data):
 
     report = ris.groupby(['fairness_method', 'model']).agg(
         np.mean).sort_values(agg_metric, ascending=False).reset_index()
-    return report
-    # best_ris = report.iloc[0,:]
-    # model = ml_methods[best_ris['model']]
-    #     # model = Pipeline([
-    #     ('scaler', StandardScaler()),
-    #     ('classifier', model)
-    # ])
-    #     #    #     #     #     # 
+    best_ris = report.iloc[0,:]
+    model = ml_methods[best_ris['model']]
+    model = Pipeline([
+        ('scaler', StandardScaler()),
+        ('classifier', model)
+    ])
+    trainer = ModelTrainer(data, label, sensitive_features, positive_label)
+    if best_ris['fairness_method'] == 'no_method':
+        return model, report
+    if best_ris['fairness_method'] == 'demv':
+        demv = trainer.use_demv(model)
+        return demv, report
+    if best_ris['fairness_method'] == 'rw':
+        rw = trainer.use_rw(model)
+        return rw, report
+    if best_ris['fairness_method'] == 'dir':
+        dir = trainer.use_dir(model)
+        return dir, report
+    if best_ris['fairness_method'] == 'lfr':
+        lfr = trainer.use_lfr(model, unpriv_group, priv_group)
+        return lfr, model
+    if best_ris['fairness_method'] == 'eg':
+        eg = trainer.use_eg(model)
+        return eg, report
+    if best_ris['fairness_method'] == 'grid':
+        grid = trainer.use_grid(model)
+        return grid, report
+    if best_ris['fairness_method'] == 'adv':
+        adv = trainer.use_adv()
+        return adv, report
+    if best_ris['fairness_method'] == 'gerry':
+        gerry = trainer.use_gerry()
+        return gerry, report
+    if best_ris['fairness_method'] == 'meta':
+        meta = trainer.use_meta()
+        return meta, report
+    if best_ris['fairness_method'] == 'prej':
+        prej = trainer.use_prj()
+        return prej, report
+    if best_ris['fairness_method'] == 'cal':
+        cal = trainer.use_cal_eo(model)
+        return cal, report 
+    else:
+        rej = trainer.use_rej_opt(model)
+        return rej, report
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Experiment file for fairness testing')
@@ -125,7 +164,8 @@ if __name__ == '__main__':
     
     data = pd.read_csv(args.dataset
     )
-    report = exec(data)
+    model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
     report.round(3).to_csv(os.path.join('ris','report.csv'))
-    # pickle.dump(model, open(os.path.join('ris','model.pkl'), 'wb'))
+    model_name = f"{report.loc[0,'model']}_{report.loc[0,'fairness_method']}"
+    pickle.dump(model, open(os.path.join('ris',model_name+'.pkl'), 'wb'))
