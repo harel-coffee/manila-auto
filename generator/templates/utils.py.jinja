@@ -232,7 +232,7 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
     recall_score = recall(df_pred, label)
     metrics['recall'].append(recall_score)
 {%endif%}
-{%if f1score%}
+{%if f1_score%}
     f1_score = f1(df_pred, label)
     metrics['f1score'].append(f1_score)
 {%endif%}
@@ -267,7 +267,7 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
             {%if recall%}
             recall_score,
             {%endif%}
-            {%if f1score%}
+            {%if f1_score%}
             f1_score,
             {%endif%}
             {%if auc%}
@@ -309,7 +309,7 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
             {%if recall%}
             recall_score,
             {%endif%}
-            {%if f1score%}
+            {%if f1_score%}
             f1_score,
             {%endif%}
             {%if auc%}
@@ -351,7 +351,7 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
             {%if recall%}
             recall_score,
             {%endif%}
-            {%if f1score%}
+            {%if f1_score%}
             f1_score,
             {%endif%}
             {%if auc%}
@@ -393,7 +393,7 @@ def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensi
             {%if recall%}
             recall_score,
             {%endif%}
-            {%if f1score%}
+            {%if f1_score%}
             f1_score,
             {%endif%}
             {%if auc%}

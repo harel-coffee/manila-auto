@@ -415,5 +415,13 @@
 				</not>
 			</imp>
 		</rule>
+		<rule>
+			<imp>
+				<var>AUC</var>
+				<not>
+					<var>MultiClass</var>
+				</not>
+			</imp>
+		</rule>
 	</constraints>
 </extendedFeatureModel>

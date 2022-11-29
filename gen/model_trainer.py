@@ -8,6 +8,7 @@ from aif360.sklearn.inprocessing import AdversarialDebiasing
 from aif360.sklearn.postprocessing import CalibratedEqualizedOdds, RejectOptionClassifierCV, PostProcessingMeta
 import tensorflow.compat.v1 as tf
 from demv import DEMV
+from utils import _get_constr
 
 
 class ModelTrainer:
@@ -59,7 +60,18 @@ class ModelTrainer:
       model.fit(new_data.drop(columns=self.label), new_data[self.label])
       return model
 
+    def use_eg(self, model):
+      constr = _get_constr(self.dataset, self.label)
+      eg_model = ExponentiatedGradient(model, constraints=constr)
+      eg_model.fit(self.dataset.drop(columns=self.label), self.dataset[self.label])
+      return eg_model
 
+    def use_grid(self, model):
+      constr = _get_constr(self.dataset, self.label)
+      grid_model = GridSearch(model, constraints=constr)
+      grid_model.fit(self.dataset.drop(columns=self.label),
+                   self.dataset[self.label])
+      return grid_model
 
     def use_adv(self):
       data = self.dataset.set_index(self.sensitive_features)

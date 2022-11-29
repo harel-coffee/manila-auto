@@ -4,10 +4,31 @@ import pickle
 from copy import deepcopy
 from utils import *
 from model_trainer import ModelTrainer
+from datetime import datetime
+from demv import DEMV
+from fairlearn.reductions import ExponentiatedGradient, BoundedGroupLoss, ZeroOneLoss, GridSearch, DemographicParity
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+
+base_metrics = {
+    'precision': [],
+    'recall': [],
+    'f1score': [],
+    'stat_par': [],
+    'eq_odds': [],
+    'zero_one_loss': [],
+    'disp_imp': [],
+    'ao': [],
+    'tpr_diff': [],
+    'fpr_diff': [],
+    'acc': [],
+    'hmean': [],
+}
 
 def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair):
     df_metrics = pd.DataFrame(metrics)
@@ -27,51 +48,48 @@ def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair)
 
 
 def exec(data):
-    label = 'income'
-    positive_label = 1
+    label = 'ViolentCrimesClass'
+    positive_label = 100
     
-    unpriv_group = { 'sex': 1 }
-    priv_group = { 'sex': 0 }
-    sensitive_features = ['sex']
+    priv_group = {
+    'black_people': 0,
+    'hisp_people': 0,
+    }
+    unpriv_group = {
+    'black_people': 1,
+    'hisp_people': 1,
+    }
+    sensitive_features = ["black_people", "hisp_people"]
 
     save_data =  False 
     save_model =  False     
     ml_methods = {
         'logreg': LogisticRegression(),
+        'svm': SVC(),
+        'gradient_class': GradientBoostingClassifier(),
+        'tree': DecisionTreeClassifier(),
         'forest': RandomForestClassifier(),
     }
 
     fairness_methods = {
         'preprocessing': [
-            'reweighing',
-            'dir',
+            'demv',
         ],
-        'postprocessing': [
-            'cal',
-        ]
+ 
+        'inprocessing': [
+            'eg',
+            'grid',
+   
+        ],
     }
 
-    base_metrics = {
-        'precision': [],
-        'recall': [],
-        'auc': [],
-        'stat_par': [],
-        'eq_odds': [],
-        'zero_one_loss': [],
-        'disp_imp': [],
-        'ao': [],
-        'tpr_diff': [],
-        'fpr_diff': [],
-        'acc': [],
-        'hmean': [],
-    }
 
     agg_metric = 'hmean' 
 
 
 
 
-    dataset_label =  'binary' 
+    dataset_label =  'multi-class' 
     ris = pd.DataFrame()
     for m in ml_methods.keys():
         model = Pipeline([
@@ -166,6 +184,7 @@ if __name__ == '__main__':
     )
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
-    report.round(3).to_csv(os.path.join('ris','report.csv'))
+    ts = datetime.timestamp(datetime.now())
+    report.round(3).to_csv(os.path.join('ris',f'report_{ts}.csv'))
     model_name = f"{report.loc[0,'model']}_{report.loc[0,'fairness_method']}"
-    pickle.dump(model, open(os.path.join('ris',model_name+'.pkl'), 'wb'))
+    pickle.dump(model, open(os.path.join('ris',model_name+'_'+str(ts)+'.pkl'), 'wb'))

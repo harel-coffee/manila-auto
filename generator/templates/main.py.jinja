@@ -4,7 +4,59 @@ import pickle
 from copy import deepcopy
 from utils import *
 from model_trainer import ModelTrainer
+from datetime import datetime
 {%include "components/libraries.jinja"%}
+
+base_metrics = {
+    {%if precision %}
+    'precision': [],
+    {%endif%}
+    {%if recall %}
+    'recall': [],
+    {%endif%}
+    {%if f1_score%}
+    'f1score': [],
+    {%endif%}
+    {%if auc%}
+    'auc': [],
+    {%endif%}
+    {% if statistical_parity %}
+    'stat_par': [],
+    {% endif %}
+    {% if equalized_odds %}
+    'eq_odds': [],
+    {% endif %}
+    {% if zero_one_loss %}
+    'zero_one_loss': [],
+    {% endif %}
+    {% if disparate_impact%}
+    'disp_imp': [],
+    {% endif %}
+    {% if average_odds %}
+    'ao': [],
+    {%endif%}
+    {% if true_positive_difference%}
+    'tpr_diff': [],
+    {% endif%}
+    {% if false_positive_difference%}
+    'fpr_diff': [],
+    {% endif%}
+    {% if accuracy %}
+    'acc': [],
+    {% endif %}
+    {% if harmonic_mean %}
+    'hmean': [],
+    {% endif %}
+    {% if max %}
+    'max': [],
+    {% endif %}
+    {% if min %}
+    'min': [],
+    {% endif %}
+    {% if statistical_mean %}
+    'mean': [],
+    {% endif %}
+}
 
 def _store_metrics(metrics, method, fairness, save_data, save_model, model_fair):
     df_metrics = pd.DataFrame(metrics)
@@ -152,56 +204,6 @@ def exec(data):
         {% endif %}
     }
 
-    base_metrics = {
-        {%if precision %}
-        'precision': [],
-        {%endif%}
-        {%if recall %}
-        'recall': [],
-        {%endif%}
-        {%if f1score%}
-        'f1score': [],
-        {%endif%}
-        {%if auc%}
-        'auc': [],
-        {%endif%}
-        {% if statistical_parity %}
-        'stat_par': [],
-        {% endif %}
-        {% if equalized_odds %}
-        'eq_odds': [],
-        {% endif %}
-        {% if zero_one_loss %}
-        'zero_one_loss': [],
-        {% endif %}
-        {% if disparate_impact%}
-        'disp_imp': [],
-        {% endif %}
-        {% if average_odds %}
-        'ao': [],
-        {%endif%}
-        {% if true_positive_difference%}
-        'tpr_diff': [],
-        {% endif%}
-        {% if false_positive_difference%}
-        'fpr_diff': [],
-        {% endif%}
-        {% if accuracy %}
-        'acc': [],
-        {% endif %}
-        {% if harmonic_mean %}
-        'hmean': [],
-        {% endif %}
-        {% if max %}
-        'max': [],
-        {% endif %}
-        {% if min %}
-        'min': [],
-        {% endif %}
-        {% if statistical_mean %}
-        'mean': [],
-        {% endif %}
-    }
 
 {%if harmonic_mean %}
     agg_metric = 'hmean' 
@@ -345,10 +347,11 @@ if __name__ == '__main__':
 
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
-    report.round(3).to_csv(os.path.join('ris','report.csv'))
+    ts = datetime.timestamp(datetime.now())
+    report.round(3).to_csv(os.path.join('ris',f'report_{ts}.csv'))
     {%if fairness%}
     model_name = f"{report.loc[0,'model']}_{report.loc[0,'fairness_method']}"
     {%else%}
     model_name = f"{report.loc[0,'model']}"
     {%endif%}
-    pickle.dump(model, open(os.path.join('ris',model_name+'.pkl'), 'wb'))
+    pickle.dump(model, open(os.path.join('ris',model_name+'_'+str(ts)+'.pkl'), 'wb'))

@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
  
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import zero_one_loss
 from fairlearn.metrics import MetricFrame
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-from sklearn.metrics import roc_auc_score
 
 def _get_groups(data, label_name, positive_label, group_condition):
     query = '&'.join([str(k) + '==' + str(v)
@@ -44,8 +44,14 @@ def _compute_tpr_fpr(y_true, y_pred, positive_label):
                 FP += 1
             else:
                 TN += 1
-    TPR = TP/(TP+FN)
-    FPR = FP/(FP+TN)
+    if TP+FN == 0:
+        TPR = 0
+    else:
+        TPR = TP/(TP+FN)
+    if FP+TN == 0:
+        FPR = 0
+    else:
+        FPR = FP/(FP+TN)
     return FPR, TPR
 
 def _compute_tpr_fpr_groups(data_pred,label,group_condition,positive_label):
@@ -133,14 +139,14 @@ def accuracy(df_pred: pd.DataFrame, label: str):
     return accuracy_score(df_pred['y_true'].values, df_pred[label].values)
 
 def precision(df_pred: pd.DataFrame, label: str):
-    return precision_score(df_pred['y_true'].values, df_pred[label].values)
+    return precision_score(df_pred['y_true'].values, df_pred[label].values, average='weighted')
 
 def recall(df_pred: pd.DataFrame, label: str):
-    return recall_score(df_pred['y_true'].values, df_pred[label].values)
+    return recall_score(df_pred['y_true'].values, df_pred[label].values, average='weighted')
 
+def f1(df_pred: pd.DataFrame, label: str):
+    return f1_score(df_pred['y_true'].values, df_pred[label].values, average='weighted')
 
-def auc(df_pred: pd.DataFrame, label: str):
-    return roc_auc_score(df_pred['y_true'].values, df_pred[label].values)
 
 def norm_data(data):
     return abs(1 - abs(data))
