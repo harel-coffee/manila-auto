@@ -59,7 +59,7 @@ if __name__ == '__main__':
     params = tree_parser(root)
     check_params(params)
     config_name = args.name.split('/')[-1]
-    folder_name = config_name.replace('.xml','')+'_gen'
+    folder_name = './gen/'+config_name.replace('.xml','')+'_gen'
     os.makedirs(folder_name, exist_ok=True)
     env = Environment(loader=PackageLoader('generator'),
                       autoescape=select_autoescape(disabled_extensions=(['py','yml'])), 
