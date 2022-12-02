@@ -58,7 +58,9 @@ if __name__ == '__main__':
             "File not found in the configs folder. Make sure you add .xml at the end of the file name")
     params = tree_parser(root)
     check_params(params)
-    os.makedirs('gen', exist_ok=True)
+    config_name = args.name.split('/')[-1]
+    folder_name = config_name.replace('.xml','')+'_gen'
+    os.makedirs(folder_name, exist_ok=True)
     env = Environment(loader=PackageLoader('generator'),
                       autoescape=select_autoescape(disabled_extensions=(['py','yml'])), 
                       lstrip_blocks=True, 
@@ -70,17 +72,17 @@ if __name__ == '__main__':
     metrics = env.get_template('metrics.py.jinja')
     trainer = env.get_template('model_trainer.py.jinja')
     # pprint(params)
-    with open(os.path.join('gen', 'main.py'), 'w') as f:
+    with open(os.path.join(folder_name, 'main.py'), 'w') as f:
         f.write(main.render(params))
-    with open(os.path.join('gen', 'utils.py'), 'w') as f:
+    with open(os.path.join(folder_name, 'utils.py'), 'w') as f:
         f.write(utils.render(params))
-    with open(os.path.join('gen', 'environment.yml'), 'w') as f:
+    with open(os.path.join(folder_name, 'environment.yml'), 'w') as f:
         f.write(environment.render(params))
-    with open(os.path.join('gen', 'metrics.py'), 'w') as f:
+    with open(os.path.join(folder_name, 'metrics.py'), 'w') as f:
         f.write(metrics.render(params))
-    with open(os.path.join('gen', 'model_trainer.py'), 'w') as f:
+    with open(os.path.join(folder_name, 'model_trainer.py'), 'w') as f:
         f.write(trainer.render(params))
     if 'demv' in params:
-        with open(os.path.join('gen', 'demv.py'), 'w') as f:
+        with open(os.path.join(folder_name, 'demv.py'), 'w') as f:
             f.write(demv.render())
     sys.exit("Script generated")

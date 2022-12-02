@@ -41,7 +41,7 @@
 	<feature automatic="unselected" manual="undefined" name="SVC"/>
 	<feature automatic="unselected" manual="undefined" name="Gradient Descent Classifier"/>
 	<feature automatic="undefined" manual="undefined" name="Gradient Boosting Classifier"/>
-	<feature automatic="undefined" manual="undefined" name="MLP Classifier"/>
+	<feature automatic="unselected" manual="undefined" name="MLP Classifier"/>
 	<feature automatic="undefined" manual="undefined" name="Decision Tree Classifier"/>
 	<feature automatic="undefined" manual="selected" name="Random Forest Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="Regression"/>
@@ -56,7 +56,7 @@
 	<feature automatic="unselected" manual="undefined" name="Aggregation"/>
 	<feature automatic="selected" manual="undefined" name="Quality"/>
 	<feature automatic="selected" manual="undefined" name="Fairness"/>
-	<feature automatic="undefined" manual="undefined" name="No Method"/>
+	<feature automatic="undefined" manual="selected" name="No Method"/>
 	<feature automatic="selected" manual="undefined" name="PreProcessing"/>
 	<feature automatic="undefined" manual="selected" name="Reweighing"/>
 	<feature automatic="undefined" manual="selected" name="DIR"/>
