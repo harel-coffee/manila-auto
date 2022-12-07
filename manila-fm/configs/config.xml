@@ -18,7 +18,7 @@
 	<feature automatic="selected" manual="selected" name="Binary"/>
 	<feature automatic="unselected" manual="undefined" name="MultiClass"/>
 	<feature automatic="selected" manual="selected" name="Sensitive Variables"/>
-	<feature automatic="selected" manual="selected" name="Single sensitive var">
+	<feature automatic="undefined" manual="selected" name="Single sensitive var">
 		<attribute name="Variable name" value="sex"/>
 		<attribute name="Unprivileged value" value="1"/>
 		<attribute name="Privileged value" value="0"/>
@@ -38,12 +38,12 @@
 	<feature automatic="selected" manual="selected" name="Supervised"/>
 	<feature automatic="selected" manual="selected" name="Classification"/>
 	<feature automatic="undefined" manual="selected" name="Logistic Regression"/>
-	<feature automatic="unselected" manual="undefined" name="SVC"/>
-	<feature automatic="unselected" manual="undefined" name="Gradient Descent Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="SVC"/>
+	<feature automatic="undefined" manual="undefined" name="Gradient Descent Classifier"/>
 	<feature automatic="undefined" manual="undefined" name="Gradient Boosting Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="MLP Classifier"/>
 	<feature automatic="undefined" manual="undefined" name="Decision Tree Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Random Forest Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="Random Forest Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="Regression"/>
 	<feature automatic="unselected" manual="undefined" name="Linear Regression"/>
 	<feature automatic="unselected" manual="undefined" name="SVR"/>
@@ -59,8 +59,8 @@
 	<feature automatic="undefined" manual="selected" name="No Method"/>
 	<feature automatic="selected" manual="undefined" name="PreProcessing"/>
 	<feature automatic="undefined" manual="selected" name="Reweighing"/>
-	<feature automatic="undefined" manual="selected" name="DIR"/>
-	<feature automatic="undefined" manual="undefined" name="DEMV"/>
+	<feature automatic="undefined" manual="undefined" name="DIR"/>
+	<feature automatic="undefined" manual="selected" name="DEMV"/>
 	<feature automatic="undefined" manual="undefined" name="InProcessing"/>
 	<feature automatic="undefined" manual="undefined" name="ExponentiatedGradient"/>
 	<feature automatic="undefined" manual="undefined" name="GridSearch"/>
@@ -68,8 +68,8 @@
 	<feature automatic="undefined" manual="undefined" name="GerryFairClassifier"/>
 	<feature automatic="undefined" manual="undefined" name="MetaFairClassifier"/>
 	<feature automatic="undefined" manual="undefined" name="PrejudiceRemover"/>
-	<feature automatic="selected" manual="undefined" name="PostProcessing"/>
-	<feature automatic="undefined" manual="selected" name="CalibratedEO"/>
+	<feature automatic="undefined" manual="undefined" name="PostProcessing"/>
+	<feature automatic="undefined" manual="undefined" name="CalibratedEO"/>
 	<feature automatic="undefined" manual="undefined" name="RejectOptionClassifier"/>
 	<feature automatic="undefined" manual="undefined" name="Explainabity"/>
 	<feature automatic="undefined" manual="undefined" name="Privacy"/>
@@ -77,11 +77,11 @@
 	<feature automatic="selected" manual="selected" name="Metrics"/>
 	<feature automatic="selected" manual="selected" name="Classification Metrics"/>
 	<feature automatic="undefined" manual="selected" name="Accuracy"/>
-	<feature automatic="undefined" manual="selected" name="Precision"/>
-	<feature automatic="undefined" manual="selected" name="Recall"/>
-	<feature automatic="undefined" manual="selected" name="F1Score"/>
-	<feature automatic="undefined" manual="selected" name="AUC"/>
-	<feature automatic="undefined" manual="selected" name="ZeroOneLoss"/>
+	<feature automatic="undefined" manual="undefined" name="Precision"/>
+	<feature automatic="undefined" manual="undefined" name="Recall"/>
+	<feature automatic="undefined" manual="undefined" name="F1Score"/>
+	<feature automatic="undefined" manual="undefined" name="AUC"/>
+	<feature automatic="undefined" manual="undefined" name="ZeroOneLoss"/>
 	<feature automatic="unselected" manual="undefined" name="Regression Metrics"/>
 	<feature automatic="unselected" manual="undefined" name="MeanSquaredError"/>
 	<feature automatic="unselected" manual="undefined" name="MeanAbsoluteError"/>
@@ -92,26 +92,26 @@
 	<feature automatic="unselected" manual="undefined" name="MaxError"/>
 	<feature automatic="unselected" manual="undefined" name="D2Score"/>
 	<feature automatic="selected" manual="selected" name="Fairness Metrics"/>
-	<feature automatic="undefined" manual="selected" name="StatisticalParity"/>
+	<feature automatic="undefined" manual="undefined" name="StatisticalParity"/>
 	<feature automatic="undefined" manual="selected" name="DisparateImpact"/>
-	<feature automatic="undefined" manual="selected" name="EqualizedOdds"/>
-	<feature automatic="undefined" manual="selected" name="AverageOdds"/>
-	<feature automatic="undefined" manual="selected" name="TruePositiveDifference"/>
-	<feature automatic="undefined" manual="selected" name="FalsePositiveDifference"/>
+	<feature automatic="undefined" manual="undefined" name="EqualizedOdds"/>
+	<feature automatic="undefined" manual="undefined" name="AverageOdds"/>
+	<feature automatic="undefined" manual="undefined" name="TruePositiveDifference"/>
+	<feature automatic="undefined" manual="undefined" name="FalsePositiveDifference"/>
 	<feature automatic="selected" manual="selected" name="Aggregation Function"/>
 	<feature automatic="unselected" manual="undefined" name="Min"/>
 	<feature automatic="unselected" manual="undefined" name="Max"/>
 	<feature automatic="unselected" manual="undefined" name="StatisticalMean"/>
 	<feature automatic="undefined" manual="selected" name="HarmonicMean"/>
-	<feature automatic="selected" manual="undefined" name="Validation">
+	<feature automatic="undefined" manual="undefined" name="Validation">
 		<attribute name="Save temporary results" value="true"/>
 	</feature>
-	<feature automatic="undefined" manual="selected" name="KFold"/>
-	<feature automatic="unselected" manual="undefined" name="LeaveOneOut"/>
-	<feature automatic="unselected" manual="undefined" name="LeavePOut"/>
-	<feature automatic="unselected" manual="undefined" name="StratifiedKFold"/>
-	<feature automatic="unselected" manual="undefined" name="GroupKFold"/>
-	<feature automatic="unselected" manual="undefined" name="StratifiedGroupKFold"/>
+	<feature automatic="undefined" manual="undefined" name="KFold"/>
+	<feature automatic="undefined" manual="undefined" name="LeaveOneOut"/>
+	<feature automatic="undefined" manual="undefined" name="LeavePOut"/>
+	<feature automatic="undefined" manual="undefined" name="StratifiedKFold"/>
+	<feature automatic="undefined" manual="undefined" name="GroupKFold"/>
+	<feature automatic="undefined" manual="undefined" name="StratifiedGroupKFold"/>
 	<feature automatic="selected" manual="undefined" name="ResultPresentation"/>
 	<feature automatic="undefined" manual="selected" name="Tabular"/>
 	<feature automatic="undefined" manual="undefined" name="Chart"/>

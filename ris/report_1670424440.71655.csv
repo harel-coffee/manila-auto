@@ -1,0 +1,4 @@
+,fairness_method,model,disp_imp,acc,hmean
+0,RW,logreg,0.613,0.829,0.704
+1,DEMV,logreg,0.537,0.83,0.652
+2,No method,logreg,0.279,0.834,0.418

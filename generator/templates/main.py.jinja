@@ -346,7 +346,7 @@ if __name__ == '__main__':
     os.makedirs('ris', exist_ok=True)
     ts = datetime.timestamp(datetime.now())
     dataset_name = args.dataset.split('.')[:-1]
-    report.round(3).to_csv(os.path.join('ris',f'report_{dataset_name}_{ts}.csv'))
+    report.round(3).to_csv(os.path.join('ris',f'report_{ts}.csv'))
     {%if fairness%}
     model_name = f"{report.loc[0,'model']}_{report.loc[0,'fairness_method']}"
     {%else%}

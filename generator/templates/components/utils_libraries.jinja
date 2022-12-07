@@ -23,7 +23,7 @@ from fairlearn.reductions import BoundedGroupLoss, GridSearch, ExponentiatedGrad
 {%endif%}
 from aif360.datasets import BinaryLabelDataset
 {%if reweighing%}
-from aif360.sklearn.preprocessing import Reweighing
+from aif360.algorithms.preprocessing import Reweighing
 {%endif%}
 {%if dir%}
 from aif360.algorithms.preprocessing import DisparateImpactRemover
