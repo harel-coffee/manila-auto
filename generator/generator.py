@@ -59,7 +59,7 @@ if __name__ == '__main__':
     params = tree_parser(root)
     check_params(params)
     config_name = args.name.split('/')[-1]
-    folder_name = './gen/'+config_name.replace('.xml','')+'_gen'
+    folder_name = './gen/'+config_name.replace('.xml','')
     os.makedirs(folder_name, exist_ok=True)
     env = Environment(loader=PackageLoader('generator'),
                       autoescape=select_autoescape(disabled_extensions=(['py','yml'])), 
@@ -71,6 +71,7 @@ if __name__ == '__main__':
     environment = env.get_template('environment.yml.jinja')
     metrics = env.get_template('metrics.py.jinja')
     trainer = env.get_template('model_trainer.py.jinja')
+    methods = env.get_template('methods.py.jinja')
     # pprint(params)
     with open(os.path.join(folder_name, 'main.py'), 'w') as f:
         f.write(main.render(params))
@@ -82,6 +83,8 @@ if __name__ == '__main__':
         f.write(metrics.render(params))
     with open(os.path.join(folder_name, 'model_trainer.py'), 'w') as f:
         f.write(trainer.render(params))
+    with open(os.path.join(folder_name, 'methods.py'), 'w') as f:
+        f.write(methods.render(params))
     if 'demv' in params:
         with open(os.path.join(folder_name, 'demv.py'), 'w') as f:
             f.write(demv.render())

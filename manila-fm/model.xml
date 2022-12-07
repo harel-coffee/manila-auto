@@ -172,17 +172,17 @@
 				<feature name="KFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
-				<feature name="Leave One Out"/>
-				<feature name="Leave P Out">
+				<feature name="LeaveOneOut"/>
+				<feature name="LeavePOut">
 					<attribute configurable="true" name="P" type="long" unit="" value="30"/>
 				</feature>
-				<feature name="Stratified KFold">
+				<feature name="StratifiedKFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
-				<feature name="Group KFold">
+				<feature name="GroupKFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
-				<feature name="Stratified Group KFold">
+				<feature name="StratifiedGroupKFold">
 					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
 				</feature>
 			</alt>

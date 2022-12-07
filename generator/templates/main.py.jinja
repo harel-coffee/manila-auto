@@ -5,6 +5,7 @@ from copy import deepcopy
 from utils import *
 from model_trainer import ModelTrainer
 from datetime import datetime
+from methods import FairnessMethods
 {%include "components/libraries.jinja"%}
 
 base_metrics = {
@@ -152,53 +153,50 @@ def exec(data):
 
     fairness_methods = {
         {%if no__method%}
-        'no_method': 'no_method',
+        'no_method': FairnessMethods.NO_ONE,
         {%endif%}
         {%if pre_processing%}
         'preprocessing': [
             {%if demv%}
-            'demv',
+            FairnessMethods.DEMV,
             {%endif%}
             {%if reweighing%}
-            'reweighing',
+            FairnessMethods.RW,
             {%endif%}
             {%if dir%}
-            'dir',
-            {%endif%}
-            {%if lfr%}
-            'lfr',
+            FairnessMethods.DIR,
             {%endif%}
         ],
         {%endif%}
         {% if in_processing %} 
         'inprocessing': [
             {% if exponentiated_gradient %}
-            'eg',
+            FairnessMethods.EG,
             {% endif %}
             {% if grid_search %}
-            'grid',
+            FairnessMethods.GRID,
             {% endif %}
             {% if adversarial_debiasing %}
-            'adv',
+            FairnessMethods.AD,
             {% endif%}   
             {% if gerry_fair_classifier %}
-            'gerry',
+            FairnessMethods.GERRY,
             {%endif%}
             {% if meta_fair_classifier%}
-            'meta',
+            FairnessMethods.META,
             {%endif%}
             {% if prejudice_remover%}
-            'prej',
+            FairnessMethods.PREJ,
             {%endif%}
         ],
         {% endif %}
         {% if post_processing %}
         'postprocessing': [
             {% if calibrated_eo%}
-            'cal',
+            FairnessMethods.CAL_EO,
             {%endif%}
             {%if reject_option_classifier%}
-            'rej',
+            FairnessMethods.REJ,
             {%endif%}
         ]
         {% endif %}
@@ -242,20 +240,20 @@ def exec(data):
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, preprocessor=method, n_splits={{K | default(10, true)}})
-                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                    df_metrics = _store_metrics(ris_metrics, m, method.name, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
             elif f == 'inprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label, sensitive_features=sensitive_features, inprocessor=method, n_splits={{K | default(10,true)}})
                     df_metrics = _store_metrics(
-                        ris_metrics, m, method, save_data, save_model, model_fair)
+                        ris_metrics, m, method.name, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
             elif f == 'postprocessing':
                 for method in fairness_methods[f]:
                     metrics = deepcopy(base_metrics)
                     model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, postprocessor=method, n_splits={{K | default(10,true)}})
-                    df_metrics = _store_metrics(ris_metrics, m, method, save_data, save_model, model_fair)
+                    df_metrics = _store_metrics(ris_metrics, m, method.name, save_data, save_model, model_fair)
                     ris = ris.append(df_metrics)
             else:
                 metrics = deepcopy(base_metrics)
@@ -293,39 +291,38 @@ def exec(data):
     {% endif %}
     {%if fairness%}
     trainer = ModelTrainer(data, label, sensitive_features, positive_label)
-    if best_ris['fairness_method'] == 'no_method':
+    if best_ris['fairness_method'] == FairnessMethods.NO_ONE.name:
         return model, report
-    if best_ris['fairness_method'] == 'demv':
+    {%if demv%}
+    if best_ris['fairness_method'] == FairnessMethods.DEMV.name:
         demv = trainer.use_demv(model)
         return demv, report
-    if best_ris['fairness_method'] == 'rw':
+    {%endif%}
+    if best_ris['fairness_method'] == FairnessMethods.RW.name:
         rw = trainer.use_rw(model)
         return rw, report
-    if best_ris['fairness_method'] == 'dir':
+    if best_ris['fairness_method'] == FairnessMethods.DIR.name:
         dir = trainer.use_dir(model)
         return dir, report
-    if best_ris['fairness_method'] == 'lfr':
-        lfr = trainer.use_lfr(model, unpriv_group, priv_group)
-        return lfr, model
-    if best_ris['fairness_method'] == 'eg':
+    if best_ris['fairness_method'] == FairnessMethods.EG.name:
         eg = trainer.use_eg(model)
         return eg, report
-    if best_ris['fairness_method'] == 'grid':
+    if best_ris['fairness_method'] == FairnessMethods.GRID.name:
         grid = trainer.use_grid(model)
         return grid, report
-    if best_ris['fairness_method'] == 'adv':
+    if best_ris['fairness_method'] == FairnessMethods.AD.name:
         adv = trainer.use_adv()
         return adv, report
-    if best_ris['fairness_method'] == 'gerry':
+    if best_ris['fairness_method'] == FairnessMethods.GERRY.name:
         gerry = trainer.use_gerry()
         return gerry, report
-    if best_ris['fairness_method'] == 'meta':
+    if best_ris['fairness_method'] == FairnessMethods.META.name:
         meta = trainer.use_meta()
         return meta, report
-    if best_ris['fairness_method'] == 'prej':
+    if best_ris['fairness_method'] == FairnessMethods.PREJ.name:
         prej = trainer.use_prj()
         return prej, report
-    if best_ris['fairness_method'] == 'cal':
+    if best_ris['fairness_method'] == FairnessMethods.CAL_EO.name:
         cal = trainer.use_cal_eo(model)
         return cal, report 
     else:
@@ -348,7 +345,8 @@ if __name__ == '__main__':
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
     ts = datetime.timestamp(datetime.now())
-    report.round(3).to_csv(os.path.join('ris',f'report_{ts}.csv'))
+    dataset_name = args.dataset.split('.')[:-1]
+    report.round(3).to_csv(os.path.join('ris',f'report_{dataset_name}_{ts}.csv'))
     {%if fairness%}
     model_name = f"{report.loc[0,'model']}_{report.loc[0,'fairness_method']}"
     {%else%}

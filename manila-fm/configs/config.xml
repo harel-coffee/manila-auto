@@ -103,13 +103,15 @@
 	<feature automatic="unselected" manual="undefined" name="Max"/>
 	<feature automatic="unselected" manual="undefined" name="StatisticalMean"/>
 	<feature automatic="undefined" manual="selected" name="HarmonicMean"/>
-	<feature automatic="selected" manual="undefined" name="Validation"/>
+	<feature automatic="selected" manual="undefined" name="Validation">
+		<attribute name="Save temporary results" value="true"/>
+	</feature>
 	<feature automatic="undefined" manual="selected" name="KFold"/>
-	<feature automatic="unselected" manual="undefined" name="Leave One Out"/>
-	<feature automatic="unselected" manual="undefined" name="Leave P Out"/>
-	<feature automatic="unselected" manual="undefined" name="Stratified KFold"/>
-	<feature automatic="unselected" manual="undefined" name="Group KFold"/>
-	<feature automatic="unselected" manual="undefined" name="Stratified Group KFold"/>
+	<feature automatic="unselected" manual="undefined" name="LeaveOneOut"/>
+	<feature automatic="unselected" manual="undefined" name="LeavePOut"/>
+	<feature automatic="unselected" manual="undefined" name="StratifiedKFold"/>
+	<feature automatic="unselected" manual="undefined" name="GroupKFold"/>
+	<feature automatic="unselected" manual="undefined" name="StratifiedGroupKFold"/>
 	<feature automatic="selected" manual="undefined" name="ResultPresentation"/>
 	<feature automatic="undefined" manual="selected" name="Tabular"/>
 	<feature automatic="undefined" manual="undefined" name="Chart"/>

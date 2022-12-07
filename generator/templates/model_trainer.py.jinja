@@ -7,7 +7,9 @@ from fairlearn.reductions import GridSearch, ExponentiatedGradient
 from aif360.sklearn.inprocessing import AdversarialDebiasing
 from aif360.sklearn.postprocessing import CalibratedEqualizedOdds, RejectOptionClassifierCV, PostProcessingMeta
 import tensorflow.compat.v1 as tf
+{%if demv%}
 from demv import DEMV
+{%endif%}
 {%if exponentiated_gradient or grid_search%}
 from utils import _get_constr
 {%endif%}
@@ -43,12 +45,14 @@ class ModelTrainer:
         model.fit(new_data.drop(columns=self.label), new_data[self.label])
         return model
     
+    {%if demv%}
     def use_demv(self, model):
       demv = DEMV(round_level=1)
       data = demv.fit_transform(
           self.dataset, self.sensitive_features, self.label)
       model.fit(data.drop(columns=self.label), data[self.label])
       return model
+    {%endif%}
 
     def use_lfr(self, model, unpriv_group, priv_group):
       bin_data = BinaryLabelDataset(favorable_label=self.positive_label,
