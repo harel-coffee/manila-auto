@@ -191,10 +191,8 @@
 				<feature name="Tabular"/>
 				<or abstract="true" name="Chart">
 					<graphics key="collapsed" value="false"/>
-					<attribute configurable="true" name="x" type="string" unit=""/>
-					<attribute configurable="true" name="y" type="string" unit=""/>
-					<feature name="BarChart"/>
-					<feature name="LineChart"/>
+					<feature name="BarPlot"/>
+					<feature name="LinePlot"/>
 					<feature name="StripPlot"/>
 					<feature name="BoxPlot"/>
 					<feature name="PointPlot"/>

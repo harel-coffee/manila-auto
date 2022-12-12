@@ -6,6 +6,9 @@ from utils import *
 from model_trainer import ModelTrainer
 from datetime import datetime
 from methods import FairnessMethods
+{%if chart%}
+from charts import Charts
+{%endif%}
 {%include "components/libraries.jinja"%}
 
 base_metrics = {
@@ -258,7 +261,7 @@ def exec(data):
             else:
                 metrics = deepcopy(base_metrics)
                 model_fair, ris_metrics = cross_val(classifier=model, data=data, unpriv_group=unpriv_group, priv_group=priv_group, label=label, metrics=metrics, positive_label=positive_label,sensitive_features=sensitive_features, n_splits={{K | default(10,true)}})
-                df_metrics = _store_metrics(ris_metrics, m, 'No method', save_data, save_model, model_fair)
+                df_metrics = _store_metrics(ris_metrics, m, FairnessMethods.NO_ONE.name, save_data, save_model, model_fair)
                 ris = ris.append(df_metrics)
         {% else%}
         model = deepcopy(model)
@@ -301,28 +304,28 @@ def exec(data):
     if best_ris['fairness_method'] == FairnessMethods.RW.name:
         rw = trainer.use_rw(model)
         return rw, report
-    if best_ris['fairness_method'] == FairnessMethods.DIR.name:
+    elif best_ris['fairness_method'] == FairnessMethods.DIR.name:
         dir = trainer.use_dir(model)
         return dir, report
-    if best_ris['fairness_method'] == FairnessMethods.EG.name:
+    elif best_ris['fairness_method'] == FairnessMethods.EG.name:
         eg = trainer.use_eg(model)
         return eg, report
-    if best_ris['fairness_method'] == FairnessMethods.GRID.name:
+    elif best_ris['fairness_method'] == FairnessMethods.GRID.name:
         grid = trainer.use_grid(model)
         return grid, report
-    if best_ris['fairness_method'] == FairnessMethods.AD.name:
+    elif best_ris['fairness_method'] == FairnessMethods.AD.name:
         adv = trainer.use_adv()
         return adv, report
-    if best_ris['fairness_method'] == FairnessMethods.GERRY.name:
+    elif best_ris['fairness_method'] == FairnessMethods.GERRY.name:
         gerry = trainer.use_gerry()
         return gerry, report
-    if best_ris['fairness_method'] == FairnessMethods.META.name:
+    elif best_ris['fairness_method'] == FairnessMethods.META.name:
         meta = trainer.use_meta()
         return meta, report
-    if best_ris['fairness_method'] == FairnessMethods.PREJ.name:
+    elif best_ris['fairness_method'] == FairnessMethods.PREJ.name:
         prej = trainer.use_prj()
         return prej, report
-    if best_ris['fairness_method'] == FairnessMethods.CAL_EO.name:
+    elif best_ris['fairness_method'] == FairnessMethods.CAL_EO.name:
         cal = trainer.use_cal_eo(model)
         return cal, report 
     else:
@@ -344,12 +347,31 @@ if __name__ == '__main__':
 
     model, report = exec(data)
     os.makedirs('ris', exist_ok=True)
-    ts = datetime.timestamp(datetime.now())
-    dataset_name = args.dataset.split('.')[:-1]
-    report.round(3).to_csv(os.path.join('ris',f'report_{ts}.csv'))
+    dir_name = os.path.basename(os.path.dirname(__file__))
+    {%if tabular%}
+    report.round(3).to_csv(os.path.join('ris',f'report_{dir_name}.csv'))
+    {%endif%}
+    {%if chart%}
+    chart = Charts(report, os.path.join('ris','chart_'+dir_name))
+    {%if bar_plot%}
+    chart.make_barplot()
+    {%endif%}
+    {%if line_plot%}
+    chart.make_lineplot()
+    {%endif%}
+    {%if strip_plot%}
+    chart.make_stripplot()
+    {%endif%}
+    {%if box_plot%}
+    chart.make_boxplot()
+    {%endif%}
+    {%if point_plot%}
+    chart.make_pointplot()
+    {%endif%}
+    {%endif%}
     {%if fairness%}
     model_name = f"{report.loc[0,'model']}_{report.loc[0,'fairness_method']}"
     {%else%}
     model_name = f"{report.loc[0,'model']}"
     {%endif%}
-    pickle.dump(model, open(os.path.join('ris',model_name+'_'+str(ts)+'.pkl'), 'wb'))
+    pickle.dump(model, open(os.path.join('ris',model_name+'_'+dir_name+'.pkl'), 'wb'))

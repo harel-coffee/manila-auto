@@ -121,12 +121,14 @@ class ModelTrainer:
       return prej
     
     def use_cal_eo(self, model):
+      self.dataset = self.dataset.set_index(self.sensitive_features[0])
       cal = CalibratedEqualizedOdds(prot_attr=self.sensitive_features[0])
       meta = PostProcessingMeta(model, cal)
       meta.fit(self.dataset.drop(self.label, axis=1), self.dataset[self.label])
       return meta
 
     def use_rej_opt(self, model):
+      self.dataset = self.dataset.set_index(self.sensitive_features[0])
       rej = RejectOptionClassifierCV(prot_attr=self.sensitive_features[0], scoring='statistical_parity')
       meta = PostProcessingMeta(model, rej)
       meta.fit(self.dataset.drop(self.label, axis=1), self.dataset[self.label])

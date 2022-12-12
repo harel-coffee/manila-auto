@@ -114,10 +114,10 @@
 	<feature automatic="undefined" manual="undefined" name="StratifiedGroupKFold"/>
 	<feature automatic="selected" manual="undefined" name="ResultPresentation"/>
 	<feature automatic="undefined" manual="selected" name="Tabular"/>
-	<feature automatic="undefined" manual="undefined" name="Chart"/>
-	<feature automatic="undefined" manual="undefined" name="BarChart"/>
-	<feature automatic="undefined" manual="undefined" name="LineChart"/>
-	<feature automatic="undefined" manual="undefined" name="StripPlot"/>
-	<feature automatic="undefined" manual="undefined" name="BoxPlot"/>
-	<feature automatic="undefined" manual="undefined" name="PointPlot"/>
+	<feature automatic="selected" manual="undefined" name="Chart"/>
+	<feature automatic="undefined" manual="selected" name="BarPlot"/>
+	<feature automatic="undefined" manual="selected" name="LinePlot"/>
+	<feature automatic="undefined" manual="selected" name="StripPlot"/>
+	<feature automatic="undefined" manual="selected" name="BoxPlot"/>
+	<feature automatic="undefined" manual="selected" name="PointPlot"/>
 </extendedConfiguration>

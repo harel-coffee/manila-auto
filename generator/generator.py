@@ -72,6 +72,7 @@ if __name__ == '__main__':
     metrics = env.get_template('metrics.py.jinja')
     trainer = env.get_template('model_trainer.py.jinja')
     methods = env.get_template('methods.py.jinja')
+    charts = env.get_template('charts.py.jinja')
     # pprint(params)
     with open(os.path.join(folder_name, 'main.py'), 'w') as f:
         f.write(main.render(params))
@@ -88,4 +89,7 @@ if __name__ == '__main__':
     if 'demv' in params:
         with open(os.path.join(folder_name, 'demv.py'), 'w') as f:
             f.write(demv.render())
+    if 'chart' in params:
+        with open(os.path.join(folder_name,'charts.py'), 'w') as f:
+            f.write(charts.render())
     sys.exit("Script generated")
