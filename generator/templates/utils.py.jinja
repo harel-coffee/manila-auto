@@ -1,165 +1,131 @@
 {% include "components/utils_libraries.jinja"%}
-
-# METRICS
-
-def _get_groups(data, label_name, positive_label, group_condition):
-    query = '&'.join([str(k) + '==' + str(v)
-                     for k, v in group_condition.items()])
-    label_query = label_name + '==' + str(positive_label)
-    unpriv_group = data.query(query)
-    unpriv_group_pos = data.query(query + '&' + label_query)
-    priv_group = data.query('~(' + query + ')')
-    priv_group_pos = data.query('~(' + query + ')&' + label_query)
-    return unpriv_group, unpriv_group_pos, priv_group, priv_group_pos
-
-
-def _compute_probs(data_pred, label_name, positive_label, group_condition):
-    unpriv_group, unpriv_group_pos, priv_group, priv_group_pos = _get_groups(data_pred, label_name, positive_label, group_condition)
-    unpriv_group_prob = (len(unpriv_group_pos)
-                         / len(unpriv_group))
-    priv_group_prob = (len(priv_group_pos)
-                       / len(priv_group))
-    return unpriv_group_prob, priv_group_prob
-
-
-def _compute_tpr_fpr(y_true, y_pred):
-    matrix = confusion_matrix(y_true, y_pred)
-    FP = matrix.sum(axis=0) - np.diag(matrix)
-    FN = matrix.sum(axis=1) - np.diag(matrix)
-    TP = np.diag(matrix)
-    TN = matrix.sum() - (FP + FN + TP)
-
-    TPR = TP/(TP+FN)
-    FPR = FP/(FP+TN)
-    return FPR, TPR
-
-{% if disparate_impact %}
-def disparate_impact(data_pred, group_condition, label_name, positive_label):
-    unpriv_group_prob, priv_group_prob = _compute_probs(
-        data_pred, label_name, positive_label, group_condition)
-    return min(unpriv_group_prob / priv_group_prob,
-               priv_group_prob / unpriv_group_prob) if unpriv_group_prob != 0 else \
-        unpriv_group_prob / priv_group_prob
-{% endif %}
-
-{%if statistical_parity %}
-def statistical_parity(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
-    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
-    label_query = label_name+'=='+str(positive_label)
-    unpriv_group_prob = (len(data_pred.query(query + '&' + label_query))
-                         / len(data_pred.query(query)))
-    priv_group_prob = (len(data_pred.query('~(' + query + ')&' + label_query))
-                       / len(data_pred.query('~(' + query+')')))
-    return unpriv_group_prob - priv_group_prob
-{%endif%}
-
-{%if equalized_odds %}
-def equalized_odds(data_pred: pd.DataFrame, group_condition: dict, label_name: str, positive_label: str):
-    query = '&'.join([f'{k}=={v}' for k, v in group_condition.items()])
-    label_query = label_name+'=='+str(positive_label)
-    tpr_query = 'y_true == ' + str(positive_label)
-    if(len(data_pred.query(query + '&' + label_query)) == 0):
-        unpriv_group_tpr = 0
-    else:
-        unpriv_group_tpr = (len(data_pred.query(query + '&' + label_query + '&' + tpr_query))
-                            / len(data_pred.query(query + '&' + label_query)))
-
-    if (len(data_pred.query('~(' + query+')&' + label_query)) == 0):
-        priv_group_tpr = 0
-    else:
-        priv_group_tpr = (len(data_pred.query('~(' + query + ')&' + label_query + '&' + tpr_query))
-                          / len(data_pred.query('~(' + query+')&' + label_query)))
-
-    if (len(data_pred.query(query + '& ~(' + label_query + ')')) == 0):
-        unpriv_group_fpr = 0
-    else:
-        unpriv_group_fpr = (len(data_pred.query(query + '&' + label_query + '& ~(' + tpr_query + ')'))
-                            / len(data_pred.query(query + '& ~(' + label_query + ')')))
-
-    if (len(data_pred.query('~(' + query+')& ~(' + label_query + ')')) == 0):
-        priv_group_fpr = 0
-    else:
-        priv_group_fpr = (len(data_pred.query('~(' + query + ')&' + label_query + '& ~(' + tpr_query + ')'))
-                          / len(data_pred.query('~(' + query+')& ~(' + label_query + ')')))
-
-    return max(np.abs(unpriv_group_tpr - priv_group_tpr), np.abs(unpriv_group_fpr - priv_group_fpr))
-{%endif%}
-
-{%if average_odds%}
-def average_odds_difference(data_true: pd.DataFrame, data_pred: pd.DataFrame, group_condition: str, label: str):
-    unpriv_group_true = data_true.query(group_condition)
-    priv_group_true = data_true.drop(unpriv_group_true.index)
-    unpriv_group_pred = data_pred.query(group_condition)
-    priv_group_pred = data_pred.drop(unpriv_group_pred.index)
-
-    y_true_unpriv = unpriv_group_true[label].values.ravel()
-    y_pred_unpric = unpriv_group_pred[label].values.ravel()
-    y_true_priv = priv_group_true[label].values.ravel()
-    y_pred_priv = priv_group_pred[label].values.ravel()
-
-    fpr_unpriv, tpr_unpriv = _compute_tpr_fpr(
-        y_true_unpriv, y_pred_unpric)
-    fpr_priv, tpr_priv = _compute_tpr_fpr(
-        y_true_priv, y_pred_priv)
-    return (fpr_unpriv - fpr_priv) + (tpr_unpriv - tpr_priv)/2
-{%endif%}
-
-{%if zero_one_loss %}
-def zero_one_loss_diff(y_true: np.ndarray, y_pred: np.ndarray, sensitive_features: list):
-    mf = MetricFrame(metrics=zero_one_loss,
-                     y_true=y_true,
-                     y_pred=y_pred,
-                     sensitive_features=sensitive_features)
-    return mf.difference()
-{%endif%}
-
-def norm_data(data):
-    return abs(1 - abs(data))
-
+from methods import FairnessMethods
 
 # TRAINING FUNCTIONS
 
-def cross_val(classifier, data, label, groups_condition, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
+def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_features, positive_label, metrics, n_splits=10, preprocessor=None, inprocessor=None, postprocessor=None):
     {%if not validation%}
-    n_splits = 1
+    n_splits = 2
     {%endif%}
+    data_start = data.copy()
+    {%if k_fold or not validation%}
     fold = KFold(n_splits=n_splits, shuffle=True, random_state=2)
-    for train, test in fold.split(data):
-        data = data.copy()
+    {%endif%}
+    {%if leave_one_out%}
+    fold = LeaveOneOut()
+    {%endif%}
+    {%if leave_p_out%}
+    fold = LeavePOut(p={{P | default(30, true)}})
+    {%endif%}
+    {%if stratified_k_fold%}
+    fold = StratifiedKFold(n_splits=n_splits)
+    {%endif%}
+    {%if group_k_fold%}
+    fold = GroupKFold(n_splits=n_splits)
+    {%endif%}
+    {%if stratified_group_k_fold%}
+    fold = StratifiedGroupKFold(n_splits=n_splits)
+    {%endif%}
+    for train, test in fold.split(data_start):
+        weights = None
+        data = data_start.copy()
         df_train = data.iloc[train]
         df_test = data.iloc[test]
         model = deepcopy(classifier)
-        {%if demv%}
-        if preprocessor == 'demv':
+        {%if reweighing%}
+        if preprocessor == FairnessMethods.RW:
+            bin_data = BinaryLabelDataset(favorable_label=positive_label, 
+                unfavorable_label=1-positive_label, 
+                df=df_train, 
+                label_names=[label], 
+                protected_attribute_names=sensitive_features)
+            
+            rw = Reweighing(unprivileged_groups=[unpriv_group], privileged_groups=[priv_group])
+            rw_data = rw.fit_transform(bin_data)
+            weights = rw_data.instance_weights
+            df_train, _ = rw_data.convert_to_dataframe()
+        {%endif%}
+        {%if dir%}
+        if preprocessor == FairnessMethods.DIR:
+            bin_data = BinaryLabelDataset(favorable_label=positive_label, 
+                unfavorable_label=1-positive_label, 
+                df=df_train, 
+                label_names=[label], 
+                protected_attribute_names=sensitive_features)
+            dir = DisparateImpactRemover(sensitive_attribute=sensitive_features[0])
+            trans_data = dir.fit_transform(bin_data)
+            df_train, _ = trans_data.convert_to_dataframe()
+        {%endif%}
+        {%if demv %}
+        if preprocessor == FairnessMethods.DEMV:
             demv = DEMV(round_level=1)
-            df_train = demv.fit_transform(df_train, [keys for keys in groups_condition.keys()], label)
+            df_train = demv.fit_transform(df_train, [keys for keys in unpriv_group.keys()], label)
         {%endif%}
         {%if exponentiated_gradient%}
-        if inprocessor == 'eg':
+        if inprocessor == FairnessMethods.EG:
             constr = _get_constr(df_train, label)
             model = ExponentiatedGradient(
-                model, constraints=constr, sample_weight_name="classifier__sample_weight")
+                model, constraints=constr, sample_weight_name={{'"classifier__sample_weight"' if scaler else '"sample_weight"'}})
         {%endif%}
         {%if grid_search%}
-        if inprocessor == 'grid':
+        if inprocessor == FairnessMethods.GRID:
             constr = _get_constr(df_train, label)
             model = GridSearch(
-            model, constr, sample_weight_name="classifier__sample_weight")
+            model, constr, sample_weight_name={{'"classifier__sample_weight"' if scaler else '"sample_weight"'}})
         {%endif%}
-        exp = bool(inprocessor == 'eg' or inprocessor == 'grid')
-        pred = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp)
-        {%if blackbox%}
-        if postprocessor=='blackbox':
-            pred = blackbox(pred, label, sensitive_features, len(pred[label].unique())==2)
+        {%if adversarial_debiasing%}
+        if inprocessor == FairnessMethods.AD:
+            df_train = df_train.set_index([s for s in sensitive_features])
+            df_test = df_test.set_index([s for s in sensitive_features])
+            model = AdversarialDebiasing(prot_attr=[s for s in sensitive_features])
+            tf.disable_eager_execution()
         {%endif%}
-        compute_metrics(pred, groups_condition, label, positive_label, metrics, sensitive_features)
+        {%if gerry_fair_classifier%}
+        if inprocessor == FairnessMethods.GERRY:
+            model = GerryFairClassifier(fairness_def='FP')
+        {%endif%}
+        {%if meta_fair_classifier%}
+        if inprocessor == FairnessMethods.META:
+            model = MetaFairClassifier(sensitive_attr=sensitive_features[0])
+        {%endif%}
+        {%if prejudice_remover%}
+        if inprocessor == FairnessMethods.PREJ:
+            model = PrejudiceRemover(sensitive_attr=sensitive_features[0], class_attr=label)
+        {%endif%}
+        {%if gerry_fair_classifier or meta_fair_classifier or prejudice_remover%}
+        if inprocessor == FairnessMethods.GERRY or inprocessor == FairnessMethods.META or inprocessor == FairnessMethods.PREJ:
+            pred, model = _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label)
+        else:
+            exp = bool(inprocessor == FairnessMethods.EG or inprocessor == FairnessMethods.GRID)
+            adv = bool(inprocessor == FairnessMethods.AD)
+            pred, model = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
+        {%else%}
+        exp = bool(inprocessor == FairnessMethods.EG or inprocessor == FairnessMethods.GRID)
+        adv = bool(inprocessor == FairnessMethods.AD)
+        pred, model = _model_train(df_train, df_test, label, model, sensitive_features, exp=exp, weights=weights, adv=adv)
+        {%endif%}
+        if postprocessor:
+            df_train = df_train.set_index(sensitive_features[0])
+            df_test = df_test.set_index(sensitive_features[0])
+        {%if calibrated_eo%}
+        if postprocessor==FairnessMethods.CAL_EO:
+            cal = CalibratedEqualizedOdds(prot_attr=sensitive_features[0])
+            model, pred = _compute_postprocessing(model, cal, df_train, df_test, label)
+        {%endif%}
+        {%if reject_option_classifier%}
+        if postprocessor == FairnessMethods.REJ:
+            rej = RejectOptionClassifierCV(
+                scoring='statistical_parity', prot_attr=sensitive_features[0])
+            model, pred = _compute_postprocessing(
+                model, rej, df_train, df_test, label)
+        {%endif%}
+        compute_metrics(pred, unpriv_group, label, positive_label, metrics, sensitive_features)
     return model, metrics
 
 {%if exponentiated_gradient or grid_search%}
 def _get_constr(df, label):
     if len(df[label].unique()) == 2:
-        constr = BoundedGroupLoss(
-            DemographicParity(), upper_bound=0.1)
+        constr = DemographicParity()
     else:
         constr = BoundedGroupLoss(ZeroOneLoss(), upper_bound=0.1)
     return constr
@@ -173,34 +139,93 @@ def _train_test_split(df_train, df_test, label):
     return x_train, x_test, y_train, y_test
 
 
-def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False):
+def _model_train(df_train, df_test, label, classifier, sensitive_features, exp=False, weights=None, adv=False):
     x_train, x_test, y_train, y_test = _train_test_split(
         df_train, df_test, label)
     model = deepcopy(classifier)
-    model.fit(x_train, y_train,
-              sensitive_features=df_train[sensitive_features]) if exp else model.fit(x_train, y_train)
+    if adv:
+        model.fit(x_train, y_train)
+    else:
+        if exp:
+            model.fit(x_train, y_train,
+                    sensitive_features=df_train[sensitive_features]) 
+        else:
+            {%if mlp__classifier%}
+            if isinstance({{"model['classifier']" if scaler else "model"}}, MLPClassifier):
+                model.fit(x_train, y_train)
+            else:
+                model.fit(x_train, y_train, {{"classifier__sample_weight" if scaler else "sample_weight"}}=weights)
+            {%else%}
+            model.fit(x_train, y_train, {{"classifier__sample_weight" if scaler else "sample_weight"}}=weights)
+            {%endif%}  
+    df_pred = _predict_data(model, df_test, label, x_test)
+    if adv:
+        model.sess_.close()
+    return df_pred, model
+
+{%if gerry_fair_classifier or meta_fair_classifier or prejudice_remover%}
+def _train_gerry_meta(df_train, df_test, label, model, sensitive_features, positive_label):
+    bin_train = BinaryLabelDataset(favorable_label=positive_label, 
+        unfavorable_label=1-positive_label,
+        df=df_train, 
+        label_names=[label], 
+        protected_attribute_names=sensitive_features)
+    model.fit(bin_train)
+    bin_test = BinaryLabelDataset(favorable_label=positive_label, 
+        unfavorable_label=1-positive_label,
+        df=df_test, 
+        label_names=[label], 
+        protected_attribute_names=sensitive_features)
+    df_pred = _predict_data(model, df_test, label, bin_test, True)
+    return df_pred, model
+{%endif%}
+
+{%if calibrated_eo or reject_option_classifier%}
+def _compute_postprocessing(model, postprocessor, d_train, d_test, label):
+    meta = PostProcessingMeta(model, postprocessor)
+    meta.fit(d_train.drop(label, axis=1), d_train[label])
+    df_pred = _predict_data(meta, d_test, label, d_test.drop(label, axis=1))
+    return meta, df_pred
+{%endif%}
+
+def _predict_data(model, df_test, label, x_test, aif_data=False):
     pred = model.predict(x_test)
     df_pred = df_test.copy()
     df_pred['y_true'] = df_pred[label]
-    df_pred[label] = pred
+    if aif_data:
+        df_pred[label] = pred.labels
+    else:
+        df_pred[label] = pred
     return df_pred
 
-
-def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, sensitive_features):
+def compute_metrics(df_pred, unpriv_group, label, positive_label, metrics, sensitive_features):
+    df_pred = df_pred.reset_index()
 {%if statistical_parity%}
     stat_par = statistical_parity(
-        df_pred, groups_condition, label, positive_label)
+        df_pred, unpriv_group, label, positive_label)
     metrics['stat_par'].append(stat_par)
 {%endif%}
 {%if equalized_odds%}
     eo = equalized_odds(
-        df_pred, groups_condition, label, positive_label)
+        df_pred, unpriv_group, label, positive_label)
     metrics['eq_odds'].append(eo)
 {%endif%}
 {%if disparate_impact%}
     di = disparate_impact(
-        df_pred, groups_condition, label, positive_label=positive_label)
+        df_pred, unpriv_group, label, positive_label=positive_label)
     metrics['disp_imp'].append(di)
+{%endif%}
+{%if average_odds%}
+    ao = average_odds_difference(df_pred, unpriv_group, label, positive_label)
+    metrics['ao'] = ao
+{%endif%}
+{%if true_positive_difference%}
+    tpr = true_pos_diff(df_pred, unpriv_group, label, positive_label)
+    metrics['tpr_diff'] = tpr
+{%endif%}
+{%if false_positive_difference%}
+    fpr = false_pos_diff(df_pred, unpriv_group, label, positive_label)
+    metrics['fpr_diff'] = fpr
 {%endif%}
 {%if zero_one_loss%}
     zero_one_loss = zero_one_loss_diff(
@@ -208,14 +233,30 @@ def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, s
     metrics['zero_one_loss'].append(zero_one_loss)
 {%endif%}
 {%if accuracy%}
-    accuracy = accuracy_score(df_pred['y_true'].values, df_pred[label].values)
-    metrics['acc'].append(accuracy)
+    accuracy_score = accuracy(df_pred, label)
+    metrics['acc'].append(accuracy_score)
+{%endif%}
+{%if precision%}
+    precision_score = precision(df_pred, label)
+    metrics['precision'].append(precision_score)
+{%endif%}
+{%if recall%}
+    recall_score = recall(df_pred, label)
+    metrics['recall'].append(recall_score)
+{%endif%}
+{%if f1_score%}
+    f1_score = f1(df_pred, label)
+    metrics['f1score'].append(f1_score)
+{%endif%}
+{%if auc%}
+    auc_score = auc(df_pred, label)
+    metrics['auc'].append(auc_score)
 {%endif%}
 {%if harmonic_mean%}
     metrics['hmean'].append(
         stats.hmean([
             {%if accuracy%}
-            accuracy,
+            accuracy_score,
             {%endif%} 
             {%if disparate_impact%}
             di,
@@ -227,19 +268,156 @@ def compute_metrics(df_pred, groups_condition, label, positive_label, metrics, s
             norm_data(stat_par), 
             {%endif%}
             {%if zero_one_loss%}
-            norm_data(zero_one_loss)
+            norm_data(zero_one_loss),
+            {%endif%}
+            {%if average_odds%}
+            norm_data(ao),
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1_score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            norm_data(tpr),
+            {%endif%}
+            {%if false_positive_difference%}
+            norm_data(fpr),
             {%endif%}
         ])
     )
 {%endif%}
-    return metrics
-
-{%if blackbox%}
-def blackbox(pred, label, sensitive_var, binary=True):
-    pb = BinaryBalancer(y='y_true', y_=label, a=sensitive_var, data=pred) if binary else \
-        MulticlassBalancer(y='y_true', y_=label, a=sensitive_var, data=pred)
-    y_adj = pb.adjust(cv=True, summary=False)
-    pred[label] = y_adj
-
-    return pred
+{%if min%}
+    metrics['min'].append(
+        min([
+            {%if accuracy%}
+            accuracy_score,
+            {%endif%} 
+            {%if disparate_impact%}
+            di,
+            {%endif%} 
+            {%if equalized_odds%}
+            eo, 
+            {%endif%}
+            {%if statistical_parity%}
+            stat_par, 
+            {%endif%}
+            {%if zero_one_loss%}
+            zero_one_loss,
+            {%endif%}
+            {%if average_odds%}
+            ao,
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1_score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            tpr,
+            {%endif%}
+            {%if false_positive_difference%}
+            fpr,
+            {%endif%}
+        ])
+    )
 {%endif%}
+{%if max%}
+    metrics['max'].append(
+        max([
+            {%if accuracy%}
+            accuracy_score,
+            {%endif%} 
+            {%if disparate_impact%}
+            di,
+            {%endif%} 
+            {%if equalized_odds%}
+            eo, 
+            {%endif%}
+            {%if statistical_parity%}
+            stat_par, 
+            {%endif%}
+            {%if zero_one_loss%}
+            zero_one_loss,
+            {%endif%}
+            {%if average_odds%}
+            ao,
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1_score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            tpr,
+            {%endif%}
+            {%if false_positive_difference%}
+            fpr,
+            {%endif%}
+        ])
+    )
+    {%endif%}
+    {%if statistical_mean%}
+    metrics['mean'].append(
+        statistics.mean([
+            {%if accuracy%}
+            accuracy_score,
+            {%endif%} 
+            {%if disparate_impact%}
+            di,
+            {%endif%} 
+            {%if equalized_odds%}
+            eo, 
+            {%endif%}
+            {%if statistical_parity%}
+            stat_par, 
+            {%endif%}
+            {%if zero_one_loss%}
+            zero_one_loss,
+            {%endif%}
+            {%if average_odds%}
+            ao,
+            {%endif%}
+            {%if precision%}
+            precision_score,
+            {%endif%}
+            {%if recall%}
+            recall_score,
+            {%endif%}
+            {%if f1_score%}
+            f1_score,
+            {%endif%}
+            {%if auc%}
+            auc_score,
+            {%endif%}
+            {%if true_positive_difference%}
+            tpr,
+            {%endif%}
+            {%if false_positive_difference%}
+            fpr,
+            {%endif%}
+        ])
+    )
+    {%endif%}
+    return metrics

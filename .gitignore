@@ -27,4 +27,4 @@ feature-model
 .vscode
 templates_old
 test
-gen/__pycache__
+gen
