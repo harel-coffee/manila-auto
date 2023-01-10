@@ -2,6 +2,9 @@
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7523351.svg)](https://doi.org/10.5281/zenodo.7523351)
+
+
 This repository cointains the source code of the _MANILA_ framework described in the paper _Democratizing Quality-Based Machine Learning Development through Extended Feature Models_.
 
 ## Project Structure
