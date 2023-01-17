@@ -73,13 +73,6 @@ def cross_val(classifier, data, label, unpriv_group, priv_group, sensitive_featu
             model = GridSearch(
             model, constr, sample_weight_name={{'"classifier__sample_weight"' if scaler else '"sample_weight"'}})
         {%endif%}
-        {%if adversarial_debiasing%}
-        if inprocessor == FairnessMethods.AD:
-            df_train = df_train.set_index([s for s in sensitive_features])
-            df_test = df_test.set_index([s for s in sensitive_features])
-            model = AdversarialDebiasing(prot_attr=[s for s in sensitive_features])
-            tf.disable_eager_execution()
-        {%endif%}
         {%if gerry_fair_classifier%}
         if inprocessor == FairnessMethods.GERRY:
             model = GerryFairClassifier(fairness_def='FP')

@@ -1,12 +1,10 @@
 import pandas as pd
 from aif360.sklearn.preprocessing import Reweighing
-from aif360.algorithms.preprocessing import DisparateImpactRemover, LFR
+from aif360.algorithms.preprocessing import DisparateImpactRemover
 from aif360.algorithms.inprocessing import GerryFairClassifier, MetaFairClassifier, PrejudiceRemover
 from aif360.datasets import BinaryLabelDataset
 from fairlearn.reductions import GridSearch, ExponentiatedGradient
-from aif360.sklearn.inprocessing import AdversarialDebiasing
 from aif360.sklearn.postprocessing import CalibratedEqualizedOdds, RejectOptionClassifierCV, PostProcessingMeta
-import tensorflow.compat.v1 as tf
 {%if demv%}
 from demv import DEMV
 {%endif%}
@@ -54,23 +52,11 @@ class ModelTrainer:
       return model
     {%endif%}
 
-    def use_lfr(self, model, unpriv_group, priv_group):
-      bin_data = BinaryLabelDataset(favorable_label=self.positive_label,
-                                    unfavorable_label=1-self.positive_label,
-                                    df=self.dataset,
-                                    label_names=[self.label],
-                                    protected_attribute_names=self.sensitive_features)
-      lfr = LFR(unprivileged_groups=[unpriv_group], privileged_groups=[priv_group])
-      data_fair = lfr.fit_transform(bin_data)
-      new_data, _ = data_fair.convert_to_dataframe()
-      model.fit(new_data.drop(columns=self.label), new_data[self.label])
-      return model
-
     {%if exponentiated_gradient%}
     def use_eg(self, model):
       constr = _get_constr(self.dataset, self.label)
       eg_model = ExponentiatedGradient(model, constraints=constr)
-      eg_model.fit(self.dataset.drop(columns=self.label), self.dataset[self.label])
+      eg_model.fit(self.dataset.drop(columns=self.label), self.dataset[self.label],sensitive_features=self.dataset[self.sensitive_features])
       return eg_model
     {%endif%}
 
@@ -79,16 +65,9 @@ class ModelTrainer:
       constr = _get_constr(self.dataset, self.label)
       grid_model = GridSearch(model, constraints=constr)
       grid_model.fit(self.dataset.drop(columns=self.label),
-                   self.dataset[self.label])
+                   self.dataset[self.label], sensitive_features=self.dataset[self.sensitive_features])
       return grid_model
     {%endif%}
-
-    def use_adv(self):
-      data = self.dataset.set_index(self.sensitive_features)
-      adv = AdversarialDebiasing(prot_attr=[s for s in self.sensitive_features])
-      tf.disable_eager_execution()
-      adv.fit(data.drop(columns=self.label), data[self.label])
-      return adv
     
     def use_gerry(self):
       bin_data = BinaryLabelDataset(favorable_label=self.positive_label,
