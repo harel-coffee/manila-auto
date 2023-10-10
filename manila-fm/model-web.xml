@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extendedFeatureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendposition" value="325,380"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showconstraints" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="vertical"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="4"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="Experiment">
+			<and abstract="true" mandatory="true" name="Dataset">
+				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="has_header" type="boolean" unit="" value="true"/>
+				<attribute configurable="true" name="index_col" type="long" unit=""/>
+				<alt abstract="true" mandatory="true" name="File extension">
+					<graphics key="collapsed" value="true"/>
+					<feature name="CSV"/>
+					<feature name="Parquet"/>
+					<feature name="Excel"/>
+					<feature name="JSON"/>
+					<feature name="Text"/>
+					<feature name="XML"/>
+					<feature name="HTML"/>
+					<feature name="HDF5"/>
+				</alt>
+				<alt abstract="true" mandatory="true" name="Label">
+					<graphics key="collapsed" value="false"/>
+					<attribute configurable="true" name="Name" type="string" unit=""/>
+					<attribute configurable="true" name="Positive value" type="long" unit=""/>
+					<feature abstract="true" name="MultiClass"/>
+					<feature abstract="true" name="Binary"/>
+				</alt>
+				<alt abstract="true" name="Sensitive Variables">
+					<graphics key="collapsed" value="true"/>
+					<feature abstract="true" name="Single sensitive var">
+						<attribute configurable="true" name="Variable name" type="string" unit=""/>
+						<attribute configurable="true" name="Unprivileged value" type="long" unit=""/>
+						<attribute configurable="true" name="Privileged value" type="long" unit=""/>
+					</feature>
+					<feature abstract="true" name="Multiple sensitive vars">
+						<attribute configurable="true" name="Variable names comma separated" type="string" unit=""/>
+						<attribute configurable="true" name="Unprivileged values comma separated" type="string" unit=""/>
+						<attribute configurable="true" name="Privileged values comma separated" type="string" unit=""/>
+					</feature>
+				</alt>
+				<feature abstract="true" name="StrictlyPositiveAttributes"/>
+			</and>
+			<alt abstract="true" name="Scaler">
+				<graphics key="collapsed" value="true"/>
+				<feature name="StandardScaler"/>
+				<feature name="MinMaxScaler"/>
+				<feature name="MaxAbsScaler"/>
+				<feature name="RobustScaler"/>
+				<feature name="QuantileTransformerScaler"/>
+				<alt name="PowerTransformerScaler">
+					<graphics key="collapsed" value="true"/>
+					<feature name="YeoJohnson Method"/>
+					<feature name="BoxCox Method"/>
+				</alt>
+			</alt>
+			<alt abstract="true" name="ML Task">
+				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="Save trained model" type="boolean" unit="" value="false"/>
+				<and abstract="true" name="Supervised">
+					<graphics key="collapsed" value="false"/>
+					<attribute configurable="true" name="train size" type="long" unit="" value="80"/>
+					<or abstract="true" name="Classification">
+						<graphics key="collapsed" value="true"/>
+						<feature name="Logistic Regression"/>
+						<feature name="SVC"/>
+						<feature name="Gradient Descent Classifier"/>
+						<feature name="Gradient Boosting Classifier"/>
+						<feature name="MLP Classifier"/>
+						<feature name="Decision Tree Classifier"/>
+						<feature name="Random Forest Classifier"/>
+					</or>
+					<or abstract="true" name="Regression">
+						<graphics key="collapsed" value="true"/>
+						<feature name="Linear Regression"/>
+						<feature name="SVR"/>
+						<feature name="Gradient Descent Regressor"/>
+						<feature name="Gradient Boosting Regressor"/>
+						<feature name="MLP Regressor"/>
+						<feature name="Decision Tree Regressor"/>
+					</or>
+				</and>
+				<alt abstract="true" name="Unsupervised">
+					<graphics key="collapsed" value="false"/>
+					<feature abstract="true" name="Clustering">
+						<graphics key="collapsed" value="false"/>
+					</feature>
+					<feature abstract="true" name="Aggregation"/>
+				</alt>
+			</alt>
+			<or abstract="true" name="Quality">
+				<graphics key="collapsed" value="false"/>
+				<or abstract="true" name="Fairness">
+					<graphics key="collapsed" value="false"/>
+					<feature name="No Method"/>
+					<and abstract="true" name="PreProcessing">
+						<graphics key="collapsed" value="true"/>
+						<feature name="Reweighing"/>
+						<feature name="DIR"/>
+						<feature name="DEMV"/>
+					</and>
+					<or abstract="true" name="InProcessing">
+						<graphics key="collapsed" value="true"/>
+						<feature name="ExponentiatedGradient"/>
+						<feature name="GridSearch"/>
+						<feature name="AdversarialDebiasing"/>
+						<feature name="GerryFairClassifier"/>
+						<feature name="MetaFairClassifier"/>
+						<feature name="PrejudiceRemover"/>
+					</or>
+					<and abstract="true" name="PostProcessing">
+						<graphics key="collapsed" value="true"/>
+						<feature name="CalibratedEO"/>
+						<feature name="RejectOptionClassifier"/>
+					</and>
+				</or>
+				<feature abstract="true" name="Explainabity"/>
+				<feature abstract="true" name="Privacy"/>
+				<feature abstract="true" name="Interpretability"/>
+			</or>
+			<and abstract="true" name="Metrics">
+				<graphics key="collapsed" value="false"/>
+				<or abstract="true" name="Classification Metrics">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Accuracy"/>
+					<feature name="Precision"/>
+					<feature name="Recall"/>
+					<feature name="F1Score"/>
+					<feature name="AUC"/>
+					<feature name="ZeroOneLoss"/>
+				</or>
+				<or abstract="true" name="Regression Metrics">
+					<graphics key="collapsed" value="true"/>
+					<feature name="MeanSquaredError"/>
+					<feature name="MeanAbsoluteError"/>
+					<feature name="R2Error"/>
+					<feature name="MeanSquaredLogaritmicError"/>
+					<feature name="MeanAbsolutePercentageError"/>
+					<feature name="MedianAbsoluteError"/>
+					<feature name="MaxError"/>
+					<feature name="D2Score"/>
+				</or>
+				<or abstract="true" name="Fairness Metrics">
+					<graphics key="collapsed" value="true"/>
+					<feature name="StatisticalParity"/>
+					<feature name="DisparateImpact"/>
+					<feature name="EqualizedOdds"/>
+					<feature name="AverageOdds"/>
+					<feature name="TruePositiveDifference"/>
+					<feature name="FalsePositiveDifference"/>
+				</or>
+				<alt abstract="true" mandatory="true" name="Aggregation Function">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Min"/>
+					<feature name="Max"/>
+					<feature name="StatisticalMean"/>
+					<feature name="HarmonicMean"/>
+				</alt>
+			</and>
+			<alt abstract="true" name="Validation">
+				<graphics key="collapsed" value="false"/>
+				<attribute configurable="true" name="Save temporary results" type="boolean" unit="" value="false"/>
+				<feature name="KFold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+				<feature name="LeaveOneOut"/>
+				<feature name="LeavePOut">
+					<attribute configurable="true" name="P" type="long" unit="" value="30"/>
+				</feature>
+				<feature name="StratifiedKFold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+				<feature name="GroupKFold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+				<feature name="StratifiedGroupKFold">
+					<attribute configurable="true" name="K" type="long" unit="" value="10"/>
+				</feature>
+			</alt>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>Fairness</var>
+				<var>Sensitive Variables</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<disj>
+					<var>ExponentiatedGradient</var>
+					<var>GridSearch</var>
+				</disj>
+				<conj>
+					<not>
+						<var>MLP Classifier</var>
+					</not>
+					<not>
+						<var>MLP Regressor</var>
+					</not>
+				</conj>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<conj>
+					<not>
+						<var>GerryFairClassifier</var>
+					</not>
+					<conj>
+						<not>
+							<var>MetaFairClassifier</var>
+						</not>
+						<not>
+							<var>AdversarialDebiasing</var>
+						</not>
+					</conj>
+				</conj>
+				<var>ML Task</var>
+			</imp>
+		</rule>
+		<rule>
+			<eq>
+				<var>Classification</var>
+				<conj>
+					<var>Classification Metrics</var>
+					<not>
+						<var>Regression Metrics</var>
+					</not>
+				</conj>
+			</eq>
+		</rule>
+		<rule>
+			<imp>
+				<var>Classification Metrics</var>
+				<not>
+					<var>Regression Metrics</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<eq>
+				<var>Regression</var>
+				<conj>
+					<var>Regression Metrics</var>
+					<not>
+						<var>Classification Metrics</var>
+					</not>
+				</conj>
+			</eq>
+		</rule>
+		<rule>
+			<imp>
+				<var>Fairness</var>
+				<var>Fairness Metrics</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>BoxCox Method</var>
+				<var>StrictlyPositiveAttributes</var>
+			</imp>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>DIR</var>
+				</not>
+				<not>
+					<var>Multiple sensitive vars</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>Reweighing</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>DIR</var>
+				</not>
+				<not>
+					<var>MultiClass</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>AdversarialDebiasing</var>
+				</not>
+				<not>
+					<var>MultiClass</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>GerryFairClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>MetaFairClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>PrejudiceRemover</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>CalibratedEO</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>MultiClass</var>
+				</not>
+				<not>
+					<var>RejectOptionClassifier</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<imp>
+				<var>Multiple sensitive vars</var>
+				<not>
+					<var>PostProcessing</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>SVC</var>
+				<not>
+					<var>PostProcessing</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Regression</var>
+				<not>
+					<var>Fairness</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Gradient Descent Classifier</var>
+				<not>
+					<var>PostProcessing</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Reweighing</var>
+				<not>
+					<var>MLP Classifier</var>
+				</not>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>AUC</var>
+				<not>
+					<var>MultiClass</var>
+				</not>
+			</imp>
+		</rule>
+	</constraints>
+</extendedFeatureModel>
