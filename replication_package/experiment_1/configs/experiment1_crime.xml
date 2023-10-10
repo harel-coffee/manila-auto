@@ -13,7 +13,7 @@
 	<feature automatic="unselected" manual="undefined" name="HDF5"/>
 	<feature automatic="selected" manual="undefined" name="Label">
 		<attribute name="Positive value" value="100"/>
-		<attribute name="Name" value="ViolentCrimesClass"/>
+		<attribute name="Name" value="ViolentCrimes"/>
 	</feature>
 	<feature automatic="unselected" manual="undefined" name="Binary"/>
 	<feature automatic="undefined" manual="selected" name="MultiClass"/>
@@ -21,11 +21,11 @@
 	<feature automatic="unselected" manual="undefined" name="Single sensitive var"/>
 	<feature automatic="undefined" manual="selected" name="Multiple sensitive vars">
 		<attribute name="Variable names comma separated" value="black_people,hisp_people"/>
-		<attribute name="Privileged values comma separated" value="0,0"/>
-		<attribute name="Unprivileged values comma separated" value="1,1"/>
+		<attribute name="Privileged values comma separated" value="1,1"/>
+		<attribute name="Unprivileged values comma separated" value="0,0"/>
 	</feature>
 	<feature automatic="undefined" manual="undefined" name="StrictlyPositiveAttributes"/>
-	<feature automatic="selected" manual="selected" name="Scaler"/>
+	<feature automatic="selected" manual="undefined" name="Scaler"/>
 	<feature automatic="undefined" manual="selected" name="StandardScaler"/>
 	<feature automatic="unselected" manual="undefined" name="MinMaxScaler"/>
 	<feature automatic="unselected" manual="undefined" name="MaxAbsScaler"/>
@@ -38,12 +38,12 @@
 	<feature automatic="selected" manual="undefined" name="Supervised"/>
 	<feature automatic="selected" manual="undefined" name="Classification"/>
 	<feature automatic="undefined" manual="selected" name="Logistic Regression"/>
-	<feature automatic="undefined" manual="selected" name="SVC"/>
+	<feature automatic="undefined" manual="undefined" name="SVC"/>
 	<feature automatic="undefined" manual="undefined" name="Gradient Descent Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Gradient Boosting Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="Gradient Boosting Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="MLP Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Decision Tree Classifier"/>
-	<feature automatic="undefined" manual="selected" name="Random Forest Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="Decision Tree Classifier"/>
+	<feature automatic="undefined" manual="undefined" name="Random Forest Classifier"/>
 	<feature automatic="unselected" manual="undefined" name="Regression"/>
 	<feature automatic="unselected" manual="undefined" name="Linear Regression"/>
 	<feature automatic="unselected" manual="undefined" name="SVR"/>
@@ -56,7 +56,7 @@
 	<feature automatic="unselected" manual="undefined" name="Aggregation"/>
 	<feature automatic="selected" manual="undefined" name="Quality"/>
 	<feature automatic="selected" manual="undefined" name="Fairness"/>
-	<feature automatic="undefined" manual="undefined" name="No Method"/>
+	<feature automatic="undefined" manual="selected" name="No Method"/>
 	<feature automatic="selected" manual="undefined" name="PreProcessing"/>
 	<feature automatic="unselected" manual="undefined" name="Reweighing"/>
 	<feature automatic="unselected" manual="undefined" name="DIR"/>
@@ -77,9 +77,9 @@
 	<feature automatic="selected" manual="undefined" name="Metrics"/>
 	<feature automatic="selected" manual="undefined" name="Classification Metrics"/>
 	<feature automatic="undefined" manual="selected" name="Accuracy"/>
-	<feature automatic="undefined" manual="selected" name="Precision"/>
-	<feature automatic="undefined" manual="selected" name="Recall"/>
-	<feature automatic="undefined" manual="selected" name="F1Score"/>
+	<feature automatic="undefined" manual="undefined" name="Precision"/>
+	<feature automatic="undefined" manual="undefined" name="Recall"/>
+	<feature automatic="undefined" manual="undefined" name="F1Score"/>
 	<feature automatic="unselected" manual="undefined" name="AUC"/>
 	<feature automatic="undefined" manual="selected" name="ZeroOneLoss"/>
 	<feature automatic="unselected" manual="undefined" name="Regression Metrics"/>
@@ -95,9 +95,9 @@
 	<feature automatic="undefined" manual="selected" name="StatisticalParity"/>
 	<feature automatic="undefined" manual="selected" name="DisparateImpact"/>
 	<feature automatic="undefined" manual="selected" name="EqualizedOdds"/>
-	<feature automatic="undefined" manual="selected" name="AverageOdds"/>
-	<feature automatic="undefined" manual="selected" name="TruePositiveDifference"/>
-	<feature automatic="undefined" manual="selected" name="FalsePositiveDifference"/>
+	<feature automatic="undefined" manual="undefined" name="AverageOdds"/>
+	<feature automatic="undefined" manual="undefined" name="TruePositiveDifference"/>
+	<feature automatic="undefined" manual="undefined" name="FalsePositiveDifference"/>
 	<feature automatic="selected" manual="undefined" name="Aggregation Function"/>
 	<feature automatic="unselected" manual="undefined" name="Min"/>
 	<feature automatic="unselected" manual="undefined" name="Max"/>
